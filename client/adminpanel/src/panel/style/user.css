@@ -1,0 +1,55 @@
+/* user detail  */
+.scroll1 {
+  @apply flex w-full h-full flex-col items-center  overflow-auto bg-cyan-800;
+}
+/* User form */
+.PopUp {
+  @apply fixed inset-0 flex items-center justify-center bg-blue-900 bg-opacity-90;
+}
+.Container {
+  @apply relative w-[700px] h-[600px]  flex items-center justify-center  px-8 py-2 text-white  text-center;
+}
+.FormContainer {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  @apply relative flex flex-col justify-center items-center w-[600px] h-[500px]   rounded;
+}
+.UserForm {
+  @apply flex flex-col gap-2;
+}
+.child {
+  @apply relative flex gap-2 w-full mt-5;
+}
+.child input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full outline-none border-none px-4 py-3 rounded-xl text-white;
+}
+.child select {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full outline-none border-none px-4 py-3 rounded-xl text-white appearance-none;
+}
+
+.child input::placeholder {
+  @apply text-white tracking-widest;
+}
+.child input::value {
+  @apply text-white;
+}
+
+.UserForm button {
+  @apply w-full cursor-pointer transition-all duration-300 bg-white text-blue-700 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg;
+}
+.UserForm button:hover {
+  @apply bg-indigo-500 text-black;
+}

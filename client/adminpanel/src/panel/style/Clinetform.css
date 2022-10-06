@@ -1,0 +1,50 @@
+.clientform__container {
+  @apply flex justify-center items-center  w-[600px] h-[600px] px-4 bg-blue-700;
+}
+.clientform__main {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  @apply flex flex-col justify-center items-center w-[600px] h-[500px]   rounded;
+}
+.form {
+  @apply w-full h-full px-10;
+}
+.form h2 {
+  @apply mt-10;
+}
+.form div {
+  @apply w-full mt-5;
+}
+.form input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full outline-none border-none px-4 py-3 rounded-xl text-black;
+}
+.form input::placeholder {
+  @apply text-black tracking-widest;
+}
+
+.form button {
+  background: black;
+  transition: all 0.2s;
+  @apply w-24 cursor-pointer text-blue-500 font-bold mt-3 outline-none border-none px-2 py-2 rounded-lg;
+}
+.form button:hover {
+  @apply bg-indigo-500 text-black;
+}
+
+@media (max-width: 700px) {
+  .clientform__main {
+    width: 350px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px 3px black;
+    @apply m-3 p-3 rounded-xl;
+  }
+}

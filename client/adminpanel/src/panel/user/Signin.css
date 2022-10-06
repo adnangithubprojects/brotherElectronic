@@ -1,0 +1,45 @@
+.signin__container {
+  @apply flex h-screen w-full justify-center items-center bg-indigo-900;
+}
+.signin__form {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply flex flex-col justify-center items-center  w-96 h-[400px]   rounded;
+}
+.form {
+  @apply w-full h-full px-10;
+}
+.form h2 {
+  @apply mt-10;
+}
+.form div {
+  @apply w-full mt-5;
+}
+.form input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full outline-none border-none px-4 py-3 text-white rounded-xl;
+}
+.form input::placeholder {
+  @apply text-white tracking-widest;
+}
+
+.form button {
+  transition: all 0.2s;
+  @apply w-24 cursor-pointer bg-white  font-bold  outline-none border-none px-2 py-2 rounded-lg;
+}
+.form button:hover {
+  @apply bg-indigo-500 text-white;
+}
+
+@media (max-width: 700px) {
+  .signin__form {
+    width: 350px;
+  }
+}

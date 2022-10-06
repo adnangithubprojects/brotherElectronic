@@ -1,0 +1,78 @@
+.PopUp {
+  @apply fixed inset-0 flex items-center justify-center bg-blue-900 bg-opacity-90;
+}
+
+.Customer__Container {
+  @apply relative  h-full  flex items-center justify-center  px-8 py-2 text-white  text-center;
+}
+.Customer__Container__Form {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  @apply relative gap-2 flex flex-col justify-center  items-center px-4  h-full py-6  rounded;
+}
+.Customer__Container__Form form {
+  @apply flex flex-col gap-2 overflow-scroll overflow-x-hidden;
+}
+.child {
+  @apply snap-start relative flex gap-2 w-full mt-5;
+}
+.child span {
+  @apply w-full;
+}
+.child input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full   outline-none border-none px-4 py-2 rounded-xl text-white;
+}
+/* placholder movement */
+.child span .pp {
+  @apply absolute -top-6 left-4;
+}
+/* .child span input:focus + .pp {
+  @apply absolute -top-3 left-4;
+} */
+.child select {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full outline-none border-none px-4 py-2 rounded-xl text-white appearance-none;
+}
+.child label {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full relative flex outline-none border-none px-4 py-3 rounded-xl text-white appearance-none;
+}
+.child textarea {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full outline-none border-none px-4 py-2 rounded-xl text-white;
+}
+
+.child input::placeholder {
+  @apply text-white tracking-widest;
+}
+.child input:hover input::placeholder {
+  @apply -top-3 left-4;
+}
+.child textarea::placeholder {
+  @apply text-white tracking-widest;
+}
+
+form button {
+  @apply w-[200px] cursor-pointer transition-all duration-300 bg-white text-blue-700 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg;
+}
+form button:hover {
+  @apply bg-indigo-500 text-black;
+}
