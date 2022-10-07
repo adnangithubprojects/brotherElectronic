@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaPrint, FaTrashAlt } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
-import { productData } from "../assets/data/config";
+import { base_url, productData } from "../assets/data/config";
 import DeleteBox from "../component/DeleteBox";
 export default function RevenueMain() {
   const [data, setData] = useState([]);
@@ -24,7 +24,7 @@ export default function RevenueMain() {
 
   // Fetch value from backend
   const getProduct = async () => {
-    const res = await axios.get("http://localhost:9000/product/get");
+    const res = await axios.get(`${base_url}/product/get`);
     const req = res.data.result;
     setData(req);
   };
@@ -41,7 +41,7 @@ export default function RevenueMain() {
   async function confirmDelete(choose) {
     // console.log("function called");
     if (choose) {
-      const res = await axios.delete(`http://localhost:9000/products`);
+      const res = await axios.delete(`${base_url}/products`);
       setDialog(!dialog);
       getProduct();
     } else {
@@ -65,7 +65,41 @@ export default function RevenueMain() {
         ref={componentRef}
         className="flex w-full h-full flex-col items-center  overflow-auto bg-cyan-800 "
       >
-        <h1 className="text-2xl text-white  py-2 ">Februry</h1>
+        <div className="flex gap-6">
+          <span className="relative text-2xl  py-2 bg-cyan-800">
+            {/* <p className="">Month: </p> */}
+            <select name="custstatus" className=" py-2 bg-cyan-800 text-white">
+              <option className="">January</option>
+              <option className="">Febuary</option>
+              <option className="">March</option>
+              <option className="">April</option>
+              <option className="">May</option>
+              <option className="">June</option>
+              <option className="">July</option>
+              <option className="">August</option>
+              <option className="">September</option>
+              <option className="">Octobar</option>
+              <option className="">Novembar</option>
+              <option className="">December</option>
+            </select>
+          </span>
+          <span className="relative text-2xl  py-2 bg-cyan-800">
+            {/* <p className="">Year: </p> */}
+            <select name="custstatus" className=" py-2 bg-cyan-800 text-white">
+              <option className="">2021</option>
+              <option className="">2022</option>
+              <option className="">2023</option>
+              <option className="">2024</option>
+              <option className="">2025</option>
+              <option className="">2026</option>
+              <option className="">2027</option>
+              <option className="">2028</option>
+              <option className="">2028</option>
+              <option className="">2029</option>
+              <option className="">2030</option>
+            </select>
+          </span>
+        </div>
         <table className=" border-t-2 border-cyan-200  w-full ">
           <tbody className="text-white text-center">
             <tr className="flex  justify-around gap-x-5 bg-cyan-800 py-2 ">
@@ -154,7 +188,7 @@ function AddProduct({ getProduct }) {
     const { pName, netPrice, instPrice } = note;
 
     await axios
-      .post("http://localhost:9000/product/post", {
+      .post(`${base_url}/product/post`, {
         body: note,
         header: {
           "Content-Type": "multipart/form-data",

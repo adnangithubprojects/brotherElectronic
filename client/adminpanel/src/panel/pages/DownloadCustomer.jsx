@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useReactToPrint } from "react-to-print";
 import "../style/customer.css";
+import { base_url } from "../assets/data/config";
 export default function DownlaodCustomer() {
   const [data, setData] = useState([]);
 
@@ -13,7 +14,7 @@ export default function DownlaodCustomer() {
   });
 
   const customerData = async (opt) => {
-    const res = await axios.get("http://localhost:9000/customer/get");
+    const res = await axios.get(`${base_url}/customer/get`);
     const req = await res.data.result;
     const updateData = await req.filter((data) => data.custstatus === opt);
     setData(updateData);
@@ -23,14 +24,14 @@ export default function DownlaodCustomer() {
   }, []);
 
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col text-white bg-cyan-800">
+    <div className="w-full h-full flex justify-center items-center flex-col text-white bg-cyan-800 px-8">
       <h1 className="text-2xl text-white  py-2 ">Downlaod Customer</h1>
       <div className="DownlaodScroll scrollbar-hide">
         <table
-          className=" border-t-2 border-cyan-200  w-full "
+          className=" border-t-2 border-cyan-200  w-full mx-7  "
           ref={componentRef}
         >
-          <tbody className=" text-center">
+          <tbody className=" text-center  ">
             <tr className="flex items-center justify-evenly gap-x-5  py-1 ">
               <td className="text-center w-28">S:No</td>
               <td className="text-center w-28">Name</td>

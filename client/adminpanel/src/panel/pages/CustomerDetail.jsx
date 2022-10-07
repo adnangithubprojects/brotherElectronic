@@ -2,37 +2,43 @@ import React, { useState } from "react";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useLocation } from "react-router";
-import { installmentData } from "../assets/data/config";
+// import { installmentData } from "../assets/data/config";
 import InstallmentForm from "../component/InstallmentForm";
 import InvoiceCarasoul from "./InvoiceCarasoul";
+import { Image } from "./InvoiceCarasoul";
 import { useEffect } from "react";
 import axios from "axios";
+import { FaImage } from "react-icons/fa";
+import { base_url } from "../assets/data/config";
 
 export default function CustomerDetail() {
-  const [image, setImage] = useState(false);
-  const [show, setShow] = useState(false);
+  const [carasoul, setCarasoul] = useState(false); //carasoul popUp state
+  const [image, setImage] = useState(false); //Cnic popUp Image state
+  const [show, setShow] = useState(false); //Installment  popUp state
   const [customerId, setCustomerId] = useState("");
-  const [registeImages, setRegisteImages] = useState([]);
+  const [registeImages, setRegisteImages] = useState([]); //carsould images set state
+  const [cnicImage, setCnicImage] = useState([]); //Cnic images set state
   const [installment, setInstallment] = useState([]);
-  const { state } = useLocation();
-  const componentRef = useRef();
+  const { state } = useLocation(); //Rounting Data
+  const componentRef = useRef(); //Print Dev Setting
   const onPrint = useReactToPrint({
     content: () => componentRef.current,
     ducomentTitle: "epm-daata",
     onafterprint: () => alert("print succesfull"),
   });
-  const base_url = "http://localhost:9000";
   // select Customer Id to add installment
   // const selectCustomerId = (data) => {
   //   setUser(data);
   //   console.log("heloo", user);
   // };
   const singleCustomerInstallment = async (id) => {
-    const res = await axios.get(
-      `http://localhost:9000/single-customer/${state._id}`
-    );
-    setInstallment(res.data.result.installments);
-    console.log(res.data.result.installments, "hallo");
+    try {
+      const res = await axios.get(`${base_url}/single-customer/${state._id}`);
+      setInstallment(res.data.result.installments);
+      // console.log(res.data.result.installments, "hallo");
+    } catch (error) {
+      console.log(error, "singleCustomerInstallment");
+    }
   };
 
   useEffect(() => {
@@ -105,164 +111,181 @@ export default function CustomerDetail() {
           <div className="flex flex-col w-[320px]  ">
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Mobile 1 # :</h3>
-              <h4 className=" ">{state.custMobile1}</h4>
+              <h4 className=" ">{state?.custMobile1}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Mobile 2 # :</h3>
-              <h4 className=" "> {state.custMobile2}</h4>
+              <h4 className=" "> {state?.custMobile2}</h4>
             </div>
             <div className="flex gap-1  items-center">
-              <h3 className="w-32 text-lg font-bold underline">NIC # :</h3>
-              <h4 className=" ">{state.custCnic}</h4>
+              <h3 className="w-32 text-lg font-bold underline">CNIC # :</h3>
+              <h4 className=" flex items-center gap-1">
+                {state?.custCnic}
+                <span
+                  onClick={() => {
+                    setImage(true);
+                    setCnicImage(state?.custCnicImage);
+                  }}
+                  className="text-lg p-1 hover:text-gray-700 hover:bg-white rounded-md duration-300 cursor-pointer "
+                >
+                  <FaImage />
+                </span>
+              </h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Gender :</h3>
-              <h4 className=" ">{state.gender}</h4>
+              <h4 className=" ">{state?.gender}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Inst Price :</h3>
-              <h4 className=" ">{state.instprice}</h4>
+              <h4 className=" ">{state?.instprice}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">
                 Act Install :
               </h3>
-              <h4 className=" ">{state.actInstall}</h4>
+              <h4 className=" ">{state?.actInstall}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">
                 Act Advance :
               </h3>
-              <h4 className=" ">{state.actAdvance}</h4>
+              <h4 className=" ">{state?.actAdvance}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">
                 Advance Rev :
               </h3>
-              <h4 className=" ">{state.advanceRev}</h4>
+              <h4 className=" ">{state?.advanceRev}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Total Rev :</h3>
               <h4 className="flex justify-between w-48   ">
-                {state.totalRev} <span>100%</span>
+                {state?.totalRev} <span>100%</span>
               </h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Discount :</h3>
               <h4 className="flex justify-between w-full pl-10 px-4 ">
-                {state.discount} <span>0%</span>
+                {state?.discount} <span>0%</span>
               </h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Balance:</h3>
               <h4 className="flex justify-between  w-full pl-10 px-4 ">
-                {state.balance} <span>0%</span>
+                {state?.balance} <span>0%</span>
               </h4>
             </div>
           </div>
           <div className="flex flex-col w-[320px]  ">
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Company :</h3>
-              <h4 className=" ">{state.company}</h4>
+              <h4 className=" ">{state?.company}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Product :</h3>
-              <h4 className=" ">{state.product}</h4>
+              <h4 className=" ">{state?.product}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Model :</h3>
-              <h4 className=" ">{state.model}</h4>
+              <h4 className=" ">{state?.model}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Serial No :</h3>
-              <h4 className=" ">{state.serialNo}</h4>
+              <h4 className=" ">{state?.serialNo}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Fine Time :</h3>
-              <h4 className=" ">{state.fineTime}</h4>
+              <h4 className=" ">{state?.fineTime}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Fine Rev :</h3>
-              <h4 className=" ">{state.fineRev}</h4>
+              <h4 className=" ">{state?.fineRev}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Fine Exp :</h3>
-              <h4 className=" ">{state.fineExp}</h4>
+              <h4 className=" ">{state?.fineExp}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Duration :</h3>
-              <h4 className=" ">{state.duration}</h4>
+              <h4 className=" ">{state?.duration}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Insta Rev :</h3>
-              <h4 className=" ">{state.instRev}</h4>
+              <h4 className=" ">{state?.instRev}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Insta Rem :</h3>
-              <h4 className=" ">{state.instRem}</h4>
+              <h4 className=" ">{state?.instRem}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Status:</h3>
-              <h4 className=" ">{state.status}</h4>
+              <h4 className=" ">{state?.status}</h4>
             </div>
           </div>
           <div className="flex flex-col w-[320px]  ">
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">SRM :</h3>
-              <h4 className=" ">{state.srm}</h4>
+              <h4 className=" ">{state?.srm}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">RM :</h3>
-              <h4 className=" ">{state.rm}</h4>
+              <h4 className=" ">{state?.rm}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">CRC (J) :</h3>
-              <h4 className=" ">{state.crc}</h4>
+              <h4 className=" ">{state?.crc}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Delv Mng :</h3>
-              <h4 className=" ">{state.delvMng}</h4>
+              <h4 className=" ">{state?.delvMng}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">2nd Mng :</h3>
-              <h4 className=" ">{state.secondMng}</h4>
+              <h4 className=" ">{state?.secondMng}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Inqv Off :</h3>
-              <h4 className=" ">{state.inqvOff}</h4>
+              <h4 className=" ">{state?.inqvOff}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Mark Off :</h3>
-              <h4 className=" ">{state.markOff}</h4>
+              <h4 className=" ">{state?.markOff}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">DO :</h3>
-              <h4 className=" ">{state.doo} </h4>
+              <h4 className=" ">{state?.doo} </h4>
             </div>
-            <div className="flex gap-1  items-center">
-              <h3 className="w-32 text-lg font-bold underline">
-                Progress At :
-              </h3>
-              <h4 className=" ">{state.processAT}</h4>
+            <div className="flex gap-1  items-center justify-between">
+              <div className="flex gap-1  items-center">
+                <h3 className="w-32 text-lg font-bold underline">
+                  Process At :
+                </h3>
+                <h4 className=" ">{state?.processAT}</h4>
+              </div>
+              <div className="flex gap-2  items-center">
+                <h3 className="  font-bold ">Process Fee</h3>
+                <h4 className=" ">{state?.processFee}</h4>
+              </div>
             </div>
             <div className="flex gap-1  items-center justify-between">
               <div className="flex gap-1  items-center">
                 <h3 className="w-32 text-lg font-bold underline">Defualter</h3>
-                <h4 className=" ">{state.defaulter}</h4>
+                <h4 className=" ">{state?.defaulter}</h4>
               </div>
               <div className="flex gap-2  items-center">
-                <h3 className="  font-bold ">Salary</h3>
-                <h4 className=" ">{state.salary}</h4>
+                <h3 className="  font-bold text-sm ">Salary/Income</h3>
+                <h4 className=" ">{state?.salary}</h4>
               </div>
             </div>
             <div className="flex  items-center justify-between">
               <div className="flex gap-1  items-center">
                 <h3 className="w-32 text-lg font-bold underline">PTO</h3>
-                <h4 className=" ">{state.pto}</h4>
+                <h4 className=" ">{state?.pto}</h4>
               </div>
               <div className="flex gap-2  items-center">
-                <h3 className="  font-bold ">Salary</h3>
-                <h4 className=" ">{state.salary}</h4>
+                <h3 className="  font-bold text-sm ">VPN :</h3>
+                <h4 className=" ">{state?.vpn}</h4>
               </div>
             </div>
           </div>
@@ -318,7 +341,7 @@ export default function CustomerDetail() {
                 <h3 className="w-40 text-lg font-bold underline">
                   Office Ph #:
                 </h3>
-                <h3 className="w-40 text-lg font-bold underline">NIC # :</h3>
+                <h3 className="w-40 text-lg font-bold underline">CNIC # :</h3>
                 <h3 className="w-40 text-lg font-bold underline">
                   Occupation :
                 </h3>
@@ -335,48 +358,68 @@ export default function CustomerDetail() {
             {/* garanter one */}
             <div className="flex flex-col  w-[212px] h-auto border-r border-gray-700">
               <div className="flex flex-col gap-[9px] pl-4 ">
-                <h3 className="w-40">Adnan</h3>
-                <h3 className="w-40">Amanat Shah</h3>
-                <h3 className="w-40">03021711515</h3>
-                <h3 className="w-40">03021711515</h3>
-                <h3 className="w-40">17301-2838703-3</h3>
-                <h3 className="w-40">Developer</h3>
-                <h3 className="w-40">Friend</h3>
-                <h3 className="w-40 text-sm">
-                  Landi Kotal Khyber zakha khel sultan khel shoodan khel
+                <h3 className="w-40">{state?.gName}</h3>
+                <h3 className="w-40">{state?.gfName}</h3>
+                <h3 className="w-40">{state?.gmobileNumber1}</h3>
+                <h3 className="w-40">{state?.gmobileNumber2}</h3>
+                <h3 className="w-40 flex items-center gap-2">
+                  {state?.gcnic}
+                  <span
+                    onClick={() => {
+                      setImage(true);
+                      setCnicImage(state?.gimage);
+                    }}
+                    className="text-lg p-1 hover:text-gray-700 hover:bg-white rounded-md duration-300 cursor-pointer "
+                  >
+                    <FaImage />
+                  </span>
                 </h3>
-                <h3 className="w-40 text-sm">
-                  Landi Kotal Khyber zakha khel sultan khel shoodan khel
-                </h3>
+                <h3 className="w-40">{state?.gOccupation}</h3>
+                <h3 className="w-40">{state?.grelation}</h3>
+                <h3 className="w-40 text-sm pt-5">{state?.ghomeAddress}</h3>
+                <h3 className="w-40 text-sm pt-5">{state?.g2officeAddres}</h3>
               </div>
             </div>
-            {/* garanter two */}
 
+            {/* garanter two */}
             <div className="flex flex-col  w-[212px] h-auto border-r border-gray-700">
               <div className="flex flex-col gap-[9px] pl-4 ">
-                <h3 className="w-40">Adnan</h3>
-                <h3 className="w-40">Amanat Shah</h3>
-                <h3 className="w-40">03021711515</h3>
-                <h3 className="w-40">03021711515</h3>
-                <h3 className="w-40">17301-2838703-3</h3>
-                <h3 className="w-40">Developer</h3>
-                <h3 className="w-40">Friend</h3>
-                <h3 className="w-40 text-sm">
-                  Landi Kotal Khyber zakha khel sultan khel shoodan khel
+                <h3 className="w-40">{state?.g2Name}</h3>
+                <h3 className="w-40">{state?.g2fName}</h3>
+                <h3 className="w-40">{state.g2mobileNumber1}</h3>
+                <h3 className="w-40">{state?.g2mobileNumber2}</h3>
+                <h3 className="w-40 flex items-center gap-2">
+                  {state?.g2cnic}
+                  <span
+                    onClick={() => {
+                      setImage(true);
+                      setCnicImage(state.g2image);
+                    }}
+                    className="text-lg p-1 hover:text-gray-700 hover:bg-white rounded-md duration-300 cursor-pointer "
+                  >
+                    <FaImage />
+                  </span>
                 </h3>
-                <h3 className="w-40 text-sm">
-                  Landi Kotal Khyber zakha khel sultan khel shoodan khel
-                </h3>
+                <h3 className="w-40">{state?.g2occupation}</h3>
+                <h3 className="w-40">{state?.g2relation}</h3>
+                <h3 className="w-40 text-sm pt-5">{state?.g2homeAddress}</h3>
+                <h3 className="w-40 text-sm pt-5">{state?.g2officeAddres}</h3>
               </div>
             </div>
-            {/* garanter three */}
 
+            {/* garanter three */}
             <div className="flex flex-col  w-[212px] h-auto border-r border-gray-700"></div>
+
+            {/* garanter three */}
             <div className="flex flex-col  w-[212px] h-auto "></div>
           </div>
         </div>
-        {/* Installment table */}
-        <div className="flex flex-col   w-[1000px] h-[410px] border border-black mt-1 mx-3 ">
+        {/*
+        ======================
+        Intsallment Table 
+        ======================
+      */}
+        <div className="flex flex-col   w-[1000px] h-[407px] border border-black mt-1 mx-3 ">
           <table className="w-full">
             <tbody className=" text-center">
               <tr className="flex bg-cyan-600 text-white justify-evenly    border-b border-gray-700 ">
@@ -410,17 +453,17 @@ export default function CustomerDetail() {
               </tr>
               <tr className="flex bg-cyan-600 text-white justify-evenly  border-b  border-gray-700  ">
                 <td className="w-1">S.# </td>
-                <td className="border-l border-gray-700 w-16 text-center">
+                <td className="border-l border-gray-700 w-20 flex justify-end">
                   Date
                 </td>
-                <td className="border-l border-gray-700 w-16 text-center">
+                <td className="border-l border-gray-700 w-16  flex justify-end">
                   Rev.#
                 </td>
-                <td className="border-l border-gray-700 w-8 text-center">
+                <td className="border-l border-gray-700 w-8    text-center">
                   Pre.Bal
                 </td>
                 <td className="border-l border-gray-700 w-8 text-center">
-                  Install{" "}
+                  Install
                 </td>
                 <td className="border-l border-gray-700 w-8 text-center">
                   Disc
@@ -442,14 +485,14 @@ export default function CustomerDetail() {
               {installment.map((data, index) => {
                 return (
                   <tr
-                    className="flex   justify-evenly  border-t border-gray-700"
+                    className="flex  justify-evenly border-t border-gray-700"
                     key={index}
                   >
                     <td className="w-1">{index + 1} </td>
-                    <td className="border-l text-xs border-gray-700 w-20 text-center">
+                    <td className="border-l text-xs border-gray-700 w-20  flex justify-end items-center">
                       {data.date}
                     </td>
-                    <td className="border-l border-gray-700 w-16 text-center">
+                    <td className="border-l  border-gray-700 w-16 text-center">
                       {data.slipNo}
                     </td>
                     <td className="border-l border-gray-700 w-8 text-center">
@@ -483,6 +526,11 @@ export default function CustomerDetail() {
           </table>
         </div>
       </div>
+      {/*
+        ======================
+        Invoice Buttons 
+        ======================
+      */}
       <div className="flex items-center justify-center gap-3">
         <button
           onClick={onPrint}
@@ -501,7 +549,7 @@ export default function CustomerDetail() {
         </button>
         <button
           onClick={() => {
-            setImage(true);
+            setCarasoul(true);
             setRegisteImages(state.inquiryImages);
           }}
           className="cursor-pointer transition-all duration-300 bg-blue-700 text-white w-24 hover:bg-gray-400 hover:text-yellow-400 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg"
@@ -509,7 +557,11 @@ export default function CustomerDetail() {
           Images
         </button>
       </div>
-      {/* installment Form */}
+      {/*
+        ======================
+        Installment Form popUp 
+        ======================
+      */}
       <div
         className={`${
           show
@@ -527,6 +579,33 @@ export default function CustomerDetail() {
           ""
         )}
       </div>
+      {/*
+        ======================
+        Inquiry Images popUp 
+        ======================
+      */}
+      <div
+        className={`${
+          carasoul
+            ? "fixed inset-0 flex items-center justify-center text-black bg-blue-900 bg-opacity-90"
+            : ""
+        } `}
+      >
+        {carasoul ? (
+          <InvoiceCarasoul
+            carasoul={carasoul}
+            setCarasoul={setCarasoul}
+            registeImages={registeImages}
+          />
+        ) : (
+          ""
+        )}
+      </div>
+      {/*
+        ======================
+        Cnic Images popUp 
+        ======================
+      */}
       <div
         className={`${
           image
@@ -535,11 +614,7 @@ export default function CustomerDetail() {
         } `}
       >
         {image ? (
-          <InvoiceCarasoul
-            image={image}
-            setImage={setImage}
-            registeImages={registeImages}
-          />
+          <Image image={image} setImage={setImage} cnicImage={cnicImage} />
         ) : (
           ""
         )}

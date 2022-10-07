@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router";
+import { base_url } from "../assets/data/config";
 
 export default function InstallmentForm({ show, setShow, customerId }) {
   const refer = useNavigate();
@@ -50,7 +51,7 @@ export default function InstallmentForm({ show, setShow, customerId }) {
     console.log("customerID", customerId);
 
     await axios
-      .post(`http://localhost:9000/${customerId}/installment`, note)
+      .post(`${base_url}/${customerId}/installment`, note)
       .then((res) => {
         if (res) {
           window.alert("Installment Added");

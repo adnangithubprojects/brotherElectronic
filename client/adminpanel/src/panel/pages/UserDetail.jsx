@@ -4,6 +4,7 @@ import { FaAngleDown, FaEdit, FaTimes, FaTrashAlt } from "react-icons/fa";
 import "../style/user.css";
 import axios from "axios";
 import DeleteBox from "../component/DeleteBox";
+import { base_url } from "../assets/data/config";
 export default function UserDetail() {
   const [show, setShow] = useState(true);
   const [search, setSearch] = useState("");
@@ -21,7 +22,7 @@ export default function UserDetail() {
   async function confirmDelete(choose) {
     if (choose) {
       const res = await axios.delete(
-        `http://localhost:9000/userdata/${confirmId.current}`
+        `${base_url}/userdata/${confirmId.current}`
       );
       // setData(data.filter((it) => it.Sno !== confirmId.current));
       setDialog(!dialog);
@@ -36,10 +37,11 @@ export default function UserDetail() {
   // }
 
   const reload = async () => {
-    const res = await axios.get("http://localhost:9000/userdata/get");
+    const res = await axios.get(`${base_url}/userdata/get`);
     const req = await res.data.result;
     setData(req);
   };
+  console.log(data.length);
 
   useEffect(() => {
     reload();
@@ -50,8 +52,6 @@ export default function UserDetail() {
   // };
 
   const selectUser = async (data) => {
-    // const res = await axios.get(`http://localhost:9000/userdata/${id}`);
-    // const req = await res.data.result;
     setUser(data);
     console.log("heloo", user);
   };
@@ -187,7 +187,7 @@ function Form({ show, setShow, user }) {
     } = note;
     console.log(note);
 
-    const res = await fetch(`http://localhost:9000/userdata/${id}`, {
+    const res = await fetch(`${base_url}/userdata/${id}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",

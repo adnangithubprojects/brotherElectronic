@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./Signup.css";
+import { base_url } from "../assets/data/config";
 export default function Signup() {
   const refer = useNavigate();
   // form validation
@@ -44,7 +45,7 @@ export default function Signup() {
     // ) {
     if (password === confirmpassword) {
       {
-        const res = await fetch("http://localhost:9000/user/post", {
+        const res = await fetch(`${base_url}/user/post`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -83,7 +84,7 @@ export default function Signup() {
     <div className="signup__container">
       <div className="signup__main" id="signup-form-intro2">
         <div className="form">
-          <h2 className="text-white h2 flex ">sign up</h2>
+          <h2 className="text-white h2 flex ">Super User</h2>
           <form method="POST" className="signup__form">
             <div className="flex flex-col">
               <input

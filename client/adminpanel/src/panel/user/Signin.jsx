@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Signin.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { base_url } from "../assets/data/config";
 
 export default function Signin() {
   const refer = useNavigate();
@@ -33,7 +34,7 @@ export default function Signin() {
     e.preventDefault();
     const { email, password } = note;
     try {
-      const res = await axios.post("http://localhost:9000/user/login", {
+      const res = await axios.post(`${base_url}/user/login`, {
         email,
         password,
       });
@@ -121,12 +122,12 @@ export default function Signin() {
               <button onClick={handleSubmit(signIn)}>Login</button>
             </div>
           </form>
-          <div className="text-center text-white">
+          {/* <div className="text-center text-white">
             Don't have an account ?{" "}
             <Link to="/signup" className="font-bold  ">
               Sign Up
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ import { customer } from "../assets/data/config";
 import DeleteBox from "../component/DeleteBox";
 import axios from "axios";
 import "../style/user.css";
+import { base_url } from "../assets/data/config";
 export default function ActiveDetail() {
   const [Search, setSearch] = useState("");
   const [data, setData] = useState([]);
@@ -24,13 +25,17 @@ export default function ActiveDetail() {
   }
   async function confirmDelete(choose) {
     if (choose) {
-      const res = await axios.delete(
-        `http://localhost:9000/customer/${confirmId.current}`
-      );
-      // setData(data.filter((it) => it.Sno !== confirmId.current));
-      setDialog(!dialog);
-      window.alert("Customer Deleted");
-      customerData();
+      try {
+        const res = await axios.delete(
+          `${base_url}/customer/${confirmId.current}`
+        );
+        // setData(data.filter((it) => it.Sno !== confirmId.current));
+        setDialog(!dialog);
+        window.alert("Customer Deleted");
+        customerData("Active");
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setDialog(false);
     }
@@ -45,7 +50,7 @@ export default function ActiveDetail() {
 
   // get data from backend
   const customerData = async (opt) => {
-    const res = await axios.get("http://localhost:9000/customer/get");
+    const res = await axios.get(`${base_url}/customer/get`);
     const req = await res.data.result;
     const updateData = await req.filter((data) => data.custstatus === opt);
     setData(updateData);
@@ -158,7 +163,7 @@ export default function ActiveDetail() {
                     </td>
 
                     <td className="w-28 flex gap-2">
-                      {!lateInstallment ? (
+                      {lateInstallment ? (
                         <span className="p-2 text-sm border rounded-full bg-[#ffc107] ">
                           <IoIosWarning />
                         </span>

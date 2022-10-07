@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import react, { useEffect, useState } from "react";
 // import { FaArrowLeft, FaInstagram } from "react-icons/fa";
 import {
   FaHome,
@@ -12,11 +12,27 @@ import {
 import { TbLogout } from "react-icons/tb";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { BiUserCheck, BiUserPlus } from "react-icons/bi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+// import { decode } from "decode";
 
 function Sidebar() {
   const user = localStorage.getItem("token");
   const [open, setOpen] = useState(false);
+  const refer = useNavigate();
+  useEffect(() => {
+    const set = setTimeout(() => {
+      localStorage.removeItem("token");
+      refer("/");
+    }, 43200000);
+    return () => clearTimeout(set);
+    // const token = user?.token;
+    // if (token) {
+    //   const decodeToken = decode(token);
+    //   if (decodeToken.exp * 1000 < new Date().getTime()) {
+    //     refer("/");
+    //   }
+    // }
+  }, []);
 
   return (
     <div>
@@ -39,7 +55,7 @@ function Sidebar() {
                 !open && "rotate-380"
               }`}
             >
-              <FaInstagram />
+              {/* <img src="../" alt="" /> */}
             </span>
             <h1
               className={` text-white origin-left font-medium text-xl duration-300 ${
@@ -174,6 +190,20 @@ function Sidebar() {
                   className={`${!open && "hidden"} duration-200 origin-left`}
                 >
                   User
+                </span>
+              </li>
+            </NavLink>
+            <NavLink to="/signup">
+              <li
+                className={`text-gray-300 flex text-sm items-center gap-x-2 cursor-pointer p-2 hover:bg-indigo-700`}
+              >
+                <span className={`text-2xl cursor-pointer duration-300 `}>
+                  <FaUserAlt />
+                </span>
+                <span
+                  className={`${!open && "hidden"} duration-200 origin-left`}
+                >
+                  Register
                 </span>
               </li>
             </NavLink>

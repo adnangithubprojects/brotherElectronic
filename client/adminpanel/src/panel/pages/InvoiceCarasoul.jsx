@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { carasolData } from "../assets/data/config";
+import { base_url, carasolData } from "../assets/data/config";
 import { FaAngleLeft, FaAngleRight, FaTimes } from "react-icons/fa";
 import "../style/carasoul.css";
-export default function InvoiceCarasoul({ image, setImage, registeImages }) {
-  const base_url = "http://localhost:9000";
-
+export default function InvoiceCarasoul({
+  carasoul,
+  setCarasoul,
+  registeImages,
+}) {
   const [Count, setCount] = useState(0);
   const value = registeImages[Count];
-  console.log("before", registeImages);
-  console.log("after", `${base_url}/${value}`);
+  // console.log("before", registeImages);
+  // console.log("after", `${base_url}/${value}`);
   function forword() {
     const next = Count + 1;
     const len = registeImages.length;
@@ -41,7 +43,7 @@ export default function InvoiceCarasoul({ image, setImage, registeImages }) {
       <div className="relative flex items-center justify-center w-[800px] h-[500px] overflow-hidden rounded-md">
         <FaTimes
           className="absolute top-5 right-5 text-3xl  "
-          onClick={() => setImage(false)}
+          onClick={() => setCarasoul(false)}
         />
         <button
           onClick={backword}
@@ -60,6 +62,26 @@ export default function InvoiceCarasoul({ image, setImage, registeImages }) {
         >
           <FaAngleRight />
         </button>
+      </div>
+      {/* </div> */}
+    </>
+  );
+}
+export function Image({ image, setImage, cnicImage }) {
+  return (
+    <>
+      {/* <div className="fixed inset-0 flex items-center justify-center w-full h-full bg-blue-900 bg-opacity-90"> */}
+      <div className="relative flex items-center justify-center w-[800px] h-[500px] overflow-hidden rounded-md">
+        <FaTimes
+          className="absolute top-5 right-5 text-3xl bg-white rounded-md hover:bg-slate-300 duration-300   "
+          onClick={() => setImage(false)}
+        />
+
+        <img
+          src={`${base_url}/${cnicImage}`}
+          alt="upload image"
+          className="w-full h-full"
+        />
       </div>
       {/* </div> */}
     </>

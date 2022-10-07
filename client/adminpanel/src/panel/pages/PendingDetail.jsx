@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 // import { NavLink } from "react-router-dom";
 import axios from "axios";
 import DeleteBox from "../component/DeleteBox";
-import { customer } from "../assets/data/config";
+import { base_url, customer } from "../assets/data/config";
 import "../style/user.css";
 import { BiWindows } from "react-icons/bi";
 // import Form from "./CustomerForm";
@@ -23,13 +23,17 @@ export default function PendingDetail() {
   }
   async function confirmDelete(choose) {
     if (choose) {
-      const res = await axios.delete(
-        `http://localhost:9000/customer/${confirmId.current}`
-      );
-      // setData(data.filter((it) => it.Sno !== confirmId.current));
-      setDialog(!dialog);
-      window.alert("Cutomer Deleted");
-      customerData();
+      try {
+        const res = await axios.delete(
+          `${base_url}/customer/${confirmId.current}`
+        );
+        // setData(data.filter((it) => it.Sno !== confirmId.current));
+        setDialog(!dialog);
+        window.alert("Cutomer Deleted");
+        customerData("Pending");
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setDialog(false);
     }
@@ -46,7 +50,7 @@ export default function PendingDetail() {
 
   // getting data from backend
   const customerData = async (opt) => {
-    const res = await axios.get("http://localhost:9000/customer/get");
+    const res = await axios.get(`${base_url}/customer/get`);
     const req = await res.data.result;
     const updateData = await req.filter((data) => data.custstatus === opt);
     setData(updateData);

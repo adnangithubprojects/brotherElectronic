@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaFileInvoice, FaTimes, FaTrashAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { customer } from "../assets/data/config";
+import { base_url, customer } from "../assets/data/config";
 // import { user } from "./CustomerForm";
 import "../style/customer.css";
 import axios from "axios";
@@ -32,7 +32,7 @@ export default function Allcustomer() {
   }
 
   const customerData = async () => {
-    const res = await axios.get("http://localhost:9000/customer/get");
+    const res = await axios.get(`${base_url}/customer/get`);
     const req = await res.data.result;
     setData(req);
   };

@@ -486,3 +486,5 @@ export const carasolData = [
     image: carasol3,
   },
 ];
+
+export const base_url = "http://localhost:9000";

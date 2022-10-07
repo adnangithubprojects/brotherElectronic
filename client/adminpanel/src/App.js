@@ -21,7 +21,17 @@ function App() {
     <div className="flex">
       <Routes>
         <Route path="/" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/signup"
+          element={
+            <RouteProtection>
+              <div className="flex">
+                <Sidebar />
+                <Signup />
+              </div>
+            </RouteProtection>
+          }
+        />
         <Route
           path="/dashboard"
           element={

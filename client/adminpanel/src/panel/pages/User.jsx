@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaAngleDown, FaTimes } from "react-icons/fa";
+import { base_url } from "../assets/data/config";
 import "../style/user.css";
 import UserDetail from "./UserDetail";
 export default function User() {
@@ -62,7 +63,7 @@ function Form({ show, setShow }) {
       note;
     console.log(note);
 
-    const res = await fetch("http://localhost:9000/userdata/post", {
+    const res = await fetch(`${base_url}/userdata/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

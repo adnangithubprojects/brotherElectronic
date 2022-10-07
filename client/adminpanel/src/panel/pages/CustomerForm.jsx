@@ -3,6 +3,7 @@ import "../style/customerform.css";
 import { FaAngleDown, FaTimes } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { base_url } from "../assets/data/config";
 // import scrollbar-hide from "tailwind-scrollbar-hide";
 
 export default function CutomerForm({ show, setShow }) {
@@ -204,7 +205,7 @@ export default function CutomerForm({ show, setShow }) {
     }
 
     await axios.post(
-      "http://localhost:9000/customer/post",
+      `${base_url}/customer/post`,
       custData
       // {
       //   headers: {
