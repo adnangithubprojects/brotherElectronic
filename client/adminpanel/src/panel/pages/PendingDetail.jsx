@@ -82,8 +82,8 @@ export default function PendingDetail() {
             <tr className="flex  justify-evenly gap-x-5 bg-cyan-800 py-2 ">
               <td className="text-center w-32 ">S:No</td>
               <td className="text-center w-32  pl-5 ">Name</td>
+              <td className="text-right w-32  pr-5 ">F Name</td>
               <td className="text-right w-32  pr-9 ">cell</td>
-              <td className="text-right w-32  pr-5 ">status</td>
               <td className="text-right w-32  pr-6">edit</td>
             </tr>
             {data
@@ -106,17 +106,9 @@ export default function PendingDetail() {
                   >
                     <td className="text-center w-28 ">{index + 1}</td>
                     <td className="text-center w-28 ">{data.cutomerName}</td>
-                    <td className="text-center w-28 ">0{data.custMobile1}</td>
 
-                    <td
-                      className={`text-center w-28 ${
-                        data.custstatus === "Pending"
-                          ? "bg-red-500 rounded text-center"
-                          : ""
-                      }`}
-                    >
-                      {data.custstatus}
-                    </td>
+                    <td className={`text-center w-28 `}>{data.custFName}</td>
+                    <td className="text-center w-28 ">0{data.custMobile1}</td>
 
                     <td className=" flex gap-2">
                       <span
@@ -533,16 +525,10 @@ export function CutomerForm({ show, setShow, user, customerData }) {
         if (res) {
           window.alert("Customer Updated");
           setShow(!show);
-          customerData();
+          customerData("Pending");
         }
       });
-    console.log("halloworld", res);
-
-    // if (!data) {
-    //   window.alert("corectly filled all field");
-    // } else {
-    //   window.alert(" Customer Added  Successfully");
-    //     }
+    // console.log("halloworld", res);
   };
   return (
     <>
@@ -1013,7 +999,7 @@ export function CutomerForm({ show, setShow, user, customerData }) {
               </span>
               <span className="relative">
                 <input
-                  type="number"
+                  type="text"
                   name="crc"
                   value={note.crc}
                   onChange={InputEvent}

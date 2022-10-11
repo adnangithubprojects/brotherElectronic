@@ -1,5 +1,6 @@
 import react, { useEffect, useState } from "react";
 // import { FaArrowLeft, FaInstagram } from "react-icons/fa";
+import logo1 from "../assets/images/logo1.png";
 import {
   FaHome,
   FaInstagram,
@@ -50,13 +51,15 @@ function Sidebar() {
             <FaArrowLeft />
           </span>
           <div className={`flex gap-x-4 items-center`}>
-            <span
-              className={`text-4xl cursor-pointer duration-300  ${
+            {/* <FaDownload className="hidden" /> */}
+
+            <img
+              src={logo1}
+              alt="logoImage"
+              className={`w-10 h-10 cursor-pointer duration-300 ${
                 !open && "rotate-380"
               }`}
-            >
-              {/* <img src="../" alt="" /> */}
-            </span>
+            />
             <h1
               className={` text-white origin-left font-medium text-xl duration-300 ${
                 !open && "scale-0 "

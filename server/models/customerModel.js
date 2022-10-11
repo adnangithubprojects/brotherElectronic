@@ -89,6 +89,9 @@ const CustomerSchema = mongoose.Schema(
     fineTime: {
       type: String,
     },
+    serialNo: {
+      type: String,
+    },
     fineRev: {
       type: String,
     },
@@ -131,7 +134,7 @@ const CustomerSchema = mongoose.Schema(
     doo: {
       type: String,
     },
-    processAt: {
+    processAT: {
       type: String,
     },
     defaulter: {

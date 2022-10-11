@@ -198,28 +198,102 @@ export default function CutomerForm({ show, setShow }) {
       g2homeAddress,
       g2officeAddres,
     } = note;
-    console.log("looking for customerStatus Data ", note);
+    // console.log("looking for customerStatus Data ", note);
     const custData = new FormData();
     for (let key in note) {
       custData.append(key, note[key]);
     }
+    try {
+      await axios.post(
+        `${base_url}/customer/post`,
+        custData
+        // {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        //   custData,
+        // }
+      );
+      setNote({
+        // customer info
+        cutomerName: "",
+        custFName: "",
+        resedential: "",
+        occupation: "",
+        custMobile1: "",
+        custMobile2: "",
+        custCnic: "",
+        custImage: "",
+        custCnicImage: "",
+        custhomeAddress: "",
+        custofficeAddres: "",
 
-    await axios.post(
-      `${base_url}/customer/post`,
-      custData
-      // {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      //   custData,
-      // }
-    );
+        // Product:=>
+        instprice: "",
+        actInstall: "",
+        actAdvance: "",
+        advanceRev: "",
+        totalRev: "",
+        discount: "",
+        //
+        balance: "",
+        company: "",
+        product: "",
+        model: "",
+        serialNo: "",
+        fineTime: "",
+        //
+        fineRev: "",
+        fineExp: "",
+        duration: "",
+        instRev: "",
+        instRem: "",
+        status: "",
+        //
+        srm: "",
+        rm: "",
+        crc: "",
+        delvMng: "",
+        secondMng: "",
+        inqvOff: "",
+        markOff: "",
+        //
+        doo: "",
+        processAT: "",
+        defaulter: "",
+        pto: "",
+        vpn: "",
+        processFee: "",
+        salary: "",
 
-    // if (!data) {
-    //   window.alert("corectly filled all field");
-    // } else {
-    //   window.alert(" Customer Added  Successfully");
-    //     }
+        // guaranter 1:=>
+        gName: "",
+        gfName: "",
+        grelation: "",
+        gOccupation: "",
+        gmobileNumber1: "",
+        gmobileNumber2: "",
+        gcnic: "",
+        gimage: "",
+        ghomeAddress: "",
+        gofficeAddres: "",
+
+        // guaranter 2:=>
+        g2Name: "",
+        g2fName: "",
+        g2relation: "",
+        g2occupation: "",
+        g2mobileNumber1: "",
+        g2mobileNumber2: "",
+        g2cnic: "",
+        g2image: "",
+        g2homeAddress: "",
+        g2officeAddres: "",
+      });
+      alert("Customer Added Successfully");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <>
