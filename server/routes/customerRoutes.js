@@ -25,7 +25,7 @@ customer.get("/customer/get", getCustomer);
 customer.get("/single-customer/:id", getSingleCustomerInstallments);
 customer.put(
   "/customer/:id",
-  uploadFile.fields([{ name: "inquiryImages", maxCount: 5 }]),
+  uploadFile.fields([{ name: "inquiryImages", maxCount: 10 }]),
   updateCustomer
 );
 customer.get("/customer/get/:id", getCustomerbyID);

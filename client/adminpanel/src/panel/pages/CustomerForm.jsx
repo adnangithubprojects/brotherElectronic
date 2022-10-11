@@ -804,7 +804,7 @@ export default function CutomerForm({ show, setShow }) {
                   {...register("crc", {
                     required: "CRC (J) Required!",
                   })}
-                  type="number"
+                  type="text"
                   name="crc"
                   value={note.crc}
                   onChange={InputEvent}

@@ -25,26 +25,47 @@ export const postProduct = async (req, res) => {
 
 // Customer Get Data
 export const getProduct = async (req, res) => {
-  const result = await Product.find();
-  res.json({
-    status: "success",
-    result,
-  });
+  try {
+    const result = await Product.find();
+    res.status(200).json({
+      status: "success",
+      result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "success",
+      message: error.message,
+    });
+  }
 };
 
 export const deleteProduct = async (req, res) => {
-  const result = await Product.deleteMany();
-  res.json({
-    status: "succes",
-    result,
-  });
+  try {
+    const result = await Product.deleteMany();
+    res.json({
+      status: "succes",
+      result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "success",
+      message: error.message,
+    });
+  }
 };
 export const updateProduct = async (req, res) => {
   const id = req.params.id;
   const data = req.body;
-  const result = await Product.findByIdAndUpdate(id, data, { new: true });
-  res.json({
-    status: "succes",
-    result,
-  });
+  try {
+    const result = await Product.findByIdAndUpdate(id, data, { new: true });
+    res.json({
+      status: "succes",
+      result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "success",
+      message: error.message,
+    });
+  }
 };
