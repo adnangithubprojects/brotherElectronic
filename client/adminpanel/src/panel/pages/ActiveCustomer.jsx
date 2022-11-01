@@ -7,7 +7,7 @@ export default function ActiveCustomer() {
 
   return (
     <>
-      <div className="w-[1060px]  h-[625px]  flex flex-col items-end px-1 py-4 gap-1 ">
+      <div className="w-full md:w-[1060px]  h-[625px]  flex flex-col items-end md:px-1 md:py-4 gap-1 ">
         {/* <div className="pt-6 pr-5">
           <button
             className="w-32 h-12 rounded transition-all duration-300 hover:bg-blue-900 hover:text-white font-bold bg-white text-black border border-blue-900"
@@ -16,7 +16,7 @@ export default function ActiveCustomer() {
             Add Customer
           </button>
         </div> */}
-        <div className="bg-cyan-800 w-[1024px] py-3 h-auto overflow-hidden">
+        <div className="bg-cyan-800 w-full sm:w-screen md:w-[1024px] py-3 h-auto overflow-hidden">
           <ActiveDetail />
         </div>
 

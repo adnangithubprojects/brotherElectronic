@@ -41,25 +41,58 @@ export default function CustomerDetail() {
     }
   };
 
+  const currDate = new Date();
+  let currentDate =
+    currDate.getDate() +
+    " / " +
+    (currDate.getMonth() + 1) +
+    " / " +
+    currDate.getFullYear();
+  let currentTime =
+    currDate.getHours() +
+    ":" +
+    currDate.getMinutes() +
+    ":" +
+    currDate.getSeconds();
+
+  //customer created date
+  const today = new Date(state.updatedAt),
+    date =
+      today.getDate() +
+      "/" +
+      (today.getMonth() + 1) +
+      "/" +
+      today.getFullYear();
   useEffect(() => {
     singleCustomerInstallment();
   }, [show]);
   return (
-    <div className="flex flex-col bg-blue-900 text-white overflow-scroll h-[625px] ml-6">
+    <div className="flex flex-col bg-blue-900 text-white py-5 overflow-scroll h-[625px] ml-6">
       <div
         className={`flex flex-col   h-[1650px] w-[1024px] py-3`}
         ref={componentRef}
       >
-        <div className="flex flex-col items-center justify-center py-4 w-[1000px] mx-3   h-auto">
-          <h1 className="text-2xl font-bold">Achini Chowk PEW</h1>
+        <div className="flex flex-col items-center justify-center py-3 w-[1000px] mx-3   h-auto">
+          <h1 className="text-2xl font-bold">Brother Electronics</h1>
+          <h1 className="text-xl font-bold">Tehkal Bala Peshawar</h1>
           <h2 className="text-xl underline font-bold capitalize">
             Customer account information details
           </h2>
         </div>
 
         {/* Customer information table */}
-        <div className="flex p-8 w-[1000px] justify-between mx-3   h-auto">
+        <div className="flex px-8 py-4 w-[1000px] justify-between mx-3   h-auto">
           <div className="flex flex-col gap-2">
+            <div className="flex flex-col">
+              <div className="flex gap-1  items-center">
+                <h3 className="w-[90px] font-bold underline">Print Date :</h3>
+                <h4 className=" ">{currentDate}</h4>
+              </div>
+              <div className="flex gap-1  items-center">
+                <h3 className="w-[90px] font-bold underline">Print Time :</h3>
+                <h4 className=" ">{currentTime}</h4>
+              </div>
+            </div>
             <div className="flex gap-3  items-center">
               <h3 className="w-32 text-xl font-bold underline">Account No :</h3>
               <h4 className=" ">4578887</h4>
@@ -95,14 +128,40 @@ export default function CustomerDetail() {
               </h3>
               <h3 className=" ">{state.custofficeAddres}</h3>
             </div>
+            <div className="flex gap-1 items-center">
+              <h3 className="w-32 font-bold underline">Prev A/C:</h3>
+              <h3 className=" ">99</h3>
+            </div>
           </div>
-          <div className="border w-56 h-56 bg-cyan-400 overflow-hidden ">
-            <img
-              src={`${base_url}/${state.custImage}`}
-              alt=""
-              className="w-full h-full"
-            />
-            {/* {state.custImage} */}
+          <div className="flex flex-col gap-5 justify-center">
+            <div className="flex gap-1  items-center">
+              <h3 className="w-10 text-sm font-bold underline">Date</h3>
+              <h4 className=" ">{date}</h4>
+            </div>
+            <div className="flex gap-1  items-center">
+              <h3 className="w-36 text-sm font-bold underline">
+                Repeat as Customer :
+              </h3>
+              <h4 className=" ">7</h4>
+            </div>
+            <div className="flex gap-1  items-center">
+              <h3 className="w-36 text-sm font-bold underline">
+                Repeat as Gauranter :
+              </h3>
+              <h4 className=" ">8</h4>
+            </div>
+          </div>
+
+          <div className="flex">
+            <div className="border w-36 h-44  overflow-hidden "></div>
+            <div className="border w-44 h-44 bg-cyan-400 overflow-hidden ">
+              <img
+                src={`${base_url}/${state.custImage}`}
+                alt=""
+                className="w-full h-full"
+              />
+              {/* {state.custImage} */}
+            </div>
           </div>
         </div>
 
@@ -534,7 +593,7 @@ export default function CustomerDetail() {
       <div className="flex items-center justify-center gap-3">
         <button
           onClick={onPrint}
-          className="cursor-pointer transition-all duration-300 bg-blue-700 text-white   w-24 hover:bg-gray-400 hover:text-yellow-400 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg"
+          className="cursor-pointer transition-all duration-300 bg-blue-700 text-white   w-24 hover:bg-white hover:text-blue-700 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg"
         >
           Print
         </button>
@@ -543,16 +602,16 @@ export default function CustomerDetail() {
             setShow(true);
             setCustomerId(state._id);
           }}
-          className="cursor-pointer transition-all duration-300 bg-blue-700 text-white w-24 hover:bg-gray-400 hover:text-yellow-400 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg"
+          className="cursor-pointer text-xs   transition-all duration-300 bg-blue-700 text-white w-28 hover:bg-white hover:text-blue-700 font-bold mt-3 outline-none border-none px-2 py-4 rounded-lg"
         >
-          Insert
+          Add Installment
         </button>
         <button
           onClick={() => {
             setCarasoul(true);
             setRegisteImages(state.inquiryImages);
           }}
-          className="cursor-pointer transition-all duration-300 bg-blue-700 text-white w-24 hover:bg-gray-400 hover:text-yellow-400 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg"
+          className="cursor-pointer transition-all duration-300 bg-blue-700 text-white w-24 hover:bg-white hover:text-blue-700 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg"
         >
           Images
         </button>

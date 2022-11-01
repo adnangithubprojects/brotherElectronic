@@ -43,9 +43,9 @@ export default function Allcustomer() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 w-screen items-center  ">
       {/* <Fetching /> */}
-      <div className="scroll ">
+      <div className="scroll w-full py-4">
         <input
           type="text"
           placeholder="Search"
@@ -53,26 +53,33 @@ export default function Allcustomer() {
           onChange={(e) => setSearch(e.target.value)}
           className="outline-none py-2 rounded mt-1 px-3"
         />
-        <h1 className="h2 text-white  py-2 ">All Customer</h1>
-        <table className=" border-t-2 border-cyan-200  w-full " id="ad">
+        <h1 className="text-2xl font-bold text-white  py-2 ">All Customer</h1>
+        <table
+          className="border-[1px] md:border-none md:border-t-2 border-cyan-200 text-xs md:text-base w-[300px] sm:w-[400px] md:w-full "
+          id="ad"
+        >
           <tbody className="text-white text-center">
-            <tr className="flex  justify-evenly gap-x-5 bg-cyan-800 py-2 ">
-              <td className="text-center w-32 ">S:No</td>
-              <td className="text-center w-32  pr-4 ">Name</td>
-              <td className="text-right w-32  pr-14 ">cell</td>
-              <td className="text-right w-32  pr-6 ">status</td>
+            <tr className="flex justify-between  md:justify-evenly gap-x-5 bg-cyan-800 py-2 ">
+              <td className="text-center w-8 md:w-32 ">S:No</td>
+              <td className="text-center w-10  md:w-32  md:pr-4 ">Name</td>
+              <td className=" md:text-right w-20 md:w-32  md:pr-14 ">cell</td>
+              <td className="md:text-right w-12 md:w-32  md:pr-6 ">status</td>
             </tr>
             {data.map((data, index) => {
               return (
                 <tr
-                  className="flex justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700"
+                  className="flex justify-between  md:justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700"
                   key={index}
                 >
-                  <td className="text-center w-28 ">{index + 1} </td>
-                  <td className="text-center w-28 ">{data.cutomerName}</td>
-                  <td className="text-center w-28 ">{data.custMobile1}</td>
+                  <td className="w-8 md:w-28 ">{index + 1} </td>
+                  <td className="text-center w-20 md:w-28 ">
+                    {data.cutomerName}
+                  </td>
+                  <td className="text-center h-[20px] md:h-8 w-20  md:w-28 ">
+                    0{data.custMobile1}
+                  </td>
                   <td
-                    className={`text-center w-28 ${
+                    className={`text-center h-[20px] md:h-8  w-12 md:w-28 ${
                       data.custstatus === "Pending"
                         ? "bg-red-500 rounded "
                         : "bg-green-500 rounded"

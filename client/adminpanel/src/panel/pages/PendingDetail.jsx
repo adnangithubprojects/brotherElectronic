@@ -76,15 +76,19 @@ export default function PendingDetail() {
           onChange={(e) => setSearch(e.target.value)}
           className="outline-none py-2 rounded mt-1 px-3"
         />
-        <h1 className="text-2xl text-white  py-2 ">Pending Customer</h1>
-        <table className=" border-t-2 border-cyan-200  w-full ">
+        <h1 className="text-xl sm:text-2xl font-bold text-white  py-2 ">
+          Pending Customer
+        </h1>
+        <table className="text-xs md:text-base border-[1px] md:border-none md:border-t-2 border-cyan-200  w-[300px] sm:w-[400px] md:w-full ">
           <tbody className="text-white text-center">
-            <tr className="flex  justify-evenly gap-x-5 bg-cyan-800 py-2 ">
-              <td className="text-center w-32 ">S:No</td>
-              <td className="text-center w-32  pl-5 ">Name</td>
-              <td className="text-right w-32  pr-5 ">F Name</td>
-              <td className="text-right w-32  pr-9 ">cell</td>
-              <td className="text-right w-32  pr-6">edit</td>
+            <tr className="flex justify-between md:justify-evenly gap-x-5 bg-cyan-800 py-2 ">
+              <td className="md:text-center w-8 md:w-32 ">S:No</td>
+              <td className="md:text-center w-10 md:w-32  md:pl-5 ">Name</td>
+              <td className="md:text-right w-20 md:w-32  md:pr-5 ">F Name</td>
+              <td className="md:text-right w-12 md:w-32 pr-4 md:pr-9 ">cell</td>
+              <td className="md:text-right hidden md:flex md:w-32  md:pr-6">
+                edit
+              </td>
             </tr>
             {data
               .filter((fil) => {
@@ -101,16 +105,22 @@ export default function PendingDetail() {
               .map((data, index) => {
                 return (
                   <tr
-                    className="flex justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700"
+                    className="flex justify-between md:justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700"
                     key={data._id}
                   >
-                    <td className="text-center w-28 ">{index + 1}</td>
-                    <td className="text-center w-28 ">{data.cutomerName}</td>
+                    <td className="md:text-center w-8 md:w-28 ">{index + 1}</td>
+                    <td className="md:text-center w-16 md:w-28 ">
+                      {data.cutomerName}
+                    </td>
 
-                    <td className={`text-center w-28 `}>{data.custFName}</td>
-                    <td className="text-center w-28 ">0{data.custMobile1}</td>
+                    <td className={`md:text-center w-16 md:w-28 `}>
+                      {data.custFName}
+                    </td>
+                    <td className="md:text-center  md:w-28 ">
+                      0{data.custMobile1}
+                    </td>
 
-                    <td className=" flex gap-2">
+                    <td className="hidden md:flex gap-2">
                       <span
                         onClick={() => {
                           setShow(!show);
@@ -182,6 +192,10 @@ export function CutomerForm({ show, setShow, user, customerData }) {
     custhomeAddress: "",
     custofficeAddres: "",
     custstatus: "",
+    custRepeat: "0",
+    custRepeatGauranter: "0",
+    custPreviosAccount: "0",
+    fqmsAccNo: "0",
 
     // Product:=>
     instprice: "",
@@ -195,7 +209,7 @@ export function CutomerForm({ show, setShow, user, customerData }) {
     company: "",
     product: "",
     model: "",
-    serialNo: "",
+    serialNo: "0",
     fineTime: "",
     //
     fineRev: "",
@@ -266,83 +280,87 @@ export function CutomerForm({ show, setShow, user, customerData }) {
   // selected data
   useEffect(() => {
     setNote({
-      id: user._id,
+      id: user?._id,
       // customer info
-      cutomerName: user.cutomerName,
-      custFName: user.custFName,
-      resedential: user.resedential,
-      occupation: user.occupation,
-      custMobile1: user.custMobile1,
-      custMobile2: user.custMobile2,
-      custCnic: user.custCnic,
-      // custImage: user.custImage[0],
-      // custCnicImage: user.custCnicImage[0],
-      gender: user.gender,
-      custhomeAddress: user.custhomeAddress,
-      custofficeAddres: user.custofficeAddres,
-      custstatus: user.custstatus,
+      cutomerName: user?.cutomerName,
+      custFName: user?.custFName,
+      resedential: user?.resedential,
+      occupation: user?.occupation,
+      custMobile1: user?.custMobile1,
+      custMobile2: user?.custMobile2,
+      custCnic: user?.custCnic,
+      // custImage: user?.custImage[0],
+      // custCnicImage: user?.custCnicImage[0],
+      gender: user?.gender,
+      custhomeAddress: user?.custhomeAddress,
+      custofficeAddres: user?.custofficeAddres,
+      custstatus: user?.custstatus,
+      custRepeat: user?.custRepeat,
+      custRepeatGauranter: user?.custRepeatGauranter,
+      custPreviosAccount: user?.custPreviosAccount,
+      fqmsAccNo: user?.fqmsAccNo,
 
       // Product:=>
-      instprice: user.instprice,
-      actInstall: user.actInstall,
-      actAdvance: user.actAdvance,
-      advanceRev: user.advanceRev,
-      totalRev: user.totalRev,
-      discount: user.discount,
+      instprice: user?.instprice,
+      actInstall: user?.actInstall,
+      actAdvance: user?.actAdvance,
+      advanceRev: user?.advanceRev,
+      totalRev: user?.totalRev,
+      discount: user?.discount,
       //
-      balance: user.balance,
-      company: user.company,
-      product: user.product,
-      model: user.model,
-      serialNo: user.serialNo,
-      fineTime: user.fineTime,
+      balance: user?.balance,
+      company: user?.company,
+      product: user?.product,
+      model: user?.model,
+      serialNo: user?.serialNo,
+      fineTime: user?.fineTime,
       //
-      fineRev: user.fineRev,
-      fineExp: user.fineExp,
-      duration: user.duration,
-      instRev: user.instRev,
-      instRem: user.instRem,
-      status: user.status,
+      fineRev: user?.fineRev,
+      fineExp: user?.fineExp,
+      duration: user?.duration,
+      instRev: user?.instRev,
+      instRem: user?.instRem,
+      status: user?.status,
       //
-      srm: user.srm,
-      rm: user.rm,
-      crc: user.crc,
-      delvMng: user.delvMng,
-      secondMng: user.secondMng,
-      inqvOff: user.inqvOff,
-      markOff: user.markOff,
+      srm: user?.srm,
+      rm: user?.rm,
+      crc: user?.crc,
+      delvMng: user?.delvMng,
+      secondMng: user?.secondMng,
+      inqvOff: user?.inqvOff,
+      markOff: user?.markOff,
       //
-      doo: user.doo,
-      processAT: user.processAT,
-      defaulter: user.defaulter,
-      pto: user.pto,
-      vpn: user.vpn,
-      processFee: user.processFee,
-      salary: user.salary,
+      doo: user?.doo,
+      processAT: user?.processAT,
+      defaulter: user?.defaulter,
+      pto: user?.pto,
+      vpn: user?.vpn,
+      processFee: user?.processFee,
+      salary: user?.salary,
 
       // guaranter 1:=>
-      gName: user.gName,
-      gfName: user.gfName,
-      grelation: user.grelation,
-      gOccupation: user.gOccupation,
-      gmobileNumber1: user.gmobileNumber1,
-      gmobileNumber2: user.gmobileNumber2,
-      gcnic: user.gcnic,
-      // gimage: user.gimage[0],
-      ghomeAddress: user.ghomeAddress,
-      gofficeAddres: user.gofficeAddres,
+      gName: user?.gName,
+      gfName: user?.gfName,
+      grelation: user?.grelation,
+      gOccupation: user?.gOccupation,
+      gmobileNumber1: user?.gmobileNumber1,
+      gmobileNumber2: user?.gmobileNumber2,
+      gcnic: user?.gcnic,
+      // gimage: user?.gimage[0],
+      ghomeAddress: user?.ghomeAddress,
+      gofficeAddres: user?.gofficeAddres,
 
       // guaranter 2:=>
-      g2Name: user.g2Name,
-      g2fName: user.g2fName,
-      g2relation: user.g2relation,
-      g2occupation: user.g2occupation,
-      g2mobileNumber1: user.g2mobileNumber1,
-      g2mobileNumber2: user.g2mobileNumber2,
-      g2cnic: user.g2cnic,
-      // g2image: user.g2image[0],
-      g2homeAddress: user.g2homeAddress,
-      g2officeAddres: user.g2officeAddres,
+      g2Name: user?.g2Name,
+      g2fName: user?.g2fName,
+      g2relation: user?.g2relation,
+      g2occupation: user?.g2occupation,
+      g2mobileNumber1: user?.g2mobileNumber1,
+      g2mobileNumber2: user?.g2mobileNumber2,
+      g2cnic: user?.g2cnic,
+      // g2image: user?.g2image[0],
+      g2homeAddress: user?.g2homeAddress,
+      g2officeAddres: user?.g2officeAddres,
 
       // images
       inquiryImages: [],
@@ -368,6 +386,10 @@ export function CutomerForm({ show, setShow, user, customerData }) {
       custhomeAddress,
       custofficeAddres,
       custstatus,
+      custRepeat,
+      custRepeatGauranter,
+      custPreviosAccount,
+      fqmsAccNo,
 
       // Product Details
       instprice,
@@ -447,6 +469,10 @@ export function CutomerForm({ show, setShow, user, customerData }) {
     custData.append("custhomeAddress", custhomeAddress);
     custData.append("custofficeAddres", custofficeAddres);
     custData.append("custstatus", custstatus);
+    custData.append("custRepeat", custRepeat);
+    custData.append("custRepeatGauranter", custRepeatGauranter);
+    custData.append("custPreviosAccount", custPreviosAccount);
+    custData.append("fqmsAccNo", fqmsAccNo);
 
     // product
     custData.append("instprice", instprice);
@@ -600,6 +626,36 @@ export function CutomerForm({ show, setShow, user, customerData }) {
                   {errors.occupation?.message}
                 </span>
               </span>
+              <span className="relative">
+                <input
+                  {...register("custRepeat", {
+                    // required: "CNIC Reuired !",
+                  })}
+                  type="number"
+                  name="custRepeat"
+                  value={note.custRepeat}
+                  onChange={InputEvent}
+                />
+                <p className="pp">Repeat as Customer : </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.custRepeat?.message}
+                </span> */}
+              </span>
+              <span className="relative">
+                <input
+                  {...register("custRepeatGauranter", {
+                    // required: "CNIC Reuired !",
+                  })}
+                  type="number"
+                  name="custRepeatGauranter"
+                  value={note.custRepeatGauranter}
+                  onChange={InputEvent}
+                />
+                <p className="pp">Repeat as Guaranter : </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.custRepeatGauranter?.message}
+                </span> */}
+              </span>
             </div>
             <div className="child">
               <span className="relative">
@@ -638,6 +694,36 @@ export function CutomerForm({ show, setShow, user, customerData }) {
                 <span className="text-sm text-red-500 font-bold">
                   {errors.custCnic?.message}
                 </span>
+              </span>
+              <span className="relative">
+                <input
+                  {...register("custPreviosAccount", {
+                    // required: "CNIC Reuired !",
+                  })}
+                  type="number"
+                  name="custPreviosAccount"
+                  value={note.custPreviosAccount}
+                  onChange={InputEvent}
+                />
+                <p className="pp">Prev A/C #: </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.custPreviosAccount?.message}
+                </span> */}
+              </span>
+              <span className="relative">
+                <input
+                  {...register("fqmsAccNo", {
+                    // required: "CNIC Reuired !",
+                  })}
+                  type="number"
+                  name="fqmsAccNo"
+                  value={note.fqmsAccNo}
+                  onChange={InputEvent}
+                />
+                <p className="pp">FQMS AccNo: </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.fqmsAccNo?.message}
+                </span> */}
               </span>
               <span className="relative">
                 <select

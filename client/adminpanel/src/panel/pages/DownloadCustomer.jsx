@@ -28,19 +28,33 @@ export default function DownlaodCustomer() {
       <h1 className="text-2xl text-white  py-2 ">Downlaod Customer</h1>
       <div className="DownlaodScroll scrollbar-hide">
         <table
-          className=" border-t-2 border-cyan-200  w-full mx-7  "
+          className=" border-t-2 text-sm border-cyan-200  w-full mx-7  "
           ref={componentRef}
         >
           <tbody className=" text-center  ">
-            <tr className="flex items-center justify-evenly gap-x-5  py-1 ">
-              <td className="text-center w-28">S:No</td>
-              <td className="text-center w-28">Name</td>
-              <td className="text-center w-28">Mobile No</td>
-              <td className="text-center w-28">Recovery Officer</td>
-              <td className="text-center w-28">Installment</td>
-              <td className="text-center w-28">Remaining Installment</td>
-              <td className="text-center w-28">Customer Signature</td>
-              <td className="text-center w-28">Officer Signature</td>
+            <tr className="flex items-center justify-between gap-x-5  py-1 ">
+              <td className="flex items-center justify-center w-8 bg-red-500">
+                S:No
+              </td>
+              <td className="flex items-center justify-center w-28">Name</td>
+              <td className="flex items-center justify-center w-24">
+                Mobile No
+              </td>
+              <td className="flex items-center justify-center w-28">
+                Recovery Officer
+              </td>
+              <td className="flex items-center justify-center w-28">
+                Installment
+              </td>
+              <td className="flex items-center justify-center w-28">
+                Remaining Installment
+              </td>
+              <td className="flex items-center justify-center w-28">
+                Customer Signature
+              </td>
+              <td className="flex items-center justify-center w-28">
+                Officer Signature
+              </td>
             </tr>
             {data.map((data, index) => {
               return (
@@ -48,18 +62,34 @@ export default function DownlaodCustomer() {
                   className={`flex justify-around  cursor-pointer h-9 border-t hover:bg-cyan-700 `}
                   key={index}
                 >
-                  <td className="text-center w-28  ">{index + 1}</td>
-                  <td className={`text-center w-28 border-l`}>
+                  <td className="flex items-center justify-center w-8  ">
+                    {index + 1}
+                  </td>
+                  <td
+                    className={`flex items-center justify-center  w-28 border-l`}
+                  >
                     {data.cutomerName}
                   </td>
-                  <td className={`text-center w-28 border-l`}>
+                  <td
+                    className={`flex items-center justify-center  w-24 border-l`}
+                  >
                     0{data.custMobile1}
                   </td>
-                  <td className={`text-center w-28 border-l`}></td>
-                  <td className={`text-center w-28 border-l`}></td>
-                  <td className={`text-center w-28 border-l`}></td>
-                  <td className={`text-center w-28 border-l`}></td>
-                  <td className={`text-center w-28 border-l`}></td>
+                  <td
+                    className={`flex items-center justify-center w-28 border-l`}
+                  ></td>
+                  <td
+                    className={`flex items-center justify-center w-28 border-l`}
+                  ></td>
+                  <td
+                    className={`flex items-center justify-center w-28 border-l`}
+                  ></td>
+                  <td
+                    className={`flex items-center justify-center w-28 border-l`}
+                  ></td>
+                  <td
+                    className={`flex items-center justify-center w-28 border-l`}
+                  ></td>
                 </tr>
               );
             })}

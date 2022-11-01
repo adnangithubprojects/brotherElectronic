@@ -106,15 +106,19 @@ export default function ActiveDetail() {
           onChange={(e) => setSearch(e.target.value)}
           className="outline-none py-2 rounded mt-1 px-3"
         />
-        <h1 className="text-2xl text-white  py-2 ">Active Customer</h1>
-        <table className=" border-t-2 border-cyan-200  w-full ">
+        <h1 className="text-xl sm:text-2xl font-bold text-white  py-2 ">
+          Active Customer
+        </h1>
+        <table className="text-xs md:text-base border-t-2 border-cyan-200 w-[300px] sm:w-[400px] md:w-full ">
           <tbody className="text-white text-center">
-            <tr className="flex  justify-evenly gap-x-5 bg-cyan-800 py-2 ">
-              <td className="text-center w-32 ">S:No</td>
-              <td className="text-center w-32  pr-3 ">Name</td>
-              <td className="text-right w-32  pr-10 ">F Name</td>
-              <td className="text-right w-32  pr-12 ">cell</td>
-              <td className="text-right w-32  pr-10">edit</td>
+            <tr className="flex justify-between md:justify-evenly gap-x-5 bg-cyan-800 py-2 ">
+              <td className="md:text-center md:w-32 ">S:No</td>
+              <td className="md:text-center md:w-32  pr-3 ">Name</td>
+              <td className="md:text-right md:w-32  pr-10 ">F Name</td>
+              <td className="md:text-right md:w-32  pr-12 ">cell</td>
+              <td className="md:text-right hidden md:flex md:w-32  pr-10">
+                edit
+              </td>
             </tr>
             {data
               .filter((fil) => {
@@ -151,18 +155,22 @@ export default function ActiveDetail() {
                 }
                 return (
                   <tr
-                    className={`flex justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700 `}
+                    className={`flex justify-between md:justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700 `}
                     key={index}
                   >
-                    <td className="text-center w-28 ">{index + 1}</td>
-                    <td className={`text-center w-28 `}>{data.cutomerName}</td>
-                    <td className={`text-center w-28  `}>{data.custFName}</td>
+                    <td className="md:text-center md:w-28 ">{index + 1}</td>
+                    <td className={`md:text-center md:w-28 `}>
+                      {data.cutomerName}
+                    </td>
+                    <td className={`md:text-center md:w-28  `}>
+                      {data.custFName}
+                    </td>
 
-                    <td className={`text-center w-28  `}>
+                    <td className={`md:text-center md:w-28  `}>
                       0{data.custMobile1}
                     </td>
 
-                    <td className="w-28 flex gap-2">
+                    <td className="hidden md:flex gap-2 w-28" disabled>
                       {lateInstallment ? (
                         <span className="p-2 text-sm border rounded-full bg-[#ffc107] ">
                           <IoIosWarning />

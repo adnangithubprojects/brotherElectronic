@@ -76,8 +76,8 @@ function Dashboard() {
   // heatmap
   // scatter
   return (
-    <div className="flex flex-col justify-around  bg-gray-100 w-[1072px] ">
-      <div className="flex gap-14 px-3 justify-evenly ">
+    <div className="flex gap-14 flex-col justify-around py-10 -z-10 bg-gray-100 w-screen md:w-screen lg:w-[1072px] ">
+      <div className="flex gap-14 items-center flex-col md:flex-row  px-3 justify-evenly ">
         <div className="border-2  w-[242px] h-[137px] flex justify-center items-center rounded-2xl shadow-2xl bg-white relative">
           <span className="absolute -top-10 left-5 text-5xl text-gray-700 py-2 rounded-lg shadow-2xl">
             <FaUserTie />
@@ -104,7 +104,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <div className="flex gap-14 px-3  justify-evenly">
+      <div className="flex gap-14 items-center flex-col md:flex-row px-3  justify-evenly">
         <div className="border-2  w-[242px] h-[137px] flex justify-center items-center rounded-2xl shadow-2xl bg-white relative">
           <span className="absolute -top-10 left-5 text-6xl text-gray-700 py-2 rounded-lg shadow-2xl">
             <BiUserCheck />

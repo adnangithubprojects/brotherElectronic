@@ -32,6 +32,10 @@ export default function CutomerForm({ show, setShow }) {
     custhomeAddress: "",
     custofficeAddres: "",
     custstatus: "Pending",
+    custRepeat: "0",
+    custRepeatGauranter: "0",
+    custPreviosAccount: "0",
+    accountNo: "0",
 
     // Product:=>
     instprice: "",
@@ -39,37 +43,37 @@ export default function CutomerForm({ show, setShow }) {
     actAdvance: "",
     advanceRev: "",
     totalRev: "",
-    discount: "",
+    discount: "0",
     //
-    balance: "",
+    balance: "0",
     company: "",
     product: "",
     model: "",
-    serialNo: "",
-    fineTime: "",
+    serialNo: "ok",
+    fineTime: "0",
     //
-    fineRev: "",
-    fineExp: "",
+    fineRev: "0",
+    fineExp: "0",
     duration: "",
     instRev: "",
     instRem: "",
-    status: "",
+    status: "close",
     //
-    srm: "",
-    rm: "",
-    crc: "",
-    delvMng: "",
-    secondMng: "",
-    inqvOff: "",
-    markOff: "",
+    srm: "nil",
+    rm: "nil",
+    crc: "nil",
+    delvMng: "nil",
+    secondMng: "nil",
+    inqvOff: "nil",
+    markOff: "nil",
     //
-    doo: "",
-    processAT: "",
-    defaulter: "",
-    pto: "",
-    vpn: "",
-    processFee: "",
-    salary: "",
+    doo: "nil",
+    processAT: "nil",
+    defaulter: "nil",
+    pto: "nil",
+    vpn: "nil",
+    processFee: "0",
+    salary: "nil",
 
     // guaranter 1:=>
     gName: "",
@@ -133,6 +137,10 @@ export default function CutomerForm({ show, setShow }) {
       custhomeAddress,
       custofficeAddres,
       custstatus,
+      custRepeat,
+      custRepeatGauranter,
+      custPreviosAccount,
+      accountNo,
 
       // Product Details
       instprice,
@@ -225,8 +233,14 @@ export default function CutomerForm({ show, setShow }) {
         custCnic: "",
         custImage: "",
         custCnicImage: "",
+        gender: "male",
         custhomeAddress: "",
         custofficeAddres: "",
+        custstatus: "Pending",
+        custRepeat: "0",
+        custRepeatGauranter: "0",
+        custPreviosAccount: "0",
+        accountNo: "0",
 
         // Product:=>
         instprice: "",
@@ -234,37 +248,37 @@ export default function CutomerForm({ show, setShow }) {
         actAdvance: "",
         advanceRev: "",
         totalRev: "",
-        discount: "",
+        discount: "0",
         //
-        balance: "",
+        balance: "0",
         company: "",
         product: "",
         model: "",
-        serialNo: "",
-        fineTime: "",
+        serialNo: "ok",
+        fineTime: "0",
         //
-        fineRev: "",
-        fineExp: "",
+        fineRev: "0",
+        fineExp: "0",
         duration: "",
         instRev: "",
         instRem: "",
-        status: "",
+        status: "close",
         //
-        srm: "",
-        rm: "",
-        crc: "",
-        delvMng: "",
-        secondMng: "",
-        inqvOff: "",
-        markOff: "",
+        srm: "nil",
+        rm: "nil",
+        crc: "nil",
+        delvMng: "nil",
+        secondMng: "nil",
+        inqvOff: "nil",
+        markOff: "nil",
         //
-        doo: "",
-        processAT: "",
-        defaulter: "",
-        pto: "",
-        vpn: "",
-        processFee: "",
-        salary: "",
+        doo: "nil",
+        processAT: "nil",
+        defaulter: "nil",
+        pto: "nil",
+        vpn: "nil",
+        processFee: "0",
+        salary: "nil",
 
         // guaranter 1:=>
         gName: "",
@@ -393,6 +407,36 @@ export default function CutomerForm({ show, setShow }) {
                   {errors.occupation?.message}
                 </span>
               </span>
+              <span className="relative">
+                <input
+                  {...register("custRepeat", {
+                    // required: "CNIC Reuired !",
+                  })}
+                  type="number"
+                  name="custRepeat"
+                  value={note.custRepeat}
+                  onChange={InputEvent}
+                />
+                <p className="pp">Repeat as Customer : </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.custRepeat?.message}
+                </span> */}
+              </span>
+              <span className="relative">
+                <input
+                  {...register("custRepeatGauranter", {
+                    // required: "CNIC Reuired !",
+                  })}
+                  type="number"
+                  name="custRepeatGauranter"
+                  value={note.custRepeatGauranter}
+                  onChange={InputEvent}
+                />
+                <p className="pp">Repeat as Guaranter : </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.custRepeatGauranter?.message}
+                </span> */}
+              </span>
             </div>
             <div className="child">
               <span className="relative">
@@ -418,7 +462,7 @@ export default function CutomerForm({ show, setShow }) {
               <span className="relative">
                 <input
                   {...register("custMobile2", {
-                    required: "Mobile No required!",
+                    // required: "Mobile No required!",
                   })}
                   type="number"
                   name="custMobile2"
@@ -426,9 +470,9 @@ export default function CutomerForm({ show, setShow }) {
                   onChange={InputEvent}
                 />
                 <p className="pp">Mobile No : 2 </p>
-                <span className="text-sm text-red-500 font-bold">
+                {/* <span className="text-sm text-red-500 font-bold">
                   {errors.custMobile2?.message}
-                </span>
+                </span> */}
               </span>
               <span className="relative">
                 <input
@@ -445,6 +489,37 @@ export default function CutomerForm({ show, setShow }) {
                   {errors.custCnic?.message}
                 </span>
               </span>
+              <span className="relative">
+                <input
+                  {...register("custPreviosAccount", {
+                    // required: "CNIC Reuired !",
+                  })}
+                  type="number"
+                  name="custPreviosAccount"
+                  value={note.custPreviosAccount}
+                  onChange={InputEvent}
+                />
+                <p className="pp">Prev A/C #: </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.custPreviosAccount?.message}
+                </span> */}
+              </span>
+              <span className="relative">
+                <input
+                  {...register("accountNo", {
+                    // required: "CNIC Reuired !",
+                  })}
+                  type="number"
+                  name="accountNo"
+                  value={note.accountNo}
+                  onChange={InputEvent}
+                />
+                <p className="pp">Account No: </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.accountNo?.message}
+                </span> */}
+              </span>
+
               <span className="relative">
                 <select
                   onClick={() => setIcon(!icon)}
@@ -467,7 +542,7 @@ export default function CutomerForm({ show, setShow }) {
               <span className="relative">
                 <input
                   {...register("custImage", {
-                    required: "Image Required!",
+                    // required: "Image Required!",
                   })}
                   type="file"
                   name="custImage"
@@ -475,14 +550,14 @@ export default function CutomerForm({ show, setShow }) {
                   onChange={InputFile}
                 />
                 <p className="pp">Customer Image : </p>
-                <span className="text-sm text-red-500 font-bold">
+                {/* <span className="text-sm text-red-500 font-bold">
                   {errors.custImage?.message}
-                </span>
+                </span> */}
               </span>
               <span className="relative">
                 <input
                   {...register("custCnicImage", {
-                    required: "CNIC Image Required!",
+                    // required: "CNIC Image Required!",
                   })}
                   type="file"
                   name="custCnicImage"
@@ -490,9 +565,9 @@ export default function CutomerForm({ show, setShow }) {
                   onChange={InputFile}
                 />
                 <p className="pp">CNIC Image : </p>
-                <span className="text-sm text-red-500 font-bold">
+                {/* <span className="text-sm text-red-500 font-bold">
                   {errors.custCnicImage?.message}
-                </span>
+                </span> */}
               </span>
 
               <span className="relative">
@@ -1190,7 +1265,7 @@ export default function CutomerForm({ show, setShow }) {
               <span className="relative">
                 <input
                   {...register("gimage", {
-                    required: " Image Required!",
+                    // required: " Image Required!",
                   })}
                   type="file"
                   name="gimage"
@@ -1198,9 +1273,9 @@ export default function CutomerForm({ show, setShow }) {
                   onChange={InputFile}
                 />
                 <p className="pp">CNIC Image :</p>
-                <span className="text-sm text-red-500 font-bold">
+                {/* <span className="text-sm text-red-500 font-bold">
                   {errors.gimage?.message}
-                </span>
+                </span> */}
               </span>
             </div>
             <div className="child">
@@ -1374,7 +1449,7 @@ export default function CutomerForm({ show, setShow }) {
               <span className="relative">
                 <input
                   {...register("g2image", {
-                    required: " Image Required!",
+                    // required: " Image Required!",
                   })}
                   type="file"
                   name="g2image"
@@ -1382,9 +1457,9 @@ export default function CutomerForm({ show, setShow }) {
                   onChange={InputFile}
                 />
                 <p className="pp">CNIC Image :</p>
-                <span className="text-sm text-red-500 font-bold">
+                {/* <span className="text-sm text-red-500 font-bold">
                   {errors.g2image?.message}
-                </span>
+                </span> */}
               </span>
             </div>
             <div className="child">

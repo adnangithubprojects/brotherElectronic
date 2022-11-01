@@ -4,6 +4,7 @@ import Sidebar from "./panel/component/Sidebar";
 import ActiveCustomer from "./panel/pages/ActiveCustomer";
 import AddCustomer from "./panel/pages/AddCustomer";
 import Allcustomer from "./panel/pages/Allcustomer";
+import AllReciept from "./panel/pages/AllReciept";
 import Clientform from "./panel/pages/Clientform";
 import CustomerDetail from "./panel/pages/CustomerDetail";
 import Dashboard from "./panel/pages/Dashboard";
@@ -25,7 +26,7 @@ function App() {
           path="/signup"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className=" flex">
                 <Sidebar />
                 <Signup />
               </div>
@@ -36,29 +37,29 @@ function App() {
           path="/dashboard"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <Dashboard />
               </div>
             </RouteProtection>
           }
         />
-        <Route
+        {/* <Route
           path="/AddCustomer"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <Clientform />
               </div>
             </RouteProtection>
           }
-        />
+        /> */}
         <Route
           path="/AllCustomer"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <Allcustomer />
               </div>
@@ -69,7 +70,7 @@ function App() {
           path="/ActiveCustomer"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <ActiveCustomer />
               </div>
@@ -80,7 +81,7 @@ function App() {
           path="/PendingCustomer"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <PendingCustomer />
               </div>
@@ -91,7 +92,7 @@ function App() {
           path="/downloadcustomer"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <DownlaodCustomer />
               </div>
@@ -99,7 +100,7 @@ function App() {
           }
         />
         <Route
-          path="/addustomer"
+          path="/addcustomer "
           element={
             <RouteProtection>
               <div className="flex">
@@ -109,10 +110,22 @@ function App() {
           }
         />
         <Route
-          path="/revenuemain"
+          path="/allreciept"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
+                <Sidebar />
+
+                <AllReciept />
+              </div>
+            </RouteProtection>
+          }
+        />
+        <Route
+          path="/revenuemain flex-col md:flex-row"
+          element={
+            <RouteProtection>
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <RevenueMain />
               </div>
@@ -123,7 +136,7 @@ function App() {
           path="/CustomerDetail"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <CustomerDetail />
               </div>
@@ -134,7 +147,7 @@ function App() {
           path="/user"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <Sidebar />
                 <User />
               </div>
@@ -142,7 +155,7 @@ function App() {
           }
         />
         <Route
-          path="/setting"
+          path="/setting flex-col md:flex-row"
           element={
             <RouteProtection>
               <div className="flex">

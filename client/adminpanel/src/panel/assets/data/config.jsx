@@ -487,4 +487,5 @@ export const carasolData = [
   },
 ];
 
+// export const base_url = "https://beautiful-bear-baseball-cap.cyclic.app";
 export const base_url = "http://localhost:9000";
