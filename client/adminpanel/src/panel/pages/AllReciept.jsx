@@ -48,21 +48,20 @@ export default function AllReciept() {
   return (
     <div className=" overflow-scroll h-[625px] ml-6">
       <div className="flex items-center justify-center h-24 gap-4">
-
-      <input
-        type="text"
-        placeholder="Search with Name"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="outline-none py-2 rounded mt-1 px-3 border-2 border-blue-500 focus:border-indigo-700"
+        <input
+          type="text"
+          placeholder="Search with Name"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="outline-none py-2 rounded mt-1 px-3 border-2 border-blue-500 focus:border-indigo-700"
         />
-      <button
-        onClick={onPrint}
-        className="cursor-pointer transition-all mb-2 duration-300 bg-blue-700 text-white   w-24 hover:bg-gray-400 hover:text-yellow-400 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg"
+        <button
+          onClick={onPrint}
+          className="cursor-pointer transition-all mb-2 duration-300 bg-blue-700 text-white   w-24 hover:bg-gray-400 hover:text-yellow-400 font-bold mt-3 outline-none border-none px-2 py-3 rounded-lg"
         >
-        Print
-      </button>
-        </div>
+          Print
+        </button>
+      </div>
       <div className="flex flex-col  " ref={componentRef}>
         {data
           ?.filter((fil) => {
@@ -80,14 +79,19 @@ export default function AllReciept() {
             // below code is about installment warning
             let lateInstallment = [];
             const lastLength = data.installments.length;
-            const totalInstallment = data?.installments?.reduce((total, items) => {
-              return total + items.installment;
-            }, 0);
-            const recievedBalance= totalInstallment + parseInt(data?.actAdvance);
-            const remainingBalance = parseInt(data?.instprice)-recievedBalance;
+            const totalInstallment = data?.installments?.reduce(
+              (total, items) => {
+                return total + items.installment;
+              },
+              0
+            );
+            const recievedBalance =
+              totalInstallment + parseInt(data?.actAdvance);
+            const remainingBalance =
+              parseInt(data?.instprice) - recievedBalance;
             const recievedInstallment = lastLength + 1;
             const remainingInstallment = 12 - recievedInstallment;
-            const accountDatee = new Date(data.updatedAt),//account created Date
+            const accountDatee = new Date(data.updatedAt), //account created Date
               date =
                 accountDatee.getDate() +
                 " / " +
@@ -107,7 +111,7 @@ export default function AllReciept() {
                 lateInstallment = false;
               }
             }
-            return !lateInstallment ? (
+            return (
               <RecieptCard
                 accountNo="hallo"
                 custName={data?.cutomerName}
@@ -132,11 +136,8 @@ export default function AllReciept() {
                 remBalance={remainingBalance}
                 key={index}
               />
-            ) : (
-              ""
             );
           })}
-        
       </div>
     </div>
   );

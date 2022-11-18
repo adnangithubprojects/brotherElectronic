@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { customer } from "../assets/data/config";
 import { useReactToPrint } from "react-to-print";
-import "../style/customer.css";
+import "../style/downloadCustomer.css";
 import { base_url } from "../assets/data/config";
 export default function DownlaodCustomer() {
   const [data, setData] = useState([]);
@@ -10,8 +11,26 @@ export default function DownlaodCustomer() {
   const onPrint = useReactToPrint({
     content: () => componentRef.current,
     ducomentTitle: "epm-daata",
-    onafterprint: () => alert("print succesfull"),
+    onafterprint: () => alert("print successfull"),
   });
+
+  const pageStyle = `
+  @page {
+    size: 80mm 50mm;
+  }
+
+  @media all {
+    .pagebreak {
+      display: none;
+    }
+  }
+
+  @media print {
+    .pagebreak {
+      page-break-before: always;
+    }
+  }
+`;
 
   const customerData = async (opt) => {
     const res = await axios.get(`${base_url}/customer/get`);
@@ -28,68 +47,43 @@ export default function DownlaodCustomer() {
       <h1 className="text-2xl text-white  py-2 ">Downlaod Customer</h1>
       <div className="DownlaodScroll scrollbar-hide">
         <table
-          className=" border-t-2 text-sm border-cyan-200  w-full mx-7  "
+          className=" border-t border-x text-sm   w-full mx-7   "
           ref={componentRef}
         >
-          <tbody className=" text-center  ">
-            <tr className="flex items-center justify-between gap-x-5  py-1 ">
-              <td className="flex items-center justify-center w-8 bg-red-500">
-                S:No
-              </td>
-              <td className="flex items-center justify-center w-28">Name</td>
-              <td className="flex items-center justify-center w-24">
-                Mobile No
-              </td>
-              <td className="flex items-center justify-center w-28">
-                Recovery Officer
-              </td>
-              <td className="flex items-center justify-center w-28">
-                Installment
-              </td>
-              <td className="flex items-center justify-center w-28">
-                Remaining Installment
-              </td>
-              <td className="flex items-center justify-center w-28">
-                Customer Signature
-              </td>
-              <td className="flex items-center justify-center w-28">
-                Officer Signature
-              </td>
-            </tr>
-            {data.map((data, index) => {
+          <thead className="thead ">
+            <th className="thead__th thead__th1">AccNo</th>
+            <th className="thead__th thead__th2  ">Name</th>
+            <th className="thead__th thead__th3  ">Mobile No</th>
+            <th className="thead__th thead__th2  ">Recieving Date</th>
+            <th className="thead__th thead__th2  ">Installment</th>
+            <th className="thead__th thead__th2  ">Remaining Installment</th>
+            <th className="thead__th thead__th2  ">
+              Recovery Officer Signature
+            </th>
+            <th className="thead__th thead__th2  ">Mannager Signature</th>
+          </thead>
+          <tbody className="tbody ">
+            {customer.map((data, index) => {
               return (
-                <tr
-                  className={`flex justify-around  cursor-pointer h-9 border-t hover:bg-cyan-700 `}
-                  key={index}
-                >
-                  <td className="flex items-center justify-center w-8  ">
-                    {index + 1}
+                <tr className={`tbody__tr`} key={index}>
+                  <td className="tbody__tr__td tbody__tr__td1">{index + 1}</td>
+                  <td className={`tbody__tr__td tbody__tr__td2`}>
+                    {/* {data.cutomerName} */}
+                    {data.name}
                   </td>
-                  <td
-                    className={`flex items-center justify-center  w-28 border-l`}
-                  >
-                    {data.cutomerName}
+                  <td className={`tbody__tr__td tbody__tr__td3`}>
+                    0{data.cell}
+                    {/* 0{data.custMobile1} */}
                   </td>
-                  <td
-                    className={`flex items-center justify-center  w-24 border-l`}
-                  >
-                    0{data.custMobile1}
+                  <td className={`tbody__tr__td tbody__tr__td2  `}></td>
+                  <td className={`tbody__tr__td tbody__tr__td2  `}>
+                    {/* {data.actInstall} */}
                   </td>
-                  <td
-                    className={`flex items-center justify-center w-28 border-l`}
-                  ></td>
-                  <td
-                    className={`flex items-center justify-center w-28 border-l`}
-                  ></td>
-                  <td
-                    className={`flex items-center justify-center w-28 border-l`}
-                  ></td>
-                  <td
-                    className={`flex items-center justify-center w-28 border-l`}
-                  ></td>
-                  <td
-                    className={`flex items-center justify-center w-28 border-l`}
-                  ></td>
+                  <td className={`tbody__tr__td tbody__tr__td2  `}>
+                    {/* {data.custMobile1} */}
+                  </td>
+                  <td className={`tbody__tr__td tbody__tr__td2  `}></td>
+                  <td className={`tbody__tr__td tbody__tr__td4  `}></td>
                 </tr>
               );
             })}

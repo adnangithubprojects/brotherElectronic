@@ -8,8 +8,9 @@ import InvoiceCarasoul from "./InvoiceCarasoul";
 import { Image } from "./InvoiceCarasoul";
 import { useEffect } from "react";
 import axios from "axios";
-import { FaImage } from "react-icons/fa";
+import { FaImage, FaTrashAlt } from "react-icons/fa";
 import { base_url } from "../assets/data/config";
+import DeleteBox from "../component/DeleteBox";
 
 export default function CustomerDetail() {
   const [carasoul, setCarasoul] = useState(false); //carasoul popUp state
@@ -26,6 +27,30 @@ export default function CustomerDetail() {
     ducomentTitle: "epm-daata",
     onafterprint: () => alert("print succesfull"),
   });
+  const [dialog, setDialog] = useState(false); //delete dialog for installment
+  const confirmId = useRef(); //installment id
+  const message = "Are you sure you want to Delete Installment!";
+  function onDelete(id) {
+    setDialog(true);
+    confirmId.current = id;
+  }
+  async function confirmDelete(choose) {
+    if (choose) {
+      try {
+        const res = await axios.delete(
+          `${base_url}/installment/${confirmId.current}`
+        );
+        // setData(data.filter((it) => it.Sno !== confirmId.current));
+        setDialog(!dialog);
+        window.alert("Installment Deleted");
+        singleCustomerInstallment();
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setDialog(false);
+    }
+  }
   // select Customer Id to add installment
   // const selectCustomerId = (data) => {
   //   setUser(data);
@@ -435,8 +460,12 @@ export default function CustomerDetail() {
                 </h3>
                 <h3 className="w-40">{state?.gOccupation}</h3>
                 <h3 className="w-40">{state?.grelation}</h3>
-                <h3 className="w-40 text-sm pt-5">{state?.ghomeAddress}</h3>
-                <h3 className="w-40 text-sm pt-5">{state?.g2officeAddres}</h3>
+                <h3 className="flex items-center justify-center w-40 text-xs   h-14">
+                  {state?.ghomeAddress}
+                </h3>
+                <h3 className="flex items-center justify-center w-40 text-xs   h-14">
+                  {state?.g2officeAddres}
+                </h3>
               </div>
             </div>
 
@@ -461,8 +490,12 @@ export default function CustomerDetail() {
                 </h3>
                 <h3 className="w-40">{state?.g2occupation}</h3>
                 <h3 className="w-40">{state?.g2relation}</h3>
-                <h3 className="w-40 text-sm pt-5">{state?.g2homeAddress}</h3>
-                <h3 className="w-40 text-sm pt-5">{state?.g2officeAddres}</h3>
+                <h3 className="flex items-center justify-center w-40 text-xs   h-14">
+                  {state?.g2homeAddress}
+                </h3>
+                <h3 className="flex items-center justify-center w-40 text-xs   h-14">
+                  {state?.g2officeAddres}
+                </h3>
               </div>
             </div>
 
@@ -510,7 +543,7 @@ export default function CustomerDetail() {
                 <td className="border-l border-gray-700 w-[140px]">0</td>
                 <td className="border-l border-gray-700 w-[140px]">0</td>
               </tr>
-              <tr className="flex bg-cyan-600 text-white justify-evenly  border-b  border-gray-700  ">
+              <tr className="flex bg-cyan-600 text-white justify-between  border-b  border-gray-700  ">
                 <td className="w-1">S.# </td>
                 <td className="border-l border-gray-700 w-20 flex justify-end">
                   Date
@@ -539,12 +572,12 @@ export default function CustomerDetail() {
                 <td className="border-l border-gray-700 w-[110px] text-sm text-center">
                   Recovery Officer
                 </td>
-                <td className="border-l w-12 text-center">Remarks</td>
+                <td className="border-l w-[88px] text-center">Remarks</td>
               </tr>
               {installment.map((data, index) => {
                 return (
                   <tr
-                    className="flex  justify-evenly border-t border-gray-700"
+                    className="flex justify-between border-t border-gray-700"
                     key={index}
                   >
                     <td className="w-1">{index + 1} </td>
@@ -575,8 +608,16 @@ export default function CustomerDetail() {
                     <td className="border-l border-gray-700 w-[110px] text-sm text-center">
                       {data.recoveryOfficer}
                     </td>
-                    <td className="border-l border-gray-700 w-12 text-center">
-                      {data.remarks}
+                    <td className="border-l flex justify-around border-gray-700 w-[88px] pr-4  text-center">
+                      <span>{data.remarks}</span>
+                      <span
+                        onClick={() => {
+                          onDelete(data._id);
+                        }}
+                        className="p-1 text-xs border rounded-full bg-rose-600 hover:text-red-600 hover:bg-white transition-all duration-300"
+                      >
+                        <FaTrashAlt />
+                      </span>
                     </td>
                   </tr>
                 );
@@ -656,6 +697,11 @@ export default function CustomerDetail() {
             setCarasoul={setCarasoul}
             registeImages={registeImages}
           />
+        ) : (
+          ""
+        )}
+        {dialog ? (
+          <DeleteBox confirmDelete={confirmDelete} message={message} />
         ) : (
           ""
         )}

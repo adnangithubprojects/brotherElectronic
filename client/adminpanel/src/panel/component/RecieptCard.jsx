@@ -52,7 +52,7 @@ export default function RecieptCard({
             اتاریخ تک لازمی جمع کروایئں
           </p>
           <p className="">
-            ا  <span className="text-white bg-blue-900 p-[1px] rounded">5</span>
+            ا <span className="text-white bg-blue-900 p-[1px] rounded">5</span>
             تاریخ کے بعد
             <span className="text-white bg-blue-900 p-[1px] rounded">
               500
@@ -102,7 +102,7 @@ export default function RecieptCard({
           </div>
           <div className="flex items-center">
             <p className="font-bold w-32 text-sm ">Installment Date:</p>
-            <p className="border-b-2 border-blue-800 w-24 text-center">ali</p>
+            <p className="border-b-2 border-blue-800 w-24 h-6 text-center"></p>
           </div>
         </div>
         <div className="flex flex-col gap-1">
@@ -120,20 +120,20 @@ export default function RecieptCard({
           </div>
           <div className="flex gap-2  items-center">
             <p className="font-bold w-32"> Advance:</p>
-            <p className="border-b-2 border-blue-800 w-44 text-center">
-              {advance}/-
+            <p className="border-b-2 h-5 border-blue-800 w-44 text-center">
+              {/* {advance}/- */}
             </p>
           </div>
           <div className="flex gap-2 items-center">
             <p className="font-bold w-[135px]"> Recieved Balance:</p>
-            <p className="border-b-2 border-blue-800 w-44 text-center">
-              {recievedBalance}/-
+            <p className="border-b-2 h-5 border-blue-800 w-44 text-center">
+              {/* {recievedBalance}/- */}
             </p>
           </div>
           <div className="flex gap-2 items-center">
             <p className="font-bold w-[135px]">Installment:</p>
-            <p className="border-b-2 border-blue-800 w-44 text-center">
-              {installmentt}/-
+            <p className="border-b-2 h-5 border-blue-800 w-44 text-center">
+              {/* {installmentt}/- */}
             </p>
           </div>
         </div>
@@ -191,22 +191,22 @@ export default function RecieptCard({
 
         <div className="flex gap-1 items-center">
           <p className="font-bold w-36">Recv. Installment:</p>
-          <p className="border-b-2 border-blue-800 w-16 text-center">
-            {recievedInstallment}
+          <p className="border-b-2 h-5 border-blue-800 w-16 text-center">
+            {/* {recievedInstallment} */}
           </p>
         </div>
 
         <div className="flex gap-1 items-center">
           <p className="font-bold w-36">Rem. Installment:</p>
-          <p className="border-b-2 border-blue-800 w-16 text-center">
-            {remInstallment}
+          <p className="border-b-2 h-5 border-blue-800 w-16 text-center">
+            {/* {remInstallment} */}
           </p>
         </div>
 
         <div className="flex gap-2 items-center">
           <p className="font-bold w-28">Rem. Balance:</p>
-          <p className="border-b-2 text-lg font-bold border-blue-800 w-20 text-center">
-            {remBalance}/-
+          <p className="border-b-2 h-5 text-lg font-bold border-blue-800 w-20 text-center">
+            {/* {remBalance}/- */}
           </p>
         </div>
       </div>

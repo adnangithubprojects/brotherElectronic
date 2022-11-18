@@ -102,12 +102,14 @@ export default function RevenueMain() {
         </div>
         <table className=" border-t-2 border-cyan-200  w-full ">
           <tbody className="text-white text-center">
-            <tr className="flex  justify-around gap-x-5 bg-cyan-800 py-2 ">
-              <td className="w-30">S:No</td>
-              <td className="w-30">Product Name</td>
-              <td className="w-30">Net Price</td>
-              <td className="w-30">Ints Price</td>
-              <td className="w-30">profit</td>
+            <tr className="flex  justify-around gap-x-5 text-sm bg-cyan-800 py-2 ">
+              <td className="w-8">S:No</td>
+              <td className="w-28">Product Name</td>
+              <td className="w-28">Customer Name</td>
+              <td className="w-28">Shop Name</td>
+              <td className="w-28">Net Price</td>
+              <td className="w-28">Ints Price</td>
+              <td className="w-28">profit</td>
             </tr>
             {data.map((productData, index) => {
               return (
@@ -115,17 +117,21 @@ export default function RevenueMain() {
                   key={index}
                   className="flex justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700"
                 >
-                  <td className="text-center w-28 ">{index + 1}</td>
-                  <td className="text-center w-28 ">{productData.pName}</td>
-                  <td className="text-center w-28 ">{productData.netPrice}</td>
-                  <td className="text-center w-28 ">{productData.instPrice}</td>
-                  <td className="text-center w-28 ">{productData.profit}</td>
+                  <td className="text-center w-8 ">{index + 1}</td>
+                  <td className="text-center w-28 ">{productData?.pName}</td>
+                  <td className="text-center w-28 ">{productData?.custName}</td>
+                  <td className="text-center w-28 ">{productData?.shopName}</td>
+                  <td className="text-center w-28 ">{productData?.netPrice}</td>
+                  <td className="text-center w-28 ">
+                    {productData?.instPrice}
+                  </td>
+                  <td className="text-center w-28 ">{productData?.profit}</td>
                 </tr>
               );
             })}
           </tbody>
-          <tr className="flex justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700">
-            <td className="flex gap-4 text-center w-28 ">
+          <tr className="flex justify-between bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700">
+            <td className="flex gap-4 text-center w-28 ml-10">
               <span
                 onClick={onPrint}
                 className="px-2 p-1 flex items-center gap-1 rounded text-sm border  bg-green-600 hover:text-green-700 hover:bg-white transition-all duration-300"
@@ -140,16 +146,18 @@ export default function RevenueMain() {
                 All
               </span>
             </td>
-            <td className="text-center w-28 font-bold text-white ">total</td>
-            <td className="text-center w-28 font-bold text-white">
-              {totalNetPrice}
-            </td>
-            <td className="text-center w-28 font-bold text-white">
-              {totalInstPrice}
-            </td>
-            <td className="text-center w-28 font-bold text-white">
-              {totalProfit}
-            </td>
+            <div className="  md:w-[600px]  flex justify-evenly">
+              <td className="text-center w-32 font-bold  text-white ">total</td>
+              <td className="text-center mr-7 w-32 font-bold  text-white">
+                {totalNetPrice}
+              </td>
+              <td className="text-center  w-28  font-bold text-white">
+                {totalInstPrice}
+              </td>
+              <td className="text-center ml-5 w-32  font-bold text-white">
+                {totalProfit}
+              </td>
+            </div>
           </tr>
         </table>
       </div>
@@ -165,6 +173,8 @@ export default function RevenueMain() {
 function AddProduct({ getProduct }) {
   const [note, setNote] = useState({
     pName: "",
+    custName: "",
+    shopName: "",
     netPrice: "",
     instPrice: "",
   });
@@ -185,7 +195,7 @@ function AddProduct({ getProduct }) {
 
   const onSubmit = async (a, e) => {
     e.preventDefault();
-    const { pName, netPrice, instPrice } = note;
+    const { pName, custName, shopName, netPrice, instPrice } = note;
 
     await axios
       .post(`${base_url}/product/post`, {
@@ -231,6 +241,44 @@ function AddProduct({ getProduct }) {
         <div className="relative flex  gap-2 w-32 ">
           <span className="w-full">
             <input
+              {...register("custName", {
+                required: "Field Required!",
+              })}
+              type="text"
+              name="custName"
+              className="w-full   outline-none border-none px-4 py-1 rounded-xl "
+              required
+              value={note.custName}
+              onChange={inputEvent}
+            />
+            <p className="absolute -top-6 left-2 text-white">Customer Name:</p>
+            <span className="text-xs text-red-500 font-bold">
+              {errors.custName?.message}
+            </span>
+          </span>
+        </div>
+        <div className="relative flex  gap-2 w-32 ">
+          <span className="w-full">
+            <input
+              {...register("shopName", {
+                required: "Field Required!",
+              })}
+              type="text"
+              name="shopName"
+              className="w-full   outline-none border-none px-4 py-1 rounded-xl "
+              required
+              value={note.shopName}
+              onChange={inputEvent}
+            />
+            <p className="absolute -top-6 left-2 text-white">Shop Name:</p>
+            <span className="text-xs text-red-500 font-bold">
+              {errors.shopName?.message}
+            </span>
+          </span>
+        </div>
+        <div className="relative flex  gap-2 w-32 ">
+          <span className="w-full">
+            <input
               {...register("netPrice", {
                 required: "Field Required!",
                 minLength: {
@@ -251,6 +299,7 @@ function AddProduct({ getProduct }) {
             </span>
           </span>
         </div>
+
         <div className="relative flex  gap-2 w-32  ">
           <span className="w-full">
             <input

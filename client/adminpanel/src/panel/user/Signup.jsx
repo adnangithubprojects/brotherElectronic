@@ -158,7 +158,7 @@ export default function Signup() {
               <span className="text-white">
                 Already have an Account ? &nbsp;
               </span>
-              <Link to="/" className="text-white">
+              <Link to="/" className="text-white font-bold">
                 Sign in
               </Link>
             </div>

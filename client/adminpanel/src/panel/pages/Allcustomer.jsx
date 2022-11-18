@@ -43,7 +43,7 @@ export default function Allcustomer() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-1 w-screen items-center  ">
+    <div className="flex flex-col gap-1 w-full items-center  ">
       {/* <Fetching /> */}
       <div className="scroll w-full py-4">
         <input
@@ -51,15 +51,15 @@ export default function Allcustomer() {
           placeholder="Search"
           value={Search}
           onChange={(e) => setSearch(e.target.value)}
-          className="outline-none py-2 rounded mt-1 px-3"
+          className="outline-none py-2 rounded mt-1 px-3 border-2 border-blue-700"
         />
-        <h1 className="text-2xl font-bold text-white  py-2 ">All Customer</h1>
+        <h1 className="text-2xl font-bold text-gray-600 py-2 ">All Customer</h1>
         <table
-          className="border-[1px] md:border-none md:border-t-2 border-cyan-200 text-xs md:text-base w-[300px] sm:w-[400px] md:w-full "
+          className=" md:border-none md:border-t-2 border-gray-500 text-xs md:text-base w-[300px] sm:w-[400px] md:w-full "
           id="ad"
         >
-          <tbody className="text-white text-center">
-            <tr className="flex justify-between  md:justify-evenly gap-x-5 bg-cyan-800 py-2 ">
+          <tbody className="text-center">
+            <tr className="flex justify-between  md:justify-evenly gap-x-5 bg-gray-100 py-2 ">
               <td className="text-center w-8 md:w-32 ">S:No</td>
               <td className="text-center w-10  md:w-32  md:pr-4 ">Name</td>
               <td className=" md:text-right w-20 md:w-32  md:pr-14 ">cell</td>
@@ -68,7 +68,7 @@ export default function Allcustomer() {
             {data.map((data, index) => {
               return (
                 <tr
-                  className="flex justify-between  md:justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700"
+                  className="flex justify-between  md:justify-around  cursor-pointer py-2 border-t bg-white hover:bg-gray-200"
                   key={index}
                 >
                   <td className="w-8 md:w-28 ">{index + 1} </td>

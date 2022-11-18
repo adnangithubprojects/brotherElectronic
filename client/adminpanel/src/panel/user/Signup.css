@@ -1,17 +1,8 @@
 .signup__container {
-  /* background: linear-gradient(to bottom, #1b76bcad, #ff725cd0); */
-
-  @apply flex justify-center items-center h-screen w-[1058px] ml-5  bg-indigo-900;
+  @apply flex justify-center items-center h-screen w-screen lg:w-[1058px] md:ml-5  bg-indigo-900;
 }
 .signup__main {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  height: 500px;
-  @apply flex flex-col justify-center items-center  w-96    rounded;
+  @apply flex flex-col justify-center items-center  w-96 h-[500px]   rounded;
 }
 .form {
   @apply w-full h-full px-10;
@@ -44,9 +35,6 @@
 
 @media (max-width: 700px) {
   .signup__main {
-    width: 350px;
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 10px 3px white;
     @apply m-3 p-3 rounded-xl;
   }
 }

@@ -12,6 +12,7 @@ import {
   FaDownload,
   FaBars,
   FaTimes,
+  FaReceipt,
 } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
 import { MdProductionQuantityLimits } from "react-icons/md";
@@ -21,7 +22,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const user = localStorage.getItem("token");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [icon, setIcon] = useState(false);
   const refer = useNavigate();
   useEffect(() => {
     const set = setTimeout(() => {
@@ -72,9 +74,9 @@ function Sidebar() {
 
             <div
               className="md:hidden flex border border-gray-200 text-white border-opacity-20 p-3 rounded-md text-xl"
-              onClick={() => setOpen(!open)}
+              onClick={() => setIcon(!icon)}
             >
-              {!open ? <FaBars /> : <FaTimes />}
+              {!icon ? <FaBars /> : <FaTimes />}
             </div>
           </div>
           {/* <div
@@ -91,8 +93,8 @@ function Sidebar() {
           </h1>
         </div> */}
           <ul
-            className={`pt-5 ${open ? "NavUnActive" : "NavActive"}`}
-            onClick={() => setOpen(!open)}
+            className={`pt-5 ${icon ? "NavUnActive" : "NavActive"}`}
+            onClick={() => setIcon(!icon)}
           >
             <NavLink to="/dashboard">
               <li className={`sidebar__items`}>
@@ -169,7 +171,7 @@ function Sidebar() {
             <NavLink to="/allreciept">
               <li className={`sidebar__items`}>
                 <span className={`text-2xl cursor-pointer duration-300 `}>
-                  <BiUserPlus />
+                  <FaReceipt />
                 </span>
                 <span
                   className={`${!open && "md:hidden"} duration-200 origin-left`}
@@ -192,7 +194,7 @@ function Sidebar() {
                 </span>
               </li>
             </NavLink>
-            <NavLink to="/user">
+            {/* <NavLink to="/user">
               <li className={`sidebar__items`}>
                 <span className={`text-2xl cursor-pointer duration-300 `}>
                   <FaUserAlt />
@@ -203,7 +205,7 @@ function Sidebar() {
                   User
                 </span>
               </li>
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/signup">
               <li className={`sidebar__items`}>
                 <span className={`text-2xl cursor-pointer duration-300 `}>

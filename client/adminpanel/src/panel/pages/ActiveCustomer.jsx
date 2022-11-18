@@ -16,7 +16,7 @@ export default function ActiveCustomer() {
             Add Customer
           </button>
         </div> */}
-        <div className="bg-cyan-800 w-full sm:w-screen md:w-[1024px] py-3 h-auto overflow-hidden">
+        <div className="bg-gray-200 w-full sm:w-screen md:w-[1024px] py-3 h-auto overflow-hidden">
           <ActiveDetail />
         </div>
 

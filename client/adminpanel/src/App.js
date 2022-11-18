@@ -26,7 +26,7 @@ function App() {
           path="/signup"
           element={
             <RouteProtection>
-              <div className=" flex">
+              <div className=" flex flex-col md:flex-row">
                 <Sidebar />
                 <Signup />
               </div>
@@ -100,7 +100,7 @@ function App() {
           }
         />
         <Route
-          path="/addcustomer "
+          path="/addcustomer"
           element={
             <RouteProtection>
               <div className="flex">
@@ -122,7 +122,7 @@ function App() {
           }
         />
         <Route
-          path="/revenuemain flex-col md:flex-row"
+          path="/revenuemain"
           element={
             <RouteProtection>
               <div className="flex flex-col md:flex-row">
@@ -147,7 +147,7 @@ function App() {
           path="/user"
           element={
             <RouteProtection>
-              <div className="flex flex-col md:flex-row">
+              <div className="flex flex-col lg:flex-row">
                 <Sidebar />
                 <User />
               </div>
@@ -155,10 +155,10 @@ function App() {
           }
         />
         <Route
-          path="/setting flex-col md:flex-row"
+          path="/setting"
           element={
             <RouteProtection>
-              <div className="flex">
+              <div className="flex flex-col lg:flex-row">
                 <Sidebar />
                 <Setting />
               </div>

@@ -24,7 +24,7 @@ export default function CutomerForm({ show, setShow }) {
     resedential: "",
     occupation: "",
     custMobile1: "",
-    custMobile2: "",
+    custMobile2: "0",
     custCnic: "",
     custImage: "",
     custCnicImage: "",
@@ -64,7 +64,7 @@ export default function CutomerForm({ show, setShow }) {
     crc: "nil",
     delvMng: "nil",
     secondMng: "nil",
-    inqvOff: "nil",
+    inqvOff: "",
     markOff: "nil",
     //
     doo: "nil",
@@ -81,7 +81,7 @@ export default function CutomerForm({ show, setShow }) {
     grelation: "",
     gOccupation: "",
     gmobileNumber1: "",
-    gmobileNumber2: "",
+    gmobileNumber2: "0",
     gcnic: "",
     gimage: "",
     ghomeAddress: "",
@@ -93,7 +93,7 @@ export default function CutomerForm({ show, setShow }) {
     g2relation: "",
     g2occupation: "",
     g2mobileNumber1: "",
-    g2mobileNumber2: "",
+    g2mobileNumber2: "0",
     g2cnic: "",
     g2image: "",
     g2homeAddress: "",
@@ -996,7 +996,7 @@ export default function CutomerForm({ show, setShow }) {
               <span className="relative">
                 <input
                   {...register("inqvOff", {
-                    required: "SRM Required!",
+                    required: "Inqv Off Required!",
                   })}
                   type="text"
                   name="inqvOff"
@@ -1519,17 +1519,4 @@ export default function CutomerForm({ show, setShow }) {
       </div>
     </>
   );
-}
-
-{
-  /* <input
-    name="email"
-    ref={register({
-      required: "Required",
-      pattern: {
-        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        message: "invalid email address"
-      }
-    })}
-  /> */
 }

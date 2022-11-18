@@ -106,12 +106,12 @@ export default function ActiveDetail() {
           onChange={(e) => setSearch(e.target.value)}
           className="outline-none py-2 rounded mt-1 px-3"
         />
-        <h1 className="text-xl sm:text-2xl font-bold text-white  py-2 ">
+        <h1 className="text-xl sm:text-2xl font-bold  py-2 ">
           Active Customer
         </h1>
-        <table className="text-xs md:text-base border-t-2 border-cyan-200 w-[300px] sm:w-[400px] md:w-full ">
-          <tbody className="text-white text-center">
-            <tr className="flex justify-between md:justify-evenly gap-x-5 bg-cyan-800 py-2 ">
+        <table className="text-xs md:text-base border-t-2  w-[300px] sm:w-[400px] md:w-full ">
+          <tbody className=" text-center">
+            <tr className="flex justify-between md:justify-evenly gap-x-5 bg-gray-200 py-2 ">
               <td className="md:text-center md:w-32 ">S:No</td>
               <td className="md:text-center md:w-32  pr-3 ">Name</td>
               <td className="md:text-right md:w-32  pr-10 ">F Name</td>
@@ -155,7 +155,7 @@ export default function ActiveDetail() {
                 }
                 return (
                   <tr
-                    className={`flex justify-between md:justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700 `}
+                    className={`flex justify-between md:justify-around bg-white hover:bg-gray-200 cursor-pointer py-2 border-t  `}
                     key={index}
                   >
                     <td className="md:text-center md:w-28 ">{index + 1}</td>
@@ -170,7 +170,10 @@ export default function ActiveDetail() {
                       0{data.custMobile1}
                     </td>
 
-                    <td className="hidden md:flex gap-2 w-28" disabled>
+                    <td
+                      className="hidden md:flex gap-2 w-28 text-white"
+                      disabled
+                    >
                       {lateInstallment ? (
                         <span className="p-2 text-sm border rounded-full bg-[#ffc107] ">
                           <IoIosWarning />

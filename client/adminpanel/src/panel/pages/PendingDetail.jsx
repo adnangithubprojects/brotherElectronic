@@ -68,7 +68,7 @@ export default function PendingDetail() {
 
   return (
     <div className="w-full h-full">
-      <div className="scroll1 ">
+      <div className="scroll1 py-8">
         <input
           type="text"
           placeholder="Search"
@@ -76,17 +76,17 @@ export default function PendingDetail() {
           onChange={(e) => setSearch(e.target.value)}
           className="outline-none py-2 rounded mt-1 px-3"
         />
-        <h1 className="text-xl sm:text-2xl font-bold text-white  py-2 ">
+        <h1 className="text-xl sm:text-2xl font-bold  py-2 ">
           Pending Customer
         </h1>
-        <table className="text-xs md:text-base border-[1px] md:border-none md:border-t-2 border-cyan-200  w-[300px] sm:w-[400px] md:w-full ">
-          <tbody className="text-white text-center">
-            <tr className="flex justify-between md:justify-evenly gap-x-5 bg-cyan-800 py-2 ">
+        <table className="text-xs md:text-base border-2 md:border-none md:border-t-2   w-[300px] sm:w-[400px] md:w-full ">
+          <tbody className=" text-center">
+            <tr className="flex justify-between md:justify-evenly gap-x-5 font-bold bg-gray-200 py-2 ">
               <td className="md:text-center w-8 md:w-32 ">S:No</td>
               <td className="md:text-center w-10 md:w-32  md:pl-5 ">Name</td>
               <td className="md:text-right w-20 md:w-32  md:pr-5 ">F Name</td>
-              <td className="md:text-right w-12 md:w-32 pr-4 md:pr-9 ">cell</td>
-              <td className="md:text-right hidden md:flex md:w-32  md:pr-6">
+              <td className="md:text-right w-12 md:w-32 pr-4 md:pr-6 ">cell</td>
+              <td className=" hidden md:flex items-center justify-end md:pr-5 md:w-32  ">
                 edit
               </td>
             </tr>
@@ -105,7 +105,7 @@ export default function PendingDetail() {
               .map((data, index) => {
                 return (
                   <tr
-                    className="flex justify-between md:justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700"
+                    className="flex justify-between md:justify-around  cursor-pointer py-2 border-t bg-white hover:bg-gray-200"
                     key={data._id}
                   >
                     <td className="md:text-center w-8 md:w-28 ">{index + 1}</td>
@@ -120,13 +120,13 @@ export default function PendingDetail() {
                       0{data.custMobile1}
                     </td>
 
-                    <td className="hidden md:flex gap-2">
+                    <td className="hidden md:flex gap-2 text-white">
                       <span
                         onClick={() => {
                           setShow(!show);
                           selectUser(data);
                         }}
-                        className="p-2 text-sm border rounded-full bg-green-600 hover:text-green-700 hover:bg-white transition-all duration-300"
+                        className="p-2  text-sm border rounded-full bg-green-600 hover:text-green-700 hover:bg-white transition-all duration-300"
                       >
                         <FaEdit />
                       </span>
