@@ -27,6 +27,7 @@ export default function CutomerForm({ show, setShow }) {
     custMobile2: "0",
     custCnic: "",
     custImage: "",
+    custFingerImage: "",
     custCnicImage: "",
     gender: "male",
     custhomeAddress: "",
@@ -132,6 +133,7 @@ export default function CutomerForm({ show, setShow }) {
       custMobile2,
       custCnic,
       custImage,
+      custFingerImage,
       gender,
       custCnicImage,
       custhomeAddress,
@@ -231,6 +233,7 @@ export default function CutomerForm({ show, setShow }) {
         custMobile1: "",
         custMobile2: "",
         custCnic: "",
+        custFingerImage: "",
         custImage: "",
         custCnicImage: "",
         gender: "male",
@@ -567,6 +570,21 @@ export default function CutomerForm({ show, setShow }) {
                 <p className="pp">CNIC Image : </p>
                 {/* <span className="text-sm text-red-500 font-bold">
                   {errors.custCnicImage?.message}
+                </span> */}
+              </span>
+              <span className="relative">
+                <input
+                  {...register("custFingerImage", {
+                    // required: "CNIC Image Required!",
+                  })}
+                  type="file"
+                  name="custFingerImage"
+                  // value={note.custFingerImage}
+                  onChange={InputFile}
+                />
+                <p className="pp">Finger Image : </p>
+                {/* <span className="text-sm text-red-500 font-bold">
+                  {errors.custFingerImage?.message}
                 </span> */}
               </span>
 

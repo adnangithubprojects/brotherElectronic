@@ -120,7 +120,7 @@ export default function CustomerDetail() {
             </div>
             <div className="flex gap-3  items-center">
               <h3 className="w-32 text-xl font-bold underline">Account No :</h3>
-              <h4 className=" ">4578887</h4>
+              <h4 className=" ">{state?.accountNo}</h4>
             </div>
             <div className="flex gap-3 items-center">
               <h3 className="w-32 text-xl font-bold underline">Cust Name :</h3>
@@ -155,7 +155,7 @@ export default function CustomerDetail() {
             </div>
             <div className="flex gap-1 items-center">
               <h3 className="w-32 font-bold underline">Prev A/C:</h3>
-              <h3 className=" ">99</h3>
+              <h3 className=" ">{state?.custPreviosAccount}</h3>
             </div>
           </div>
           <div className="flex flex-col gap-5 justify-center">
@@ -167,22 +167,28 @@ export default function CustomerDetail() {
               <h3 className="w-36 text-sm font-bold underline">
                 Repeat as Customer :
               </h3>
-              <h4 className=" ">7</h4>
+              <h4 className=" ">{state?.custRepeat}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-36 text-sm font-bold underline">
                 Repeat as Gauranter :
               </h3>
-              <h4 className=" ">8</h4>
+              <h4 className=" ">{state?.custRepeatGauranter}</h4>
             </div>
           </div>
 
           <div className="flex">
-            <div className="border w-36 h-44  overflow-hidden "></div>
+            <div className="border w-36 h-44  overflow-hidden ">
+              <img
+                src={`${base_url}/${state?.custFingerImage}`}
+                alt="upload image"
+                className="w-full h-full"
+              />
+            </div>
             <div className="border w-44 h-44 bg-cyan-400 overflow-hidden ">
               <img
-                src={`${base_url}/${state.custImage}`}
-                alt=""
+                src={`${base_url}/${state?.custImage}`}
+                alt="upload image"
                 className="w-full h-full"
               />
               {/* {state.custImage} */}

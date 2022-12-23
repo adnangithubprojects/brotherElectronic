@@ -9,7 +9,7 @@ export default function InputCard({
   multiple,
 }) {
   return (
-    <div>
+    <>
       <input
         placeholder={placeholder}
         type={type}
@@ -18,6 +18,6 @@ export default function InputCard({
         className=""
         multiple={multiple}
       />
-    </div>
+    </>
   );
 }

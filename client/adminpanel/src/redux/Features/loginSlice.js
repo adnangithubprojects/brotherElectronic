@@ -3,7 +3,7 @@ import axios from "axios";
 const initialState = {
   error: null,
   loading: false,
-  user: "adnan",
+  user: null,
   token: null,
 };
 
@@ -29,12 +29,12 @@ const LoginSlice = createSlice({
   name: "loginSlice",
   initialState,
   reducers: {
-    userLogin: (state) => {
-      state.token = "my new token";
-      console.log("userLogin");
+    setUser: (state, { payload }) => {
+      state.user = payload;
     },
-    userLogOut: (state) => {
+    setUserLogOut: (state, { payload }) => {
       localStorage.clear();
+      state.user = null;
     },
   },
   extraReducers: {
@@ -52,5 +52,5 @@ const LoginSlice = createSlice({
     },
   },
 });
-export const { userLogin, userLogOut } = LoginSlice.actions;
+export const { setUser, setUserLogOut } = LoginSlice.actions;
 export default LoginSlice.reducer;

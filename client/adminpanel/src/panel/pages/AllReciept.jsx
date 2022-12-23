@@ -67,12 +67,8 @@ export default function AllReciept() {
           ?.filter((fil) => {
             if (search == "") {
               return fil;
-            } else if (
-              fil.cutomerName
-                .toLocaleLowerCase()
-                .includes(search.toLocaleLowerCase())
-            ) {
-              return fil.cutomerName;
+            } else if (fil.accountNo.includes(search)) {
+              return fil.accountNo;
             }
           })
           .map((data, index) => {

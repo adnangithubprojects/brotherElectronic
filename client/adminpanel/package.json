@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^3.3.6",
+    "@fingerprintjs/fingerprintjs-pro": "^3.8.1",
+    "@fingerprintjs/fingerprintjs-pro-react": "^2.1.1",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
