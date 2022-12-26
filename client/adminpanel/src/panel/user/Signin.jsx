@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { base_url } from "../assets/data/config";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { userLogin } from "../../redux/Features/loginSlice";
+import { asyncLoginUser, userLogin } from "../../redux/Features/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Signin() {
-  const refer = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token, user } = useSelector((state) => state.user);
   const [message, setMessage] = useState(false);
@@ -34,31 +34,35 @@ export default function Signin() {
       return { ...prevData, [name]: value };
     });
   }
-  const tok = localStorage.getItem("token");
 
   const signIn = async (e) => {
     e.preventDefault();
     const { email, password } = note;
-    try {
-      const res = await axios.post(`${base_url}/user/login`, {
-        email,
-        password,
-      });
-      localStorage.setItem("token", res.data?.token);
-      const data = await res?.data;
+    // if (email && password) {
+    dispatch(asyncLoginUser({ note, navigate }));
+    // } else {
+    //   return alert("name password required");
+    // }
+    // try {
+    //   const res = await axios.post(`${base_url}/user/login`, {
+    //     email,
+    //     password,
+    //   });
+    //   localStorage.setItem("token", res.data?.token);
+    //   const data = await res?.data;
 
-      if (res.status === 200) {
-        setMessage(false);
-        console.log(localStorage.getItem("token"), "new");
-        setTimeout(() => {
-          refer("/dashboard");
-        }, 2000);
-      }
-    } catch (error) {
-      if (error.response.data.message) {
-        setMessage(true);
-      }
-    }
+    //   if (res.status === 200) {
+    //     setMessage(false);
+    //     console.log(localStorage.getItem("token"), "new");
+    //     setTimeout(() => {
+    //       refer("/dashboard");
+    //     }, 2000);
+    //   }
+    // } catch (error) {
+    //   if (error.response.data.message) {
+    //     setMessage(true);
+    //   }
+    // }
 
     // const res = await fetch("http://localhost:9000/user/login", {
     //   method: "POST",

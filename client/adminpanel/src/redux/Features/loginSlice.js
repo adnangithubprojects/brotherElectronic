@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { base_url } from "../../panel/assets/data/config";
 const initialState = {
   error: null,
   loading: false,
@@ -10,13 +12,15 @@ const initialState = {
 export const asyncLoginUser = createAsyncThunk(
   "asyncUserLogin/post",
   async (note, { rejectWithValue }) => {
-    const { email, password } = note;
+    const { navigate } = note;
+    const { email, password } = note.note;
     // console.log(note);
     try {
-      const res = await axios.post("http://localhost:9000/user/login", {
+      const res = await axios.post(`${base_url}/user/login`, {
         email,
         password,
       });
+      navigate("/dashboard");
       return res.data.token;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -44,7 +48,7 @@ const LoginSlice = createSlice({
     },
     [asyncLoginUser.fulfilled]: (state, { payload }) => {
       state.user = payload;
-      localStorage.setItem("token", payload);
+      JSON.stringify(localStorage.setItem("token", payload));
     },
     [asyncLoginUser.rejected]: (state, { payload }) => {
       state.loading = false;
