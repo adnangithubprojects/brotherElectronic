@@ -8,7 +8,7 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-right: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  @apply flex flex-col justify-center items-center  w-96 h-[300px]   rounded;
+  @apply flex flex-col justify-center items-center  w-96 h-[330px]   rounded;
 }
 .form {
   @apply w-full h-full px-10;

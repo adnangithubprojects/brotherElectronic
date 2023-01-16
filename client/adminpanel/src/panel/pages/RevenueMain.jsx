@@ -21,12 +21,21 @@ export default function RevenueMain() {
   // total Calculation with forEach loop
   // const total=0;
   // data.forEach((items)=>total+=items.instPrice)
-
+  const token = localStorage.getItem("token");
   // Fetch value from backend
   const getProduct = async () => {
-    const res = await axios.get(`${base_url}/product/get`);
-    const req = res.data.result;
-    setData(req);
+    try {
+      const res = await axios.get(`${base_url}/product/get`, {
+        headers: {
+          token: token,
+        },
+      });
+      const req = res.data.result;
+      setData(req);
+      console.log(req);
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     getProduct();
@@ -41,7 +50,11 @@ export default function RevenueMain() {
   async function confirmDelete(choose) {
     // console.log("function called");
     if (choose) {
-      const res = await axios.delete(`${base_url}/products`);
+      const res = await axios.delete(`${base_url}/products`, {
+        headers: {
+          token: token,
+        },
+      });
       setDialog(!dialog);
       getProduct();
     } else {
@@ -58,7 +71,7 @@ export default function RevenueMain() {
   });
 
   return (
-    <div className="flex flex-col justify-between bg-cyan-800 rounded w-[1024px] py-3 h-[600px] mx-4 my-3 overflow-hidden">
+    <div className="flex flex-col justify-between capitalize bg-cyan-800 rounded w-[1024px] py-3 h-[600px] mx-4 my-3 overflow-hidden">
       <AddProduct getProduct={getProduct} />
 
       <div
@@ -102,14 +115,15 @@ export default function RevenueMain() {
         </div>
         <table className=" border-t-2 border-cyan-200  w-full ">
           <tbody className="text-white text-center">
-            <tr className="flex  justify-around gap-x-5 text-sm bg-cyan-800 py-2 ">
-              <td className="w-8">S:No</td>
-              <td className="w-28">Product Name</td>
-              <td className="w-28">Customer Name</td>
-              <td className="w-28">Shop Name</td>
-              <td className="w-28">Net Price</td>
-              <td className="w-28">Ints Price</td>
-              <td className="w-28">profit</td>
+            <tr className="flex  justify-around items-center gap-x-3 text-sm bg-cyan-800 py-2 ">
+              <td className="w-8 ">S:No</td>
+              <td className="w-28  font-bold text-sm">Product Name</td>
+              <td className="w-28  font-bold text-sm">Customer Name</td>
+              <td className="w-28  font-bold text-sm">Shop Name</td>
+              <td className="w-24  font-bold">Net Price</td>
+              <td className="w-24  font-bold">Ints Price</td>
+              <td className="w-24  font-bold">profit</td>
+              <td className="w-24  font-bold">Date</td>
             </tr>
             {data.map((productData, index) => {
               return (
@@ -118,19 +132,28 @@ export default function RevenueMain() {
                   className="flex justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700"
                 >
                   <td className="text-center w-8 ">{index + 1}</td>
-                  <td className="text-center w-28 ">{productData?.pName}</td>
-                  <td className="text-center w-28 ">{productData?.custName}</td>
-                  <td className="text-center w-28 ">{productData?.shopName}</td>
-                  <td className="text-center w-28 ">{productData?.netPrice}</td>
-                  <td className="text-center w-28 ">
+                  <td className="text-center w-28 text-sm ">
+                    {productData?.pName}
+                  </td>
+                  <td className="text-center w-28 text-sm ">
+                    {productData?.custName}
+                  </td>
+                  <td className="text-center w-28 text-sm ">
+                    {productData?.shopName}
+                  </td>
+                  <td className="text-center w-24 ">{productData?.netPrice}</td>
+                  <td className="text-center w-24 ">
                     {productData?.instPrice}
                   </td>
-                  <td className="text-center w-28 ">{productData?.profit}</td>
+                  <td className="text-center w-24 ">{productData?.profit}</td>
+                  <td className="text-center w-24 text-sm">
+                    {productData?.date}
+                  </td>
                 </tr>
               );
             })}
           </tbody>
-          <tr className="flex justify-between bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700">
+          <tr className="flex justify-around bg-cyan-800 cursor-pointer py-2 border-t hover:bg-cyan-700">
             <td className="flex gap-4 text-center w-28 ml-10">
               <span
                 onClick={onPrint}
@@ -146,9 +169,11 @@ export default function RevenueMain() {
                 All
               </span>
             </td>
-            <div className="  md:w-[600px]  flex justify-evenly">
-              <td className="text-center w-32 font-bold  text-white ">total</td>
-              <td className="text-center mr-7 w-32 font-bold  text-white">
+            <div className="  md:w-[600px]  flex  ">
+              <td className="text-center mr-7 w-32 font-bold  text-white ">
+                total
+              </td>
+              <td className="text-center  w-32 font-bold  text-white">
                 {totalNetPrice}
               </td>
               <td className="text-center  w-28  font-bold text-white">
@@ -177,8 +202,9 @@ function AddProduct({ getProduct }) {
     shopName: "",
     netPrice: "",
     instPrice: "",
+    date: "",
   });
-
+  const token = localStorage.getItem("token");
   // form Validation
   const {
     register,
@@ -195,13 +221,14 @@ function AddProduct({ getProduct }) {
 
   const onSubmit = async (a, e) => {
     e.preventDefault();
-    const { pName, custName, shopName, netPrice, instPrice } = note;
+    const { pName, custName, shopName, netPrice, instPrice, date } = note;
 
     await axios
       .post(`${base_url}/product/post`, {
         body: note,
         header: {
           "Content-Type": "multipart/form-data",
+          token: token,
         },
       })
       .then((res) => {
@@ -215,7 +242,7 @@ function AddProduct({ getProduct }) {
   return (
     <div>
       <form className="flex justify-evenly items-center cursor-pointer py-2 h-24 ">
-        <div className="relative flex  gap-2 w-32 ">
+        <div className="relative flex  gap-1  w-32 ">
           <span className="w-full">
             <input
               {...register("pName", {
@@ -238,7 +265,7 @@ function AddProduct({ getProduct }) {
             </span>
           </span>
         </div>
-        <div className="relative flex  gap-2 w-32 ">
+        <div className="relative flex  gap-1  w-32 ">
           <span className="w-full">
             <input
               {...register("custName", {
@@ -257,7 +284,7 @@ function AddProduct({ getProduct }) {
             </span>
           </span>
         </div>
-        <div className="relative flex  gap-2 w-32 ">
+        <div className="relative flex  gap-1  w-32 ">
           <span className="w-full">
             <input
               {...register("shopName", {
@@ -276,7 +303,26 @@ function AddProduct({ getProduct }) {
             </span>
           </span>
         </div>
-        <div className="relative flex  gap-2 w-32 ">
+        <div className="relative flex  gap-1  w-32 ">
+          <span className="w-full">
+            <input
+              {...register("date", {
+                required: "Field Required!",
+              })}
+              type="date"
+              name="date"
+              className="w-full   outline-none border-none px-4 py-1 rounded-xl "
+              required
+              value={note.date}
+              onChange={inputEvent}
+            />
+            <p className="absolute -top-6 left-2 text-white">Date</p>
+            <span className="text-xs text-red-500 font-bold">
+              {errors.date?.message}
+            </span>
+          </span>
+        </div>
+        <div className="relative flex  gap-1  w-32 ">
           <span className="w-full">
             <input
               {...register("netPrice", {
@@ -300,7 +346,7 @@ function AddProduct({ getProduct }) {
           </span>
         </div>
 
-        <div className="relative flex  gap-2 w-32  ">
+        <div className="relative flex  gap-1  w-32  ">
           <span className="w-full">
             <input
               {...register("instPrice", {

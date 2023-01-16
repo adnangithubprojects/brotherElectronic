@@ -70,8 +70,7 @@ export default function RecieptCard({
           <div className="flex gap-2 items-center ">
             <p className="font-bold">Account No:</p>
             <p className="border-b-2 border-blue-800 w-44 text-center">
-              {" "}
-              34456
+              {accountNo}
             </p>
           </div>
           <div className="flex gap-2 items-center">
@@ -82,7 +81,7 @@ export default function RecieptCard({
           </div>
           <div className="flex gap-2  items-center">
             <p className="font-bold w-32"> Product Name:</p>
-            <p className="border-b-2 border-blue-800 w-44 text-center">
+            <p className="border-b-2 border-blue-800 w-44 text-center capitalize">
               {productName}
             </p>
           </div>
@@ -102,7 +101,7 @@ export default function RecieptCard({
           </div>
           <div className="flex items-center">
             <p className="font-bold w-32 text-sm ">Installment Date:</p>
-            <p className="border-b-2 border-blue-800 w-24 h-6 text-center"></p>
+            <p className="border-b-2 border-blue-800 w-32 h-6 text-center"></p>
           </div>
         </div>
         <div className="flex flex-col gap-1">
@@ -150,7 +149,7 @@ export default function RecieptCard({
           <div className="flex gap-2 items-center">
             <p className="font-bold w-32 ">Mobile:</p>
             <p className="border-b-2 border-blue-800 w-44 text-center">
-              0{g1Mobile}
+              {g1Mobile}
             </p>
           </div>
           <div className="flex gap-3  items-center">
@@ -171,7 +170,7 @@ export default function RecieptCard({
           <div className="flex gap-2 items-center">
             <p className="font-bold w-32 ">Mobile:</p>
             <p className="border-b-2 border-blue-800 w-44 text-center">
-              0{g2Mobile}
+              {g2Mobile}
             </p>
           </div>
           <div className="flex gap-3  items-center">
@@ -183,29 +182,29 @@ export default function RecieptCard({
         </div>
       </div>
 
-      <div className="flex gap-2 justify-between px-8 py-2 text-blue-900">
+      <div className="flex gap-2 px-8 py-2 text-blue-900">
         <div className="flex gap-1 items-center">
           <p className="font-bold w-36">Total Installment:</p>
-          <p className="border-b-2 border-blue-800 w-16 text-center">12</p>
+          <p className="border-b-2 border-blue-800 w-14 text-center">12</p>
         </div>
 
         <div className="flex gap-1 items-center">
           <p className="font-bold w-36">Recv. Installment:</p>
-          <p className="border-b-2 h-5 border-blue-800 w-16 text-center">
+          <p className="border-b-2 h-5 border-blue-800 w-14 text-center">
             {/* {recievedInstallment} */}
           </p>
         </div>
 
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center">
           <p className="font-bold w-36">Rem. Installment:</p>
-          <p className="border-b-2 h-5 border-blue-800 w-16 text-center">
+          <p className="border-b-2 h-5 border-blue-800 w-14 text-center">
             {/* {remInstallment} */}
           </p>
         </div>
 
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center">
           <p className="font-bold w-28">Rem. Balance:</p>
-          <p className="border-b-2 h-5 text-lg font-bold border-blue-800 w-20 text-center">
+          <p className="border-b-2 h-5 text-lg font-bold border-blue-800 w-52 text-center">
             {/* {remBalance}/- */}
           </p>
         </div>

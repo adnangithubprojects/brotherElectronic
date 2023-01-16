@@ -5,7 +5,7 @@
   @apply absolute top-9 -right-4 text-2xl py-1 px-1  cursor-pointer bg-white rounded-full;
 }
 .sidebar__items {
-  @apply text-gray-300 flex text-sm items-center gap-x-2 cursor-pointer p-2 hover:bg-indigo-700 rounded;
+  @apply text-gray-300  text-sm items-center gap-x-2 cursor-pointer p-2 hover:bg-indigo-700 rounded;
 }
 
 /* @media (max-width: 1024px) {

@@ -15,6 +15,7 @@ import {
   FaReceipt,
 } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
+import jwtDecode from "jwt-decode";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { BiUserCheck, BiUserPlus } from "react-icons/bi";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -30,11 +31,20 @@ function Sidebar() {
   const getToken = localStorage.getItem("token");
   const { token, user } = useSelector((state) => state.user);
 
-  console.log(user, "jhjj");
+  if (getToken) {
+    const decodeToken = jwtDecode(getToken);
+    // console.log("Expiry: ", decodeToken.exp);
+    if (decodeToken.exp * 1000 < Date.now()) {
+      dispatch(setUserLogOut());
+    }
+  }
+  // const decoded = jwt_decode(getToken);
+  // !decoded && refer("/");
   const handleLogout = () => {
     dispatch(setUserLogOut());
   };
   useEffect(() => {
+    // console.log(decoded, "Decode");
     dispatch(setUser(getToken));
   }, [dispatch]);
 
@@ -109,7 +119,7 @@ function Sidebar() {
           onClick={() => setIcon(!icon)}
         >
           <NavLink to="/dashboard">
-            <li className={`sidebar__items`}>
+            <li className={`sidebar__items flex`}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <FaHome />
               </span>
@@ -121,7 +131,7 @@ function Sidebar() {
             </li>
           </NavLink>
           <NavLink to="/AllCustomer">
-            <li className={`sidebar__items `}>
+            <li className={`sidebar__items flex `}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <FaUsers />
               </span>
@@ -133,7 +143,7 @@ function Sidebar() {
             </li>
           </NavLink>
           <NavLink to="/ActiveCustomer">
-            <li className={`sidebar__items`}>
+            <li className={`sidebar__items flex`}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <BiUserCheck />
               </span>
@@ -145,7 +155,7 @@ function Sidebar() {
             </li>
           </NavLink>
           <NavLink to="/PendingCustomer">
-            <li className={`sidebar__items`}>
+            <li className={`sidebar__items flex`}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <FaUsersCog />
               </span>
@@ -157,7 +167,7 @@ function Sidebar() {
             </li>
           </NavLink>
           <NavLink to="/downloadcustomer">
-            <li className={`sidebar__items`}>
+            <li className={`sidebar__items hidden md:flex `}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <FaDownload />
               </span>
@@ -169,7 +179,7 @@ function Sidebar() {
             </li>
           </NavLink>
           <NavLink to="/addcustomer">
-            <li className={`sidebar__items`}>
+            <li className={`sidebar__items hidden md:flex`}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <BiUserPlus />
               </span>
@@ -181,7 +191,7 @@ function Sidebar() {
             </li>
           </NavLink>
           <NavLink to="/allreciept">
-            <li className={`sidebar__items`}>
+            <li className={`sidebar__items hidden md:flex`}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <FaReceipt />
               </span>
@@ -194,7 +204,7 @@ function Sidebar() {
           </NavLink>
           <NavLink to="/revenuemain">
             <li
-              className={`text-gray-300 mt-5 flex text-sm items-center gap-x-2 cursor-pointer p-2 hover:bg-indigo-700`}
+              className={`text-gray-300 mt-5 hidden md:flex text-sm items-center gap-x-2 cursor-pointer p-2 hover:bg-indigo-700`}
             >
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <MdProductionQuantityLimits />
@@ -207,7 +217,7 @@ function Sidebar() {
             </li>
           </NavLink>
           {/* <NavLink to="/user">
-              <li className={`sidebar__items`}>
+              <li className={`sidebar__items flex`}>
                 <span className={`text-2xl cursor-pointer duration-300 `}>
                   <FaUserAlt />
                 </span>
@@ -219,7 +229,7 @@ function Sidebar() {
               </li>
             </NavLink> */}
           <NavLink to="/signup">
-            <li className={`sidebar__items`}>
+            <li className={`sidebar__items flex`}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <FaUserAlt />
               </span>
@@ -231,7 +241,7 @@ function Sidebar() {
             </li>
           </NavLink>
           <NavLink to="/" onClick={handleLogout}>
-            <li className={`sidebar__items`}>
+            <li className={`sidebar__items flex`}>
               <span className={`text-2xl cursor-pointer duration-300 `}>
                 <TbLogout />
               </span>

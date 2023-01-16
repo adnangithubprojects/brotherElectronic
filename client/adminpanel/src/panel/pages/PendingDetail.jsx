@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaTrashAlt, FaTimes, FaAngleDown } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-
+import InputMask from "react-input-mask";
 // import { NavLink } from "react-router-dom";
 import axios from "axios";
 import DeleteBox from "../component/DeleteBox";
@@ -16,6 +16,7 @@ export default function PendingDetail() {
   const [show, setShow] = useState(true);
   const [dialog, setDialog] = useState(false);
   const confirmId = useRef();
+  const token = localStorage.getItem("token");
   const message = "Are you sure you want to Delete Customer!";
   function onDelete(id) {
     setDialog(true);
@@ -25,7 +26,12 @@ export default function PendingDetail() {
     if (choose) {
       try {
         const res = await axios.delete(
-          `${base_url}/customer/${confirmId.current}`
+          `${base_url}/customer/${confirmId.current}`,
+          {
+            headers: {
+              token: token,
+            },
+          }
         );
         // setData(data.filter((it) => it.Sno !== confirmId.current));
         setDialog(!dialog);
@@ -50,7 +56,11 @@ export default function PendingDetail() {
 
   // getting data from backend
   const customerData = async (opt) => {
-    const res = await axios.get(`${base_url}/customer/get`);
+    const res = await axios.get(`${base_url}/customer/get`, {
+      headers: {
+        token: token,
+      },
+    });
     const req = await res.data.result;
     const updateData = await req.filter((data) => data.custstatus === opt);
     setData(updateData);
@@ -67,31 +77,31 @@ export default function PendingDetail() {
   }, []);
 
   return (
-    <div className="w-full h-full">
-      <div className="scroll1 py-8">
+    <div className="bg-gray-200 w-full  py-3 h-[] overflow-hidden flex justify-center">
+      <div className="scroll1">
         <input
           type="text"
           placeholder="Search"
           value={Search}
           onChange={(e) => setSearch(e.target.value)}
-          className="outline-none py-2 rounded mt-1 px-3"
+          className="outline-none py-2 rounded mt-1 px-3 border-2 border-blue-700"
         />
         <h1 className="text-xl sm:text-2xl font-bold  py-2 ">
           Pending Customer
         </h1>
-        <table className="text-xs md:text-base border-2 md:border-none md:border-t-2   w-[300px] sm:w-[400px] md:w-full ">
+        <table className="text-xs md:text-base border border-gray-400   w-[300px] sm:w-[400px] md:w-full ">
           <tbody className=" text-center">
-            <tr className="flex justify-between md:justify-evenly gap-x-5 font-bold bg-gray-200 py-2 ">
-              <td className="md:text-center w-8 md:w-32 ">S:No</td>
-              <td className="md:text-center w-10 md:w-32  md:pl-5 ">Name</td>
-              <td className="md:text-right w-20 md:w-32  md:pr-5 ">F Name</td>
+            <tr className="flex justify-between md:justify-evenly gap-x-5 font-bold capitalize bg-gray-200 py-2 ">
+              <td className="md:text-center w-8 md:w-16 ">Acc No</td>
+              <td className="md:text-center w-10 md:w-36  md:pl-5 ">Name</td>
+              <td className="md:text-right w-20 md:w-36  md:pr-5 ">F Name</td>
               <td className="md:text-right w-12 md:w-32 pr-4 md:pr-6 ">cell</td>
               <td className=" hidden md:flex items-center justify-end md:pr-5 md:w-32  ">
                 edit
               </td>
             </tr>
             {data
-              .filter((fil) => {
+              ?.filter((fil) => {
                 if (Search == "") {
                   return fil;
                 } else if (
@@ -104,42 +114,46 @@ export default function PendingDetail() {
               })
               .map((data, index) => {
                 return (
-                  <tr
-                    className="flex justify-between md:justify-around  cursor-pointer py-2 border-t bg-white hover:bg-gray-200"
-                    key={data._id}
-                  >
-                    <td className="md:text-center w-8 md:w-28 ">{index + 1}</td>
-                    <td className="md:text-center w-16 md:w-28 ">
-                      {data.cutomerName}
-                    </td>
+                  <>
+                    <tr
+                      className="flex justify-between md:justify-around capitalize cursor-pointer py-2 border-t border-gray-400 bg-white hover:bg-gray-200"
+                      key={data?._id}
+                    >
+                      <td className="md:text-center w-8 md:w-12 ">
+                        {data?.accountNo}
+                      </td>
+                      <td className="md:text-center w-16 md:w-36 text-sm">
+                        {data?.cutomerName}
+                      </td>
 
-                    <td className={`md:text-center w-16 md:w-28 `}>
-                      {data.custFName}
-                    </td>
-                    <td className="md:text-center  md:w-28 ">
-                      0{data.custMobile1}
-                    </td>
+                      <td className={`md:text-center w-16 md:w-36 text-sm `}>
+                        {data?.custFName}
+                      </td>
+                      <td className="md:text-center  md:w-28 ">
+                        {data?.custMobile1}
+                      </td>
 
-                    <td className="hidden md:flex gap-2 text-white">
-                      <span
-                        onClick={() => {
-                          setShow(!show);
-                          selectUser(data);
-                        }}
-                        className="p-2  text-sm border rounded-full bg-green-600 hover:text-green-700 hover:bg-white transition-all duration-300"
-                      >
-                        <FaEdit />
-                      </span>
-                      <span
-                        onClick={() => {
-                          onDelete(data._id);
-                        }}
-                        className="p-2 text-sm border rounded-full bg-rose-600 hover:text-red-600 hover:bg-white transition-all duration-300"
-                      >
-                        <FaTrashAlt />
-                      </span>
-                    </td>
-                  </tr>
+                      <td className="hidden md:flex gap-2 text-white">
+                        <span
+                          onClick={() => {
+                            setShow(!show);
+                            selectUser(data);
+                          }}
+                          className="p-2  text-sm border rounded-full bg-green-600 hover:text-green-700 hover:bg-white transition-all duration-300"
+                        >
+                          <FaEdit />
+                        </span>
+                        <span
+                          onClick={() => {
+                            onDelete(data?._id);
+                          }}
+                          className="p-2 text-sm border rounded-full bg-rose-600 hover:text-red-600 hover:bg-white transition-all duration-300"
+                        >
+                          <FaTrashAlt />
+                        </span>
+                      </td>
+                    </tr>
+                  </>
                 );
               })}
           </tbody>
@@ -195,7 +209,7 @@ export function CutomerForm({ show, setShow, user, customerData }) {
     custRepeat: "0",
     custRepeatGauranter: "0",
     custPreviosAccount: "0",
-    fqmsAccNo: "0",
+    accountNo: "0",
 
     // Product:=>
     instprice: "",
@@ -262,6 +276,7 @@ export function CutomerForm({ show, setShow, user, customerData }) {
     // images
     inquiryImages: [],
   });
+  const token = localStorage.getItem("token");
   // InputEvent function or getting value from field
   function InputEvent(event) {
     event.preventDefault();
@@ -298,7 +313,7 @@ export function CutomerForm({ show, setShow, user, customerData }) {
       custRepeat: user?.custRepeat,
       custRepeatGauranter: user?.custRepeatGauranter,
       custPreviosAccount: user?.custPreviosAccount,
-      fqmsAccNo: user?.fqmsAccNo,
+      accountNo: user?.accountNo,
 
       // Product:=>
       instprice: user?.instprice,
@@ -368,7 +383,6 @@ export function CutomerForm({ show, setShow, user, customerData }) {
   }, []);
 
   // sendind data to backend
-
   const HandleForm = async (a, e) => {
     console.log("adnan", note);
     e.preventDefault();
@@ -389,7 +403,7 @@ export function CutomerForm({ show, setShow, user, customerData }) {
       custRepeat,
       custRepeatGauranter,
       custPreviosAccount,
-      fqmsAccNo,
+      accountNo,
 
       // Product Details
       instprice,
@@ -472,7 +486,7 @@ export function CutomerForm({ show, setShow, user, customerData }) {
     custData.append("custRepeat", custRepeat);
     custData.append("custRepeatGauranter", custRepeatGauranter);
     custData.append("custPreviosAccount", custPreviosAccount);
-    custData.append("fqmsAccNo", fqmsAccNo);
+    custData.append("accountNo", accountNo);
 
     // product
     custData.append("instprice", instprice);
@@ -540,20 +554,24 @@ export function CutomerForm({ show, setShow, user, customerData }) {
     // for (let key in note) {
     //   custData.append(key, note[key]);
     // }
-
-    const res = await axios
-      .put(`http://localhost:9000/customer/${id}`, custData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        if (res) {
-          window.alert("Customer Updated");
-          setShow(!show);
-          customerData("Pending");
-        }
-      });
+    try {
+      const res = await axios
+        .put(`${base_url}/customer/${id}`, custData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token: token,
+          },
+        })
+        .then((res) => {
+          if (res) {
+            window.alert("Customer Updated");
+            setShow(!show);
+            customerData("Pending");
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
     // console.log("halloworld", res);
   };
   return (
@@ -562,7 +580,7 @@ export function CutomerForm({ show, setShow, user, customerData }) {
         <div className="Customer__Container__Form">
           <h2 className="text-white  capitalize text-2xl ">Customer Form</h2>
           <FaTimes
-            className="absolute top-5 right-5 text-3xl hover:animate-bounce "
+            className="absolute top-5 right-5 text-3xl  "
             onClick={() => setShow(!show)}
           />
           <form action="post" method="POST" className="scrollbar-hide">
@@ -659,9 +677,9 @@ export function CutomerForm({ show, setShow, user, customerData }) {
             </div>
             <div className="child">
               <span className="relative">
-                <input
-                  pattern="[0-9]{4}-[0-9]{7}"
-                  type="number"
+                <InputMask
+                  mask="9999-9999999"
+                  // type="number"
                   name="custMobile1"
                   value={note.custMobile1}
                   onChange={InputEvent}
@@ -672,8 +690,8 @@ export function CutomerForm({ show, setShow, user, customerData }) {
                 </span>
               </span>
               <span className="relative">
-                <input
-                  type="number"
+                <InputMask
+                  mask="9999-9999999"
                   name="custMobile2"
                   value={note.custMobile2}
                   onChange={InputEvent}
@@ -684,8 +702,8 @@ export function CutomerForm({ show, setShow, user, customerData }) {
                 </span>
               </span>
               <span className="relative">
-                <input
-                  type="number"
+                <InputMask
+                  mask="99999-9999999-9"
                   name="custCnic"
                   value={note.custCnic}
                   onChange={InputEvent}
@@ -712,17 +730,17 @@ export function CutomerForm({ show, setShow, user, customerData }) {
               </span>
               <span className="relative">
                 <input
-                  {...register("fqmsAccNo", {
+                  {...register("accountNo", {
                     // required: "CNIC Reuired !",
                   })}
                   type="number"
-                  name="fqmsAccNo"
-                  value={note.fqmsAccNo}
+                  name="accountNo"
+                  value={note.accountNo}
                   onChange={InputEvent}
                 />
-                <p className="pp">FQMS AccNo: </p>
+                <p className="pp">Account No: </p>
                 {/* <span className="text-sm text-red-500 font-bold">
-                  {errors.fqmsAccNo?.message}
+                  {errors.accountNo?.message}
                 </span> */}
               </span>
               <span className="relative">
@@ -1288,8 +1306,8 @@ export function CutomerForm({ show, setShow, user, customerData }) {
             </div>
             <div className="child">
               <span>
-                <input
-                  type="number"
+                <InputMask
+                  mask="9999-9999999"
                   name="gmobileNumber1"
                   value={note.gmobileNumber1}
                   onChange={InputEvent}
@@ -1300,8 +1318,8 @@ export function CutomerForm({ show, setShow, user, customerData }) {
                 </span>
               </span>
               <span className="relative">
-                <input
-                  type="number"
+                <InputMask
+                  mask="9999-9999999"
                   name="gmobileNumber2"
                   required
                   value={note.gmobileNumber2}
@@ -1313,8 +1331,8 @@ export function CutomerForm({ show, setShow, user, customerData }) {
                 </span>
               </span>
               <span className="relative">
-                <input
-                  type="number"
+                <InputMask
+                  mask="9999-9999999-9"
                   name="gcnic"
                   value={note.gcnic}
                   onChange={InputEvent}
@@ -1427,8 +1445,8 @@ export function CutomerForm({ show, setShow, user, customerData }) {
             </div>
             <div className="child">
               <span>
-                <input
-                  type="number"
+                <InputMask
+                  mask="9999-9999999"
                   name="g2mobileNumber1"
                   value={note.g2mobileNumber1}
                   onChange={InputEvent}
@@ -1439,8 +1457,8 @@ export function CutomerForm({ show, setShow, user, customerData }) {
                 </span>
               </span>
               <span className="relative">
-                <input
-                  type="number"
+                <InputMask
+                  mask="9999-9999999"
                   name="g2mobileNumber2"
                   required
                   value={note.g2mobileNumber2}
@@ -1452,8 +1470,8 @@ export function CutomerForm({ show, setShow, user, customerData }) {
                 </span>
               </span>
               <span className="relative">
-                <input
-                  type="number"
+                <InputMask
+                  mask="9999-9999999-9"
                   name="g2cnic"
                   value={note.g2cnic}
                   onChange={InputEvent}

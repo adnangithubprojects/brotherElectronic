@@ -30,10 +30,14 @@ export default function AllReciept() {
   //     console.log(updatData, "updatData");
   //   }, 6000);
   // };
-
+  const token = localStorage.getItem("token");
   const customerData = async (opt) => {
     try {
-      const res = await axios.get(`${base_url}/customer/get`);
+      const res = await axios.get(`${base_url}/customer/get`, {
+        headers: {
+          token: token,
+        },
+      });
       const req = await res.data.result;
       const updateData = await req.filter((data) => data.custstatus === opt);
       setData(updateData);
@@ -49,7 +53,7 @@ export default function AllReciept() {
     <div className=" overflow-scroll h-[625px] ml-6">
       <div className="flex items-center justify-center h-24 gap-4">
         <input
-          type="text"
+          type="number"
           placeholder="Search with Name"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -65,9 +69,9 @@ export default function AllReciept() {
       <div className="flex flex-col  " ref={componentRef}>
         {data
           ?.filter((fil) => {
-            if (search == "") {
+            if (search == 0 || search == "") {
               return fil;
-            } else if (fil.accountNo.includes(search)) {
+            } else if (fil.accountNo == search) {
               return fil.accountNo;
             }
           })
@@ -108,30 +112,80 @@ export default function AllReciept() {
               }
             }
             return (
-              <RecieptCard
-                accountNo="hallo"
-                custName={data?.cutomerName}
-                productName={data?.product}
-                reqOfficer={data?.inqvOff}
-                accountDate={date}
-                installmentDate="hallo"
-                g1Name={data?.gName}
-                g1Mobile={data?.gmobileNumber1}
-                g1Address={data?.ghomeAddress}
-                totalPrice={data?.instprice}
-                duration="hallo"
-                advance={data?.actAdvance}
-                recievedBalance={recievedBalance}
-                installmentt={data?.installments[0]?.installment}
-                g2Name={data?.g2Name}
-                g2Mobile={data?.g2mobileNumber1}
-                g2Address={data?.g2homeAddress}
-                totalInstallment="hallo"
-                recievedInstallment={recievedInstallment}
-                remInstallment={remainingInstallment}
-                remBalance={remainingBalance}
-                key={index}
-              />
+              <>
+                <RecieptCard
+                  accountNo={data?.accountNo}
+                  custName={data?.cutomerName}
+                  productName={data?.product}
+                  reqOfficer={data?.inqvOff}
+                  accountDate={date}
+                  installmentDate="hallo"
+                  g1Name={data?.gName}
+                  g1Mobile={data?.gmobileNumber1}
+                  g1Address={data?.ghomeAddress}
+                  totalPrice={data?.totalRev}
+                  duration="hallo"
+                  advance={data?.actAdvance}
+                  recievedBalance={recievedBalance}
+                  installmentt={data?.installments[0]?.installment}
+                  g2Name={data?.g2Name}
+                  g2Mobile={data?.g2mobileNumber1}
+                  g2Address={data?.g2homeAddress}
+                  totalInstallment="hallo"
+                  recievedInstallment={recievedInstallment}
+                  remInstallment={remainingInstallment}
+                  remBalance={remainingBalance}
+                  key={index}
+                />
+                <RecieptCard
+                  accountNo={data?.accountNo}
+                  custName={data?.cutomerName}
+                  productName={data?.product}
+                  reqOfficer={data?.inqvOff}
+                  accountDate={date}
+                  installmentDate="hallo"
+                  g1Name={data?.gName}
+                  g1Mobile={data?.gmobileNumber1}
+                  g1Address={data?.ghomeAddress}
+                  totalPrice={data?.totalRev}
+                  duration="hallo"
+                  advance={data?.actAdvance}
+                  recievedBalance={recievedBalance}
+                  installmentt={data?.installments[0]?.installment}
+                  g2Name={data?.g2Name}
+                  g2Mobile={data?.g2mobileNumber1}
+                  g2Address={data?.g2homeAddress}
+                  totalInstallment="hallo"
+                  recievedInstallment={recievedInstallment}
+                  remInstallment={remainingInstallment}
+                  remBalance={remainingBalance}
+                  key={index}
+                />
+                <RecieptCard
+                  accountNo={data?.accountNo}
+                  custName={data?.cutomerName}
+                  productName={data?.product}
+                  reqOfficer={data?.inqvOff}
+                  accountDate={date}
+                  installmentDate="hallo"
+                  g1Name={data?.gName}
+                  g1Mobile={data?.gmobileNumber1}
+                  g1Address={data?.ghomeAddress}
+                  totalPrice={data?.totalRev}
+                  duration="hallo"
+                  advance={data?.actAdvance}
+                  recievedBalance={recievedBalance}
+                  installmentt={data?.installments[0]?.installment}
+                  g2Name={data?.g2Name}
+                  g2Mobile={data?.g2mobileNumber1}
+                  g2Address={data?.g2homeAddress}
+                  totalInstallment="hallo"
+                  recievedInstallment={recievedInstallment}
+                  remInstallment={remainingInstallment}
+                  remBalance={remainingBalance}
+                  key={index}
+                />
+              </>
             );
           })}
       </div>

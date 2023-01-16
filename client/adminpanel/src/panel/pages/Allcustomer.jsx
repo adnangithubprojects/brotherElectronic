@@ -8,7 +8,7 @@ import axios from "axios";
 export default function Allcustomer() {
   const [Search, setSearch] = useState("");
   const [data, setData] = useState([]);
-
+  const token = localStorage.getItem("token");
   function onDelete(Sno) {
     setData(data.filter((it) => it.Sno !== Sno));
   }
@@ -32,7 +32,11 @@ export default function Allcustomer() {
   }
 
   const customerData = async () => {
-    const res = await axios.get(`${base_url}/customer/get`);
+    const res = await axios.get(`${base_url}/customer/get`, {
+      headers: {
+        token: token,
+      },
+    });
     const req = await res.data.result;
     setData(req);
   };
@@ -43,7 +47,7 @@ export default function Allcustomer() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-1 w-full items-center  ">
+    <div className="flex flex-col gap-1  items-center w-full bg-gray-100 ">
       {/* <Fetching /> */}
       <div className="scroll w-full py-4">
         <input
@@ -55,37 +59,37 @@ export default function Allcustomer() {
         />
         <h1 className="text-2xl font-bold text-gray-600 py-2 ">All Customer</h1>
         <table
-          className=" md:border-none md:border-t-2 border-gray-500 text-xs md:text-base w-[300px] sm:w-[400px] md:w-full "
+          className="  md:border border-gray-400 text-xs md:text-base w-[300px] sm:w-[400px] md:w-full "
           id="ad"
         >
           <tbody className="text-center">
-            <tr className="flex justify-between  md:justify-evenly gap-x-5 bg-gray-100 py-2 ">
-              <td className="text-center w-8 md:w-32 ">S:No</td>
-              <td className="text-center w-10  md:w-32  md:pr-4 ">Name</td>
-              <td className=" md:text-right w-20 md:w-32  md:pr-14 ">cell</td>
+            <tr className="flex justify-between font-bold capitalize md:justify-evenly gap-x-5 bg-gray-100 py-2 ">
+              <td className="text-center w-8 md:w-28 pr-5 ">AccNo</td>
+              <td className="text-center w-10  md:w-36  md:pr-4 ">Name</td>
+              <td className=" md:text-right w-20 md:w-36  md:pr-14 ">cell</td>
               <td className="md:text-right w-12 md:w-32  md:pr-6 ">status</td>
             </tr>
-            {data.map((data, index) => {
+            {data?.map((data, index) => {
               return (
                 <tr
-                  className="flex justify-between  md:justify-around  cursor-pointer py-2 border-t bg-white hover:bg-gray-200"
+                  className="flex justify-between capitalize  md:justify-around  cursor-pointer py-2 border-t border-gray-400 bg-white hover:bg-gray-200"
                   key={index}
                 >
-                  <td className="w-8 md:w-28 ">{index + 1} </td>
-                  <td className="text-center w-20 md:w-28 ">
-                    {data.cutomerName}
+                  <td className="w-8 md:w-28 ">{data?.accountNo} </td>
+                  <td className="text-center w-20 md:w-36 text-sm">
+                    {data?.cutomerName}
                   </td>
                   <td className="text-center h-[20px] md:h-8 w-20  md:w-28 ">
-                    0{data.custMobile1}
+                    {data?.custMobile1}
                   </td>
                   <td
                     className={`text-center h-[20px] md:h-8  w-12 md:w-28 ${
-                      data.custstatus === "Pending"
+                      data?.custstatus === "Pending"
                         ? "bg-red-500 rounded "
                         : "bg-green-500 rounded"
                     }`}
                   >
-                    {data.custstatus}
+                    {data?.custstatus}
                   </td>
                 </tr>
               );
@@ -131,7 +135,7 @@ function Fetching() {
       />
       <div className="flex flex-wrap  gap-8">
         {data
-          .filter((fil) => {
+          ?.filter((fil) => {
             if (Search == "") {
               return fil;
             } else if (

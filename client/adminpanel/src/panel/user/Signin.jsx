@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, user } = useSelector((state) => state.user);
+  const { token, user, error } = useSelector((state) => state.user);
   const [message, setMessage] = useState(false);
   const [eyeIcon, setEyeIcon] = useState(false);
   // form validation
@@ -35,14 +35,12 @@ export default function Signin() {
     });
   }
 
-  const signIn = async (e) => {
+  const signIn = async (a, e) => {
     e.preventDefault();
     const { email, password } = note;
-    // if (email && password) {
     dispatch(asyncLoginUser({ note, navigate }));
-    // } else {
-    //   return alert("name password required");
-    // }
+    error ? setMessage(true) : setMessage(false);
+
     // try {
     //   const res = await axios.post(`${base_url}/user/login`, {
     //     email,
@@ -102,9 +100,9 @@ export default function Signin() {
           <form>
             <div className="">
               <input
-                // {...register("email", {
-                //   required: "Email is required !",
-                // })}
+                {...register("email", {
+                  required: "Email is required !",
+                })}
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -118,9 +116,9 @@ export default function Signin() {
 
             <div className="text-black relative">
               <input
-                // {...register("password", {
-                //   required: "Password is required !",
-                // })}
+                {...register("password", {
+                  required: "Password is required !",
+                })}
                 type={!eyeIcon ? "password" : "text"}
                 name="password"
                 placeholder="Password"
@@ -145,7 +143,7 @@ export default function Signin() {
               ""
             )}
             <div>
-              <button onClick={signIn}>Login</button>
+              <button onClick={handleSubmit(signIn)}>Login</button>
             </div>
           </form>
           {/* <div className="text-center text-white">

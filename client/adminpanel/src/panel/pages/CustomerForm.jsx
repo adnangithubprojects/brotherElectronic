@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../style/customerform.css";
 import { FaAngleDown, FaTimes } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import InputMask from "react-input-mask";
 import axios from "axios";
 import { base_url } from "../assets/data/config";
 // import scrollbar-hide from "tailwind-scrollbar-hide";
@@ -17,6 +18,7 @@ export default function CutomerForm({ show, setShow }) {
   // const [gender, setGender] = useState("male");
   // const [user, setUser] = useState([]);
   const [icon, setIcon] = useState(false);
+  const [val, setVal] = useState("");
   const [note, setNote] = useState({
     // customer info
     cutomerName: "",
@@ -36,7 +38,7 @@ export default function CutomerForm({ show, setShow }) {
     custRepeat: "0",
     custRepeatGauranter: "0",
     custPreviosAccount: "0",
-    accountNo: "0",
+    accountNo: "",
 
     // Product:=>
     instprice: "",
@@ -58,7 +60,7 @@ export default function CutomerForm({ show, setShow }) {
     duration: "",
     instRev: "",
     instRem: "",
-    status: "close",
+    status: "open",
     //
     srm: "nil",
     rm: "nil",
@@ -111,6 +113,28 @@ export default function CutomerForm({ show, setShow }) {
       return { ...prevData, [name]: value };
     });
   }
+  // function InputEventNumber(event) {
+  //   event.preventDefault();
+  //   const { name, value } = event.target;
+  //   let f_val = value.replace(/\D[^\.]/g, "");
+
+  //   f_val =
+  //     f_val.slice(0, 5) + "-" + f_val.slice(5, 12) + "-" + f_val.slice(12, 14);
+  //   setNote((prevData) => {
+  //     return { ...prevData, [name]: f_val };
+  //   });
+  //   console.log(note.custCnic, "");
+  // }
+  // function InputEventNumber(event) {
+  //   event.preventDefault();
+  //   const { name, value } = event.target;
+
+  //   const cnic = formatPhoneNumber(value);
+  //   setNote((prevData) => {
+  //     return { ...prevData, [name]: cnic };
+  //   });
+  //   console.log(note.custCnic);
+  // }
 
   function InputFile(e) {
     e.preventDefault();
@@ -120,7 +144,7 @@ export default function CutomerForm({ show, setShow }) {
   }
 
   // sendind data to backend
-
+  const token = localStorage.getItem("token");
   const HandleForm = async (a, e) => {
     e.preventDefault();
 
@@ -216,7 +240,12 @@ export default function CutomerForm({ show, setShow }) {
     try {
       await axios.post(
         `${base_url}/customer/post`,
-        custData
+        custData,
+        {
+          headers: {
+            token: token,
+          },
+        }
         // {
         //   headers: {
         //     "Content-Type": "multipart/form-data",
@@ -224,89 +253,89 @@ export default function CutomerForm({ show, setShow }) {
         //   custData,
         // }
       );
-      // setNote({
-      //   // customer info
-      //   cutomerName: "",
-      //   custFName: "",
-      //   resedential: "",
-      //   occupation: "",
-      //   custMobile1: "",
-      //   custMobile2: "",
-      //   custCnic: "",
-      //   custFingerImage: "",
-      //   custImage: "",
-      //   custCnicImage: "",
-      //   gender: "male",
-      //   custhomeAddress: "",
-      //   custofficeAddres: "",
-      //   custstatus: "Pending",
-      //   custRepeat: "0",
-      //   custRepeatGauranter: "0",
-      //   custPreviosAccount: "0",
-      //   accountNo: "0",
+      setNote({
+        // customer info
+        cutomerName: "",
+        custFName: "",
+        resedential: "",
+        occupation: "",
+        custMobile1: "",
+        custMobile2: "",
+        custCnic: "",
+        custFingerImage: "",
+        custImage: "",
+        custCnicImage: "",
+        gender: "male",
+        custhomeAddress: "",
+        custofficeAddres: "",
+        custstatus: "Pending",
+        custRepeat: "0",
+        custRepeatGauranter: "0",
+        custPreviosAccount: "0",
+        accountNo: "0",
 
-      //   // Product:=>
-      //   instprice: "",
-      //   actInstall: "",
-      //   actAdvance: "",
-      //   advanceRev: "",
-      //   totalRev: "",
-      //   discount: "0",
-      //   //
-      //   balance: "0",
-      //   company: "",
-      //   product: "",
-      //   model: "",
-      //   serialNo: "ok",
-      //   fineTime: "0",
-      //   //
-      //   fineRev: "0",
-      //   fineExp: "0",
-      //   duration: "",
-      //   instRev: "",
-      //   instRem: "",
-      //   status: "close",
-      //   //
-      //   srm: "nil",
-      //   rm: "nil",
-      //   crc: "nil",
-      //   delvMng: "nil",
-      //   secondMng: "nil",
-      //   inqvOff: "nil",
-      //   markOff: "nil",
-      //   //
-      //   doo: "nil",
-      //   processAT: "nil",
-      //   defaulter: "nil",
-      //   pto: "nil",
-      //   vpn: "nil",
-      //   processFee: "0",
-      //   salary: "nil",
+        // Product:=>
+        instprice: "",
+        actInstall: "",
+        actAdvance: "",
+        advanceRev: "",
+        totalRev: "",
+        discount: "0",
+        //
+        balance: "0",
+        company: "",
+        product: "",
+        model: "",
+        serialNo: "ok",
+        fineTime: "0",
+        //
+        fineRev: "0",
+        fineExp: "0",
+        duration: "",
+        instRev: "",
+        instRem: "",
+        status: "close",
+        //
+        srm: "nil",
+        rm: "nil",
+        crc: "nil",
+        delvMng: "nil",
+        secondMng: "nil",
+        inqvOff: "nil",
+        markOff: "nil",
+        //
+        doo: "nil",
+        processAT: "nil",
+        defaulter: "nil",
+        pto: "nil",
+        vpn: "nil",
+        processFee: "0",
+        salary: "nil",
 
-      //   // guaranter 1:=>
-      //   gName: "",
-      //   gfName: "",
-      //   grelation: "",
-      //   gOccupation: "",
-      //   gmobileNumber1: "",
-      //   gmobileNumber2: "",
-      //   gcnic: "",
-      //   gimage: "",
-      //   ghomeAddress: "",
-      //   gofficeAddres: "",
+        // guaranter 1:=>
+        gName: "",
+        gfName: "",
+        grelation: "",
+        gOccupation: "",
+        gmobileNumber1: "",
+        gmobileNumber2: "",
+        gcnic: "",
+        gimage: "",
+        ghomeAddress: "",
+        gofficeAddres: "",
 
-      //   // guaranter 2:=>
-      //   g2Name: "",
-      //   g2fName: "",
-      //   g2relation: "",
-      //   g2occupation: "",
-      //   g2mobileNumber1: "",
-      //   g2mobileNumber2: "",
-      //   g2cnic: "",
-      //   g2image: "",
-      //   g2homeAddress: "",
-      //   g2officeAddres: "",
-      // });
+        // guaranter 2:=>
+        g2Name: "",
+        g2fName: "",
+        g2relation: "",
+        g2occupation: "",
+        g2mobileNumber1: "",
+        g2mobileNumber2: "",
+        g2cnic: "",
+        g2image: "",
+        g2homeAddress: "",
+        g2officeAddres: "",
+      });
       alert("Customer Added Successfully");
     } catch (error) {
       console.log(error.message);
@@ -381,6 +410,10 @@ export default function CutomerForm({ show, setShow }) {
                 <input
                   {...register("resedential", {
                     required: "resedential field should be filled",
+                    maxLength: {
+                      value: 20,
+                      message: "Resedential should be less than 20 characters",
+                    },
                   })}
                   type="text"
                   name="resedential"
@@ -398,6 +431,10 @@ export default function CutomerForm({ show, setShow }) {
                 <input
                   {...register("occupation", {
                     required: "occupation field should be filled",
+                    maxLength: {
+                      value: 20,
+                      message: "Occupation should be less than 20 characters",
+                    },
                   })}
                   type="text"
                   name="occupation"
@@ -443,16 +480,12 @@ export default function CutomerForm({ show, setShow }) {
             </div>
             <div className="child">
               <span className="relative">
-                <input
+                <InputMask
+                  mask="9999-9999999"
                   {...register("custMobile1", {
                     required: "Mobile No required!",
-                    // pattern: {
-                    //   value: /^[0-9]{4}-[0-9]{7}$/,
-                    //   message: "alu balu",
-                    // },
                   })}
-                  pattern="[0-9]{4}-[0-9]{7}"
-                  type="number"
+                  // type="number"
                   name="custMobile1"
                   value={note.custMobile1}
                   onChange={InputEvent}
@@ -463,11 +496,10 @@ export default function CutomerForm({ show, setShow }) {
                 </span>
               </span>
               <span className="relative">
-                <input
-                  {...register("custMobile2", {
-                    // required: "Mobile No required!",
-                  })}
-                  type="number"
+                <InputMask
+                  mask="9999-9999999"
+                  {...register("custMobile2")}
+                  // type="number"
                   name="custMobile2"
                   value={note.custMobile2}
                   onChange={InputEvent}
@@ -478,11 +510,29 @@ export default function CutomerForm({ show, setShow }) {
                 </span> */}
               </span>
               <span className="relative">
-                <input
+                {/* <input
                   {...register("custCnic", {
                     required: "CNIC Reuired !",
+                    maxLength: {
+                      value: 15,
+                      message: "Cnic should be less than 20 characters",
+                    },
                   })}
                   type="number"
+                  name="custCnic"
+                  value={note.custCnic}
+                  onChange={InputEvent}
+                /> */}
+                <InputMask
+                  mask="99999-9999999-9"
+                  {...register("custCnic", {
+                    required: "CNIC Reuired !",
+                    maxLength: {
+                      value: 15,
+                      message: "Cnic should be less than 20 characters",
+                    },
+                  })}
+                  // type="number"
                   name="custCnic"
                   value={note.custCnic}
                   onChange={InputEvent}
@@ -510,7 +560,7 @@ export default function CutomerForm({ show, setShow }) {
               <span className="relative">
                 <input
                   {...register("accountNo", {
-                    // required: "CNIC Reuired !",
+                    required: "Account no Reuired !",
                   })}
                   type="number"
                   name="accountNo"
@@ -518,9 +568,9 @@ export default function CutomerForm({ show, setShow }) {
                   onChange={InputEvent}
                 />
                 <p className="pp">Account No: </p>
-                {/* <span className="text-sm text-red-500 font-bold">
+                <span className="text-sm text-red-500 font-bold">
                   {errors.accountNo?.message}
-                </span> */}
+                </span>
               </span>
 
               <span className="relative">
@@ -822,7 +872,7 @@ export default function CutomerForm({ show, setShow }) {
                   value={note.serialNo}
                   onChange={InputEvent}
                 />
-                <p className="pp">Serial No : </p>
+                <p className="pp">IME No : </p>
                 <span className="text-sm text-red-500 font-bold">
                   {errors.serialNo?.message}
                 </span>
@@ -1205,6 +1255,10 @@ export default function CutomerForm({ show, setShow }) {
                 <input
                   {...register("grelation", {
                     required: "Relation Required !",
+                    maxLength: {
+                      value: 20,
+                      message: "G relation should be less than 20 characters",
+                    },
                   })}
                   type="text"
                   name="grelation"
@@ -1220,6 +1274,10 @@ export default function CutomerForm({ show, setShow }) {
                 <input
                   {...register("gOccupation", {
                     required: "Occupation Required!",
+                    maxLength: {
+                      value: 20,
+                      message: "Occupation should be less than 20 characters",
+                    },
                   })}
                   type="text"
                   name="gOccupation"
@@ -1235,11 +1293,12 @@ export default function CutomerForm({ show, setShow }) {
             </div>
             <div className="child">
               <span>
-                <input
+                <InputMask
+                  mask="9999-9999999"
                   {...register("gmobileNumber1", {
                     required: "Mobile Required!",
                   })}
-                  type="number"
+                  // type="number"
                   name="gmobileNumber1"
                   value={note.gmobileNumber1}
                   onChange={InputEvent}
@@ -1250,11 +1309,12 @@ export default function CutomerForm({ show, setShow }) {
                 </span>
               </span>
               <span className="relative">
-                <input
+                <InputMask
+                  mask="9999-9999999"
                   {...register("gmobileNumber2", {
                     required: " Mobile Required!",
                   })}
-                  type="number"
+                  // type="number"
                   name="gmobileNumber2"
                   required
                   value={note.gmobileNumber2}
@@ -1266,11 +1326,12 @@ export default function CutomerForm({ show, setShow }) {
                 </span>
               </span>
               <span className="relative">
-                <input
+                <InputMask
+                  mask="99999-9999999-9"
                   {...register("gcnic", {
                     required: " CNIC Required!",
                   })}
-                  type="number"
+                  // type="number"
                   name="gcnic"
                   value={note.gcnic}
                   onChange={InputEvent}
@@ -1389,6 +1450,10 @@ export default function CutomerForm({ show, setShow }) {
                 <input
                   {...register("g2relation", {
                     required: "Relation Required!",
+                    maxLength: {
+                      value: 20,
+                      message: "G2 relation should be less than 20 characters",
+                    },
                   })}
                   type="text"
                   name="g2relation"
@@ -1404,6 +1469,10 @@ export default function CutomerForm({ show, setShow }) {
                 <input
                   {...register("g2occupation", {
                     required: "Occupation Required!",
+                    maxLength: {
+                      value: 20,
+                      message: "Occupation should be less than 20 characters",
+                    },
                   })}
                   type="text"
                   name="g2occupation"
@@ -1419,11 +1488,12 @@ export default function CutomerForm({ show, setShow }) {
             </div>
             <div className="child">
               <span>
-                <input
+                <InputMask
+                  mask="9999-9999999"
                   {...register("g2mobileNumber1", {
                     required: "Mobile Required!",
                   })}
-                  type="number"
+                  // type="number"
                   name="g2mobileNumber1"
                   value={note.g2mobileNumber1}
                   onChange={InputEvent}
@@ -1434,11 +1504,12 @@ export default function CutomerForm({ show, setShow }) {
                 </span>
               </span>
               <span className="relative">
-                <input
+                <InputMask
+                  mask="9999-9999999"
                   {...register("g2mobileNumber2", {
                     required: " Mobile Required!",
                   })}
-                  type="number"
+                  // type="number"
                   name="g2mobileNumber2"
                   required
                   value={note.g2mobileNumber2}
@@ -1450,11 +1521,12 @@ export default function CutomerForm({ show, setShow }) {
                 </span>
               </span>
               <span className="relative">
-                <input
+                <InputMask
+                  mask="99999-9999999-9"
                   {...register("g2cnic", {
                     required: " CNIC Required!",
                   })}
-                  type="number"
+                  // type="number"
                   name="g2cnic"
                   value={note.g2cnic}
                   onChange={InputEvent}
@@ -1538,3 +1610,28 @@ export default function CutomerForm({ show, setShow }) {
     </>
   );
 }
+
+const formatPhoneNumber = (phoneNumber) => {
+  const number = phoneNumber.trim().replace(/[^0-9]/g, "");
+
+  if (number.length < 6) return number;
+  if (number.length < 14) return number.replace(/(\d{5})(\d{7})/, "$1-$2");
+  if (number.length < 16)
+    return number.replace(/(\d{5})(\d{7})(\d{1})/, "$1-$2-$3");
+  return number.replace(/(\d{5})(\d{7})(\d{1})/, "$1-$2-$3");
+};
+
+// function formatPhoneNumber(value) {
+//   if (!value) return value;
+//   const cnicNumber = value.replace(/[^/d]/g, "");
+//   console.log(cnicNumber, "lks");
+//   const cnicNumberLength = cnicNumber.length;
+//   if (cnicNumberLength < 6) return cnicNumber;
+//   if (cnicNumberLength < 7) {
+//     return `(${cnicNumber.slice(0, 5)})-${cnicNumber.slice(5)}`;
+//   }
+//   return `(${cnicNumber.slice(0, 5)})-${cnicNumber.slice(
+//     5,
+//     11
+//   )}-${cnicNumber.slice(11, 13)}`;
+// }

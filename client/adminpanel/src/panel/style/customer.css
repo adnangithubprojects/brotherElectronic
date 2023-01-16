@@ -2,5 +2,5 @@
   /* scrollbar-
   scrollbar-color: red blue; */
 
-  @apply md:ml-7 md:mt-7  flex flex-col items-center w-screen md:w-[1000px] overflow-auto h-[590px] scroll-p-3 border bg-gray-100;
+  @apply md:ml-7 md:mt-7  flex flex-col items-center w-screen md:w-[1000px] overflow-auto h-[590px] scroll-p-3  bg-gray-100;
 }

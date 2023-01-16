@@ -19,7 +19,7 @@ export default function Signup() {
     password: "",
     confirmpassword: "",
   });
-
+  const token = localStorage.getItem("token");
   //data getting function from field
   function InputEvent(event) {
     const { name, value } = event.target;
@@ -49,6 +49,7 @@ export default function Signup() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            token: token,
           },
           body: JSON.stringify({
             name,

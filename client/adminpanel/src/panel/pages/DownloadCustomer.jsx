@@ -13,7 +13,8 @@ export default function DownlaodCustomer() {
     ducomentTitle: "epm-daata",
     onafterprint: () => alert("print successfull"),
   });
-
+  const a =
+    "tahir abad zangali nehar peshawara hayatabad sultan khel tahir abad zangali nehar peshawara hayatabad sultan khel";
   const pageStyle = `
   @page {
     size: 80mm 50mm;
@@ -31,9 +32,13 @@ export default function DownlaodCustomer() {
     }
   }
 `;
-
+  const token = localStorage.getItem("token");
   const customerData = async (opt) => {
-    const res = await axios.get(`${base_url}/customer/get`);
+    const res = await axios.get(`${base_url}/customer/get`, {
+      headers: {
+        token: token,
+      },
+    });
     const req = await res.data.result;
     const updateData = await req.filter((data) => data.custstatus === opt);
     setData(updateData);
@@ -43,47 +48,44 @@ export default function DownlaodCustomer() {
   }, []);
 
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col text-white bg-cyan-800 px-8">
-      <h1 className="text-2xl text-white  py-2 ">Downlaod Customer</h1>
+    <div className="w-full h-full flex justify-center items-center flex-col text-black bg-gray-100 px-8">
+      <h1 className="text-2xl font-bold  py-2 ">Downlaod Customer</h1>
       <div className="DownlaodScroll scrollbar-hide">
         <table
-          className=" border-t border-x text-sm   w-full mx-7   "
+          className=" border-t border-x text-sm w-full border border-gray-400  "
           ref={componentRef}
         >
           <thead className="thead ">
             <th className="thead__th thead__th1">AccNo</th>
             <th className="thead__th thead__th2  ">Name</th>
             <th className="thead__th thead__th3  ">Mobile No</th>
-            <th className="thead__th thead__th2  ">Recieving Date</th>
             <th className="thead__th thead__th2  ">Installment</th>
             <th className="thead__th thead__th2  ">Remaining Installment</th>
-            <th className="thead__th thead__th2  ">
-              Recovery Officer Signature
-            </th>
+            <th className="thead__th thead__th4 ">Address</th>
             <th className="thead__th thead__th2  ">Mannager Signature</th>
           </thead>
           <tbody className="tbody ">
-            {customer.map((data, index) => {
+            {data.map((data, index) => {
               return (
-                <tr className={`tbody__tr`} key={index}>
-                  <td className="tbody__tr__td tbody__tr__td1">{index + 1}</td>
+                <tr className={`tbody__tr capitalize`} key={index}>
+                  <td className="tbody__tr__td tbody__tr__td1">
+                    {data?.accountNo}
+                  </td>
                   <td className={`tbody__tr__td tbody__tr__td2`}>
-                    {/* {data.cutomerName} */}
-                    {data.name}
+                    {data?.cutomerName.substring(0, 20)}
+                    {/* {data.name} */}
                   </td>
                   <td className={`tbody__tr__td tbody__tr__td3`}>
-                    0{data.cell}
-                    {/* 0{data.custMobile1} */}
-                  </td>
-                  <td className={`tbody__tr__td tbody__tr__td2  `}></td>
-                  <td className={`tbody__tr__td tbody__tr__td2  `}>
-                    {/* {data.actInstall} */}
+                    {/* 0{data.cell} */}0{data?.custMobile1}
                   </td>
                   <td className={`tbody__tr__td tbody__tr__td2  `}>
-                    {/* {data.custMobile1} */}
+                    {data?.actInstall}
                   </td>
                   <td className={`tbody__tr__td tbody__tr__td2  `}></td>
-                  <td className={`tbody__tr__td tbody__tr__td4  `}></td>
+                  <td className={`tbody__tr__td tbody__tr__td5  `}>
+                    {data?.custofficeAddres.substring(0, 40)}
+                  </td>
+                  <td className={`tbody__tr__td tbody__tr__td2  `}></td>
                 </tr>
               );
             })}

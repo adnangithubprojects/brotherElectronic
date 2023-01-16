@@ -8,18 +8,23 @@ import { BiUserCheck } from "react-icons/bi";
 import axios from "axios";
 import { base_url } from "../assets/data/config";
 // import { Menu } from "../assets/data/config";
-
+import "../style/dashbaord.css";
 const api1 = "https://dummy.restapiexample.com/api/v1/employees";
 
 function Dashboard() {
   const [active, setActive] = useState();
   const [allCustomer, setAllCustomer] = useState();
   const [pending, setPending] = useState();
-  const [user, setUser] = useState();
-
+  const [user, setUser] = useState(0);
+  const token = localStorage.getItem("token");
+  console.log(token, "dashbaoard");
   const customerData = async (opt1, opt2) => {
     try {
-      const res = await axios.get(`${base_url}/customer/get`);
+      const res = await axios.get(`${base_url}/customer/get`, {
+        headers: {
+          token: token,
+        },
+      });
       const req = await res.data.result;
       setAllCustomer(req.length);
       const updateActive = await req.filter((data) => data.custstatus === opt1);
@@ -29,18 +34,23 @@ function Dashboard() {
       );
       setPending(updatePending.length);
 
-      console.log(active, "activelength");
-      console.log(pending, "pendinglength");
-      console.log(allCustomer, "allCustomerlength");
+      // console.log(active, "activelength");
+      // console.log(pending, "pendinglength");
+      // console.log(allCustomer, "allCustomerlength");
     } catch (error) {
-      console.log(error);
+      console.log(error, "error");
     }
   };
   const userData = async () => {
     try {
-      const res = await axios.get(`${base_url}/userdata/get`);
+      const res = await axios.get(`${base_url}/userdata/get`, {
+        headers: {
+          token: "key",
+        },
+      });
       const req = await res.data.result;
-      setUser(req.length);
+      // setUser(req.length);
+      setUser(1);
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +86,7 @@ function Dashboard() {
   // heatmap
   // scatter
   return (
-    <div className="flex gap-14 flex-col justify-around py-10 -z-10 bg-gray-100 w-screen md:w-screen lg:w-[1072px] ">
+    <div className="Dashbaord">
       <div className="flex gap-14 items-center flex-col md:flex-row  px-3 justify-evenly ">
         <div className="border-2  w-[242px] h-[137px] flex justify-center items-center rounded-2xl shadow-2xl bg-white relative">
           <span className="absolute -top-10 left-5 text-5xl text-gray-700 py-2 rounded-lg shadow-2xl">

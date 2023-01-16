@@ -13,6 +13,7 @@ import { base_url } from "../assets/data/config";
 import DeleteBox from "../component/DeleteBox";
 
 export default function CustomerDetail() {
+  const [installmentBtn, setInstallmentBtn] = useState(false); //carasoul popUp state
   const [carasoul, setCarasoul] = useState(false); //carasoul popUp state
   const [image, setImage] = useState(false); //Cnic popUp Image state
   const [show, setShow] = useState(false); //Installment  popUp state
@@ -30,6 +31,12 @@ export default function CustomerDetail() {
   const [dialog, setDialog] = useState(false); //delete dialog for installment
   const confirmId = useRef(); //installment id
   const message = "Are you sure you want to Delete Installment!";
+
+  const recievedInstallment = state.installments.length;
+  const remainingInstallment = 12 - recievedInstallment;
+  console.log(recievedInstallment, "received");
+
+  const token = localStorage.getItem("token");
   function onDelete(id) {
     setDialog(true);
     confirmId.current = id;
@@ -38,7 +45,12 @@ export default function CustomerDetail() {
     if (choose) {
       try {
         const res = await axios.delete(
-          `${base_url}/installment/${confirmId.current}`
+          `${base_url}/installment/${confirmId.current}`,
+          {
+            headers: {
+              token: token,
+            },
+          }
         );
         // setData(data.filter((it) => it.Sno !== confirmId.current));
         setDialog(!dialog);
@@ -58,7 +70,11 @@ export default function CustomerDetail() {
   // };
   const singleCustomerInstallment = async (id) => {
     try {
-      const res = await axios.get(`${base_url}/single-customer/${state._id}`);
+      const res = await axios.get(`${base_url}/single-customer/${state._id}`, {
+        headers: {
+          token: token,
+        },
+      });
       setInstallment(res.data.result.installments);
       // console.log(res.data.result.installments, "hallo");
     } catch (error) {
@@ -90,11 +106,15 @@ export default function CustomerDetail() {
       today.getFullYear();
   useEffect(() => {
     singleCustomerInstallment();
+    // console.log(state.installments.length, "adans");
+    state.installments.length == 12
+      ? setInstallmentBtn(true)
+      : setInstallmentBtn(false);
   }, [show]);
   return (
-    <div className="flex flex-col bg-blue-900 text-white py-5 overflow-scroll h-[625px] ml-6">
+    <div className="flex flex-col capitalize bg-blue-900 text-white py-5 overflow-scroll h-[625px] ml-6">
       <div
-        className={`flex flex-col   h-[1650px] w-[1024px] py-3`}
+        className={`flex flex-col   h-[1680px] w-[1024px] py-1`}
         ref={componentRef}
       >
         <div className="flex flex-col items-center justify-center py-3 w-[1000px] mx-3   h-auto">
@@ -106,7 +126,7 @@ export default function CustomerDetail() {
         </div>
 
         {/* Customer information table */}
-        <div className="flex px-8 py-4 w-[1000px] justify-between mx-3   h-auto">
+        <div className="flex px-8 py-3 w-[1000px] justify-between mx-3   h-auto">
           <div className="flex flex-col gap-2">
             <div className="flex flex-col">
               <div className="flex gap-1  items-center">
@@ -123,39 +143,44 @@ export default function CustomerDetail() {
               <h4 className=" ">{state?.accountNo}</h4>
             </div>
             <div className="flex gap-3 items-center">
-              <h3 className="w-32 text-xl font-bold underline">Cust Name :</h3>
-              <h3 className=" ">
+              <h3 className="w-32 text-xl font-bold underline capitalize">
+                Cust Name :
+              </h3>
+              <h3 className=" capitalize">
                 {state?.cutomerName}
                 {/* ali{" "} */}
               </h3>
             </div>
             <div className="flex gap-3 items-center">
-              <h3 className="w-32 text-xl font-bold underline">F Name :</h3>
-              <h3 className=" ">{state.custFName}</h3>
-            </div>
-            <div className="flex gap-3 items-center">
-              <h3 className="w-32 text-xl font-bold underline">
-                Residential :
+              <h3 className="w-32 text-xl font-bold underline capitalize">
+                F Name :
               </h3>
-              <h3 className="capitalize ">{state.resedential}</h3>
+              <h3 className="capitalize ">{state.custFName}</h3>
             </div>
+            <div className="flex gap-1 items-center">
+              <h3 className="w-32 font-bold underline">Prev A/C:</h3>
+              <h3 className=" ">{state?.custPreviosAccount}</h3>
+            </div>
+
             <div className="flex gap-3 items-center">
               <h3 className="w-32 text-xl font-bold underline">Occupation :</h3>
               <h3 className=" ">{state.occupation}</h3>
             </div>
             <div className="flex gap-3 items-center">
+              <h3 className="w-32 text-xl font-bold underline">
+                Residential :
+              </h3>
+              <h3 className="capitalize text-sm">{state.resedential}</h3>
+            </div>
+            <div className="flex gap-3 items-center">
               <h3 className="w-32 text-xl font-bold underline">Rest Addr :</h3>
-              <h3 className=" ">{state.custhomeAddress}</h3>
+              <h3 className=" capitalize text-sm">{state.custhomeAddress}</h3>
             </div>
             <div className="flex gap-3 items-center">
               <h3 className="w-32 text-xl font-bold underline">
                 Office Addr :
               </h3>
-              <h3 className=" ">{state.custofficeAddres}</h3>
-            </div>
-            <div className="flex gap-1 items-center">
-              <h3 className="w-32 font-bold underline">Prev A/C:</h3>
-              <h3 className=" ">{state?.custPreviosAccount}</h3>
+              <h3 className=" capitalize text-sm">{state.custofficeAddres}</h3>
             </div>
           </div>
           <div className="flex flex-col gap-5 justify-center">
@@ -224,7 +249,7 @@ export default function CustomerDetail() {
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Gender :</h3>
-              <h4 className=" ">{state?.gender}</h4>
+              <h4 className=" capitalize">{state?.gender}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Inst Price :</h3>
@@ -302,11 +327,11 @@ export default function CustomerDetail() {
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Insta Rev :</h3>
-              <h4 className=" ">{state?.instRev}</h4>
+              <h4 className=" ">{recievedInstallment}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Insta Rem :</h3>
-              <h4 className=" ">{state?.instRem}</h4>
+              <h4 className=" ">{remainingInstallment}</h4>
             </div>
             <div className="flex gap-1  items-center">
               <h3 className="w-32 text-lg font-bold underline">Status:</h3>
@@ -399,8 +424,8 @@ export default function CustomerDetail() {
         </div>
 
         {/* garanter table */}
-        <div className="flex flex-col   w-[1000px] h-[400px]  border border-black mx-3 ">
-          <div className="flex   w-full   bg-cyan-600 h-12 border-b border-gray-700 text-white ">
+        <div className="flex flex-col   w-[1000px] h-[390px]  border border-black mx-3 ">
+          <div className="flex   w-full   bg-cyan-600 h-[35px] border-b border-gray-700 text-white ">
             <div className="flex flex-col items-center justify-center  w-[152px]  font-bold  border-r border-gray-700">
               Creteria
             </div>
@@ -448,8 +473,8 @@ export default function CustomerDetail() {
             {/* garanter one */}
             <div className="flex flex-col  w-[212px] h-auto border-r border-gray-700">
               <div className="flex flex-col gap-[9px] pl-4 ">
-                <h3 className="w-40">{state?.gName}</h3>
-                <h3 className="w-40">{state?.gfName}</h3>
+                <h3 className="w-40 capitalize">{state?.gName}</h3>
+                <h3 className="w-40 capitalize">{state?.gfName}</h3>
                 <h3 className="w-40">{state?.gmobileNumber1}</h3>
                 <h3 className="w-40">{state?.gmobileNumber2}</h3>
                 <h3 className="w-40 flex items-center gap-2">
@@ -466,10 +491,10 @@ export default function CustomerDetail() {
                 </h3>
                 <h3 className="w-40">{state?.gOccupation}</h3>
                 <h3 className="w-40">{state?.grelation}</h3>
-                <h3 className="flex items-center justify-center w-40 text-xs   h-14">
+                <h3 className="flex items-center justify-center capitalize w-40 text-xs   h-14">
                   {state?.ghomeAddress}
                 </h3>
-                <h3 className="flex items-center justify-center w-40 text-xs   h-14">
+                <h3 className="flex items-center justify-center capitalize w-40 text-xs   h-14">
                   {state?.g2officeAddres}
                 </h3>
               </div>
@@ -478,8 +503,8 @@ export default function CustomerDetail() {
             {/* garanter two */}
             <div className="flex flex-col  w-[212px] h-auto border-r border-gray-700">
               <div className="flex flex-col gap-[9px] pl-4 ">
-                <h3 className="w-40">{state?.g2Name}</h3>
-                <h3 className="w-40">{state?.g2fName}</h3>
+                <h3 className="w-40 capitalize">{state?.g2Name}</h3>
+                <h3 className="w-40 capitalize">{state?.g2fName}</h3>
                 <h3 className="w-40">{state.g2mobileNumber1}</h3>
                 <h3 className="w-40">{state?.g2mobileNumber2}</h3>
                 <h3 className="w-40 flex items-center gap-2">
@@ -494,12 +519,12 @@ export default function CustomerDetail() {
                     <FaImage />
                   </span>
                 </h3>
-                <h3 className="w-40">{state?.g2occupation}</h3>
-                <h3 className="w-40">{state?.g2relation}</h3>
-                <h3 className="flex items-center justify-center w-40 text-xs   h-14">
+                <h3 className="w-40 capitalize">{state?.g2occupation}</h3>
+                <h3 className="w-40 capitalize">{state?.g2relation}</h3>
+                <h3 className="flex items-center justify-center capitalize w-40 text-xs   h-14">
                   {state?.g2homeAddress}
                 </h3>
-                <h3 className="flex items-center justify-center w-40 text-xs   h-14">
+                <h3 className="flex items-center justify-center capitalize w-40 text-xs   h-14">
                   {state?.g2officeAddres}
                 </h3>
               </div>
@@ -517,7 +542,7 @@ export default function CustomerDetail() {
         Intsallment Table 
         ======================
       */}
-        <div className="flex flex-col   w-[1000px] h-[407px] border border-black mt-1 mx-3 ">
+        <div className="flex flex-col   w-[1000px] h-[427px] border border-black mt-1 mx-3 ">
           <table className="w-full">
             <tbody className=" text-center">
               <tr className="flex bg-cyan-600 text-white justify-evenly    border-b border-gray-700 ">
@@ -644,15 +669,28 @@ export default function CustomerDetail() {
         >
           Print
         </button>
-        <button
-          onClick={() => {
-            setShow(true);
-            setCustomerId(state._id);
-          }}
-          className="cursor-pointer text-xs   transition-all duration-300 bg-blue-700 text-white w-28 hover:bg-white hover:text-blue-700 font-bold mt-3 outline-none border-none px-2 py-4 rounded-lg"
-        >
-          Add Installment
-        </button>
+        {installmentBtn ? (
+          <button
+            onClick={() => {
+              setShow(true);
+              setCustomerId(state._id);
+            }}
+            className="cursor-not-allowed text-xs   transition-all duration-300 bg-gray-500 text-white w-28  font-bold mt-3 outline-none border-none px-2 py-4 rounded-lg"
+            disabled
+          >
+            Add Installment
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setShow(true);
+              setCustomerId(state._id);
+            }}
+            className="cursor-pointer text-xs   transition-all duration-300 bg-blue-700 text-white w-28 hover:bg-white hover:text-blue-700 font-bold mt-3 outline-none border-none px-2 py-4 rounded-lg"
+          >
+            Add Installment
+          </button>
+        )}
         <button
           onClick={() => {
             setCarasoul(true);

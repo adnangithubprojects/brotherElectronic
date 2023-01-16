@@ -1,0 +1,8 @@
+.Dashbaord {
+  @apply flex gap-14 flex-col justify-around py-10 -z-10 bg-gray-100 w-full;
+}
+@media (max-width: 1100px) {
+  .Dashbaord {
+    /* @apply w-auto md:w-[900px] lg:w-[1076px] xl:w-[1400px] 2xl:w-[2048px]; */
+  }
+}

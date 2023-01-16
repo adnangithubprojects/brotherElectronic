@@ -1,6 +1,6 @@
 /* user detail  */
 .scroll1 {
-  @apply flex flex-col items-center w-full h-full   overflow-auto bg-gray-200;
+  @apply flex flex-col items-center  md:w-[900px] lg:w-[1000px] h-[630px]   overflow-auto bg-gray-200;
 }
 /* User form */
 .PopUp {
@@ -30,7 +30,7 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-right: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  @apply w-full outline-none border-none px-4 py-3 rounded-xl text-white;
+  @apply w-full outline-none border-none px-4 py-3 rounded-xl capitalize text-white;
 }
 .child select {
   background: rgba(255, 255, 255, 0.2);

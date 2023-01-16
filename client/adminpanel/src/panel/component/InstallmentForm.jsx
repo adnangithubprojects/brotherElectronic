@@ -19,7 +19,7 @@ export default function InstallmentForm({ show, setShow, customerId }) {
     recoveryOfficer: "nil",
     remarks: "nil",
   });
-
+  const token = localStorage.getItem("token");
   // form Validation
   const {
     register,
@@ -51,7 +51,9 @@ export default function InstallmentForm({ show, setShow, customerId }) {
     console.log("customerID", customerId);
 
     await axios
-      .post(`${base_url}/${customerId}/installment`, note)
+      .post(`${base_url}/${customerId}/installment`, note, {
+        headers: { token: token },
+      })
       .then((res) => {
         if (res) {
           window.alert("Installment Added");
